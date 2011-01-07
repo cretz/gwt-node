@@ -7,92 +7,92 @@ public class Stat extends JavaScriptObject {
     protected Stat() {
     }
     
-    public native int dev() /*-{
+    public final native int dev() /*-{
         return this.dev;
     }-*/;
     
-    public native int ino() /*-{
+    public final native int ino() /*-{
         return this.ino;
     }-*/;
     
-    public native int mode() /*-{
+    public final native int mode() /*-{
         return this.mode;
     }-*/;
     
-    public native int nlink() /*-{
+    public final native int nlink() /*-{
         return this.nlink;
     }-*/;
     
-    public native int uid() /*-{
+    public final native int uid() /*-{
         return this.uid;
     }-*/;
     
-    public native int gid() /*-{
+    public final native int gid() /*-{
         return this.gid;
     }-*/;
     
-    public native int rdev() /*-{
+    public final native int rdev() /*-{
         return this.rdev;
     }-*/;
     
-    public native int size() /*-{
+    public final native int size() /*-{
         return this.size;
     }-*/;
     
-    public native int blksize() /*-{
+    public final native int blksize() /*-{
         return this.blksize;
     }-*/;
     
-    public native int blocks() /*-{
+    public final native int blocks() /*-{
         return this.blocks;
     }-*/;
     
-    public native String atime() /*-{
+    public final native String atime() /*-{
         return this.atime;
     }-*/;
     
-    public native String mtime() /*-{
+    public final native String mtime() /*-{
         return this.mtime;
     }-*/;
     
-    public native String ctime() /*-{
+    public final native String ctime() /*-{
         return this.ctime;
     }-*/;
     
 //    * stats.isFile()
-    public native boolean isFile() /*-{
+    public final native boolean isFile() /*-{
         return this.isFile();
     }-*/;
 //    * stats.isDirectory()
-    public native boolean isDirectory() /*-{
+    public final native boolean isDirectory() /*-{
         return this.isDirectory();
     }-*/;
 //    * stats.isBlockDevice()
 
-    public native boolean isBlockDevice() /*-{
+    public final native boolean isBlockDevice() /*-{
         return this.isBlockDevice();
     }-*/;
     
 //    * stats.isCharacterDevice()
     
 
-    public native boolean isCharacterDevice() /*-{
+    public final native boolean isCharacterDevice() /*-{
         return this.isCharacterDevice();
     }-*/;
 //    * stats.isSymbolicLink() (only valid with fs.lstat())
 
-    public native boolean isSymbolicLink() /*-{
+    public final native boolean isSymbolicLink() /*-{
         return this.isSymbolicLink();
     }-*/;
 //    * stats.isFIFO()
 
-    public native boolean isFIFO() /*-{
+    public final native boolean isFIFO() /*-{
         return this.isFIFO();
     }-*/;
 //    * stats.isSocket()
     
 
-    public native boolean isSocket() /*-{
+    public final native boolean isSocket() /*-{
         return this.isSocket();
     }-*/;
 }
