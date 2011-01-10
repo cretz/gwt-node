@@ -15,8 +15,8 @@
  */
 package org.cretz.gwtnode.client;
 
-import org.cretz.gwtnode.client.node.Process;
-import org.cretz.gwtnode.client.node.Sys;
+import org.cretz.gwtnode.client.node.process.Process;
+import org.cretz.gwtnode.client.node.sys.Sys;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.JsArrayString;

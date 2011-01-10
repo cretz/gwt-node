@@ -15,6 +15,8 @@
  */
 package org.cretz.gwtnode.client.node;
 
+import org.cretz.gwtnode.client.node.process.Process;
+
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArrayString;
 
@@ -38,7 +40,7 @@ public class Global extends JavaScriptObject {
         return process;
     }-*/;
     
-    public final native <T extends NodeJsModule> T require(String name) /*-{
+    public final native <T extends JavaScriptObject & NodeJsModule> T require(String name) /*-{
         return require(name);
     }-*/;
     

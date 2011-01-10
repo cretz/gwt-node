@@ -26,7 +26,7 @@ import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArrayString;
 
 /**
- * Map for a JSON object that is {string : string}. Counts will
+ * Map for a JSON object that is keyed by string. Counts will
  * not work correctly if the JavaScriptObject is modified outside
  * of this class. Also, do NOT try to modify this collection during 
  * iteration except via {@link Entry#setValue(Object)}. 
@@ -35,7 +35,7 @@ import com.google.gwt.core.client.JsArrayString;
  * 
  * @author Chad Retz
  */
-public class JsonStringObjectMap extends AbstractMap<String, String> {
+public class JsonStringObjectMap<T> extends AbstractMap<String, T> {
     
     private native int getCount(JavaScriptObject obj) /*-{
         var cnt = 0;
@@ -67,8 +67,12 @@ public class JsonStringObjectMap extends AbstractMap<String, String> {
         count--;
     }
     
+    public JavaScriptObject getNativeObject() {
+        return map;
+    }
+    
     @Override
-    public native String put(String key, String value) /*-{
+    public native T put(String key, T value) /*-{
         var map = this.@org.cretz.gwtnode.client.JsonStringObjectMap::map;
         if (!map.hasOwnProperty(key)) {
             this.@org.cretz.gwtnode.client.JsonStringObjectMap::incrementCount();
@@ -77,7 +81,7 @@ public class JsonStringObjectMap extends AbstractMap<String, String> {
     }-*/;
     
     @Override
-    public native String get(Object key) /*-{
+    public native T get(Object key) /*-{
         var map = this.@org.cretz.gwtnode.client.JsonStringObjectMap::map;
         return map[key];
     }-*/;
@@ -89,23 +93,26 @@ public class JsonStringObjectMap extends AbstractMap<String, String> {
     }-*/;
     
     @Override
-    public native String remove(Object key) /*-{
+    public native T remove(Object key) /*-{
         var map = this.@org.cretz.gwtnode.client.JsonStringObjectMap::map;
+        var ret = null;
         if (map[key]) {
+            ret = map[key];
             delete map[key];
             this.@org.cretz.gwtnode.client.JsonStringObjectMap::decrementCount();
         }
+        return ret;
     }-*/;
     
     @Override
-    public Set<Entry<String, String>> entrySet() {
+    public Set<Entry<String, T>> entrySet() {
         return new JsonStringObjectEntrySet();
     }
     
-    private class JsonStringObjectEntrySet extends AbstractSet<Entry<String, String>> {
+    private class JsonStringObjectEntrySet extends AbstractSet<Entry<String, T>> {
 
         @Override
-        public Iterator<Entry<String, String>> iterator() {
+        public Iterator<Entry<String, T>> iterator() {
             return new JsonStringObjectIterator();
         }
 
@@ -116,7 +123,7 @@ public class JsonStringObjectMap extends AbstractMap<String, String> {
         
     }
     
-    private class JsonStringObjectIterator implements Iterator<Entry<String, String>> {
+    private class JsonStringObjectIterator implements Iterator<Entry<String, T>> {
 
         private JsArrayString keys;
         private int index;
@@ -142,7 +149,7 @@ public class JsonStringObjectMap extends AbstractMap<String, String> {
         }
 
         @Override
-        public Entry<String, String> next() {
+        public Entry<String, T> next() {
             if (!hasNext()) {
                 throw new NoSuchElementException();
             }
@@ -155,7 +162,7 @@ public class JsonStringObjectMap extends AbstractMap<String, String> {
         }
     }
     
-    private class JsonStringObjectEntry implements Entry<String, String> {
+    private class JsonStringObjectEntry implements Entry<String, T> {
 
         private final String key;
         
@@ -169,14 +176,14 @@ public class JsonStringObjectMap extends AbstractMap<String, String> {
         }
 
         @Override
-        public native String getValue() /*-{
+        public native T getValue() /*-{
             var map = this.@org.cretz.gwtnode.client.JsonStringObjectMap::map;
             var key = this.@org.cretz.gwtnode.client.JsonStringObjectMap.JsonStringObjectEntry::key;
             return map[key];
         }-*/;
 
         @Override
-        public native String setValue(String value) /*-{
+        public native T setValue(T value) /*-{
             var map = this.@org.cretz.gwtnode.client.JsonStringObjectMap::map;
             var key = this.@org.cretz.gwtnode.client.JsonStringObjectMap.JsonStringObjectEntry::key;
             var ret = map[key];

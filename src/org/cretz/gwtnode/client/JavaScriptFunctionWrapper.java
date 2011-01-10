@@ -38,6 +38,6 @@ public abstract class JavaScriptFunctionWrapper {
      * @return
      */
     public final native JavaScriptFunction getNativeFunction() /*-{
-        this.@org.cretz.gwtnode.client.JavaScriptFunctionWrapper::call([Ljava/lang/Object;);
+        return this.@org.cretz.gwtnode.client.JavaScriptFunctionWrapper::call([Ljava/lang/Object;);
     }-*/;
 }

@@ -17,14 +17,13 @@
 
 <module rename-to="GwtNode">
 
-	<inherits name="com.google.gwt.user.User" />
-	
+    <inherits name="com.google.gwt.core.Core" />
+
 	<entry-point class="org.cretz.gwtnode.client.GwtNode" />
-	
-	<add-linker name="sso" />
-	
-	<set-property name="user.agent" value="safari" />
-	
+
 	<source path="client" />
+
+    <define-linker name="node" class="org.cretz.gwtnode.linker.GwtNodeLinker" />
+    <add-linker name="node" />
 	
 </module>

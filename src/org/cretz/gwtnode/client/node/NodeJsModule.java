@@ -15,15 +15,11 @@
  */
 package org.cretz.gwtnode.client.node;
 
-import com.google.gwt.core.client.JavaScriptObject;
-
 /**
- * Base class for all node.js modules
+ * Base interface for all node.js modules
  * 
  * @author Chad Retz
  */
-public class NodeJsModule extends JavaScriptObject {
-
-    protected NodeJsModule() {
-    }
+public interface NodeJsModule {
+    
 }

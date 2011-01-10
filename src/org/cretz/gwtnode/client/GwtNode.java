@@ -26,7 +26,6 @@ public class GwtNode implements EntryPoint {
 
     @Override
     public void onModuleLoad() {
-        
     }
 
 }
