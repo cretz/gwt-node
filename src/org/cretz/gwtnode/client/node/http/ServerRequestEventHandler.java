@@ -15,14 +15,15 @@
  */
 package org.cretz.gwtnode.client.node.http;
 
+import org.cretz.gwtnode.client.JavaScriptFunctionArguments;
 import org.cretz.gwtnode.client.JavaScriptFunctionWrapper;
 
 public abstract class ServerRequestEventHandler extends JavaScriptFunctionWrapper {
 
     @Override
-    public void call(Object... arguments) {
-        onEvent((ServerRequest) arguments[0], 
-                (ServerResponse) arguments[1]);
+    public void call(JavaScriptFunctionArguments args) {
+        onEvent((ServerRequest) args.get(0), 
+                (ServerResponse) args.get(1));
     }
     
     protected abstract void onEvent(ServerRequest request, ServerResponse response);

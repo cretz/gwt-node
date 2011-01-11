@@ -15,13 +15,14 @@
  */
 package org.cretz.gwtnode.client.node.querystring;
 
+import org.cretz.gwtnode.client.JavaScriptFunctionArguments;
 import org.cretz.gwtnode.client.JavaScriptReturningFunctionWrapper;
 
 public abstract class StringManipulationFunction extends JavaScriptReturningFunctionWrapper<String> {
 
     @Override
-    public String call(Object... arguments) {
-        return manip((String) arguments[0]);
+    public String call(JavaScriptFunctionArguments args) {
+        return manip((String) args.get(0));
     }
     
     public abstract String manip(String string);

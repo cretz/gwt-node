@@ -19,25 +19,26 @@
 	<macrodef name="gwtnodecompile">
 		<attribute name="module" />
 		<attribute name="modulename" />
-		<attribute name="destfile" />
+		<attribute name="destdir" />
 		<attribute name="classpathref" />
-		<attribute name="workdir" default="${java.io.tmpdir}/gwtnodetmp" />
+		<attribute name="workdir" default="${java.io.tmpdir}" />
 		<element name="extra-args" optional="true" />
 		<sequential>
+			<!-- delete the dir -->
+			<delete dir="@{workdir}/gwtnodetmp" includeemptydirs="true" />
 			<!-- make the dir -->
-			<mkdir dir="@{workdir}" />
+			<mkdir dir="@{workdir}/gwtnodetmp" />
 			<!-- compile JS -->
 			<java classpathref="@{classpathref}" classname="com.google.gwt.dev.Compiler" fork="true">
-				<arg value="-workDir" />
-				<arg value="@{workdir}" />
 				<arg value="-war" />
-				<arg value="@{workdir}" />
+				<arg value="@{workdir}/gwtnodetmp" />
 				<extra-args />
 				<arg value="@{module}" />
 			</java>
 			<!-- copy the script to dest -->
-			<copy file="@{workdir}/@{modulename}/@{modulename}.js" 
-				  tofile="@{destfile}" />
+			<copy todir="@{destdir}">
+				<fileset dir="@{workdir}/gwtnodetmp/@{modulename}" includes="**/*" />
+			</copy>
 		</sequential>
 	</macrodef>
 	

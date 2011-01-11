@@ -15,16 +15,17 @@
  */
 package org.cretz.gwtnode.client.node.http;
 
+import org.cretz.gwtnode.client.JavaScriptFunctionArguments;
 import org.cretz.gwtnode.client.JavaScriptFunctionWrapper;
 import org.cretz.gwtnode.client.node.buffer.Buffer;
 
 public abstract class ServerUpgradeEventHandler extends JavaScriptFunctionWrapper {
 
     @Override
-    public void call(Object... arguments) {
-        onEvent((ServerRequest) arguments[0], 
-                (String) arguments[1],
-                (Buffer) arguments[2]);
+    public void call(JavaScriptFunctionArguments args) {
+        onEvent((ServerRequest) args.get(0), 
+                (String) args.get(1),
+                (Buffer) args.get(2));
     }
     
     protected abstract void onEvent(ServerRequest request, String socket,

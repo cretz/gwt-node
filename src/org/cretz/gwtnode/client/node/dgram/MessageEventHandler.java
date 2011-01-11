@@ -15,6 +15,7 @@
  */
 package org.cretz.gwtnode.client.node.dgram;
 
+import org.cretz.gwtnode.client.JavaScriptFunctionArguments;
 import org.cretz.gwtnode.client.JavaScriptFunctionWrapper;
 import org.cretz.gwtnode.client.node.buffer.Buffer;
 
@@ -28,8 +29,8 @@ import com.google.gwt.core.client.JavaScriptObject;
 public abstract class MessageEventHandler extends JavaScriptFunctionWrapper {
 
     @Override
-    public void call(Object... arguments) {
-        onEvent((Buffer) arguments[0], (JavaScriptObject) arguments[1]);
+    public void call(JavaScriptFunctionArguments args) {
+        onEvent((Buffer) args.get(0), (JavaScriptObject) args.get(1));
     }
 
     protected abstract void onEvent(Buffer msg, JavaScriptObject rinfo);

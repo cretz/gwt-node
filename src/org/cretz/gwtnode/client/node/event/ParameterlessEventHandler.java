@@ -15,12 +15,13 @@
  */
 package org.cretz.gwtnode.client.node.event;
 
+import org.cretz.gwtnode.client.JavaScriptFunctionArguments;
 import org.cretz.gwtnode.client.JavaScriptFunctionWrapper;
 
 public abstract class ParameterlessEventHandler extends JavaScriptFunctionWrapper {
 
     @Override
-    public void call(Object... arguments) {
+    public void call(JavaScriptFunctionArguments args) {
         onEvent();
     }
     

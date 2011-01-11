@@ -15,6 +15,7 @@
  */
 package org.cretz.gwtnode.client.node.childprocess;
 
+import org.cretz.gwtnode.client.JavaScriptFunctionArguments;
 import org.cretz.gwtnode.client.JavaScriptFunctionWrapper;
 
 /**
@@ -25,16 +26,9 @@ import org.cretz.gwtnode.client.JavaScriptFunctionWrapper;
 public abstract class ExitEventHandler extends JavaScriptFunctionWrapper {
     
     @Override
-    public void call(Object... arguments) {
-        Integer code = null;
-        String signal = null;
-        if (arguments.length > 0) {
-            code = (Integer) arguments[0];
-            if (arguments.length > 1) {
-                signal = (String) arguments[1];
-            }
-        }
-        onEvent(code, signal);
+    public void call(JavaScriptFunctionArguments args) {
+        onEvent(args.length() > 0 ? (Integer) args.get(0) : null, 
+                args.length() > 1 ? (String) args.get(1) : null);
     }
     
     protected abstract void onEvent(Integer code, String signal);

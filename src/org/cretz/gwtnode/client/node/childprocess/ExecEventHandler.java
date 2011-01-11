@@ -15,6 +15,7 @@
  */
 package org.cretz.gwtnode.client.node.childprocess;
 
+import org.cretz.gwtnode.client.JavaScriptFunctionArguments;
 import org.cretz.gwtnode.client.JavaScriptFunctionWrapper;
 import org.cretz.gwtnode.client.node.NodeJsError;
 
@@ -26,8 +27,8 @@ import org.cretz.gwtnode.client.node.NodeJsError;
 public abstract class ExecEventHandler extends JavaScriptFunctionWrapper {
     
     @Override
-    public void call(Object... arguments) {
-        onEvent((NodeJsError) arguments[0], (String) arguments[1], (String) arguments[2]);
+    public void call(JavaScriptFunctionArguments args) {
+        onEvent((NodeJsError) args.get(0), (String) args.get(1), (String) args.get(2));
     }
     
     protected abstract void onEvent(NodeJsError error, String stdout, String stderr);

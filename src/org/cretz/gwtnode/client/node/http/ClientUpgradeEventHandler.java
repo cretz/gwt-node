@@ -15,19 +15,19 @@
  */
 package org.cretz.gwtnode.client.node.http;
 
+import org.cretz.gwtnode.client.JavaScriptFunctionArguments;
 import org.cretz.gwtnode.client.JavaScriptFunctionWrapper;
 import org.cretz.gwtnode.client.node.buffer.Buffer;
 
 public abstract class ClientUpgradeEventHandler extends JavaScriptFunctionWrapper {
 
     @Override
-    public void call(Object... arguments) {
-        onEvent((ClientRequest) arguments[0], 
-                (String) arguments[1],
-                (Buffer) arguments[2]);
+    public void call(JavaScriptFunctionArguments args) {
+        onEvent((ClientRequest) args.get(0), 
+                (String) args.get(1),
+                (Buffer) args.get(2));
     }
     
-    protected abstract void onEvent(ClientRequest request, String socket,
-            Buffer head);
+    protected abstract void onEvent(ClientRequest request, String socket, Buffer head);
 
 }

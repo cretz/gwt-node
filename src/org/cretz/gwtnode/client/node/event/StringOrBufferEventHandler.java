@@ -15,6 +15,7 @@
  */
 package org.cretz.gwtnode.client.node.event;
 
+import org.cretz.gwtnode.client.JavaScriptFunctionArguments;
 import org.cretz.gwtnode.client.JavaScriptFunctionWrapper;
 import org.cretz.gwtnode.client.node.buffer.Buffer;
 
@@ -24,11 +25,11 @@ public abstract class StringOrBufferEventHandler extends JavaScriptFunctionWrapp
     private String string;
 
     @Override
-    public void call(Object... arguments) {
-        if (arguments[0] instanceof String) {
-            string = (String) arguments[0];
+    public void call(JavaScriptFunctionArguments args) {
+        if (args.get(0) instanceof String) {
+            string = (String) args.get(0);
         } else {
-            buffer = (Buffer) arguments[0];
+            buffer = (Buffer) args.get(0);
         }
     }
     

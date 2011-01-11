@@ -15,6 +15,8 @@
  */
 package org.cretz.gwtnode.client.node.dns;
 
+import org.cretz.gwtnode.client.JavaScriptFunctionArguments;
+
 /**
  * Callback for the resolve method in {@link Dns}
  * 
@@ -23,9 +25,9 @@ package org.cretz.gwtnode.client.node.dns;
 public abstract class ResolveMixedEventHandler extends ResolveEventHandler {
 
     @Override
-    public void call(Object... arguments) {
-        onEvent((Error) arguments[0],
-                arguments.length > 1 ? (JsArrayDnsRecord) arguments[1] : null);
+    public void call(JavaScriptFunctionArguments args) {
+        onEvent((Error) args.get(0),
+                args.length() > 1 ? (JsArrayDnsRecord) args.get(1) : null);
     }
     
     protected abstract void onEvent(Error err, JsArrayDnsRecord addresses);

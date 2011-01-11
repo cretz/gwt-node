@@ -15,16 +15,16 @@
  */
 package org.cretz.gwtnode.client.node.fs;
 
+import org.cretz.gwtnode.client.JavaScriptFunctionArguments;
 import org.cretz.gwtnode.client.JavaScriptFunctionWrapper;
 import org.cretz.gwtnode.client.node.NodeJsError;
 
 public abstract class FileDescriptorFsEventHandler extends JavaScriptFunctionWrapper {
 
     @Override
-    public void call(Object... arguments) {
-        NodeJsError error = arguments.length > 0 ? ((NodeJsError) arguments[0]) : null;
-        Integer fd = arguments.length > 1 ? ((Integer) arguments[1]) : null;
-        onEvent(error, fd);
+    public void call(JavaScriptFunctionArguments args) {
+        onEvent(args.length() > 0 ? (NodeJsError) args.get(0) : null, 
+                args.length() > 1 ? (Integer) args.get(1) : null);
     }
 
     public abstract void onEvent(NodeJsError error, Integer fd);

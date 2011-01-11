@@ -15,13 +15,14 @@
  */
 package org.cretz.gwtnode.client.node.http;
 
+import org.cretz.gwtnode.client.JavaScriptFunctionArguments;
 import org.cretz.gwtnode.client.JavaScriptFunctionWrapper;
 
 public abstract class ServerCloseEventHandler extends JavaScriptFunctionWrapper {
 
     @Override
-    public void call(Object... arguments) {
-        onEvent((Integer) arguments[0]);
+    public void call(JavaScriptFunctionArguments args) {
+        onEvent((Integer) args.get(0));
     }
     
     protected abstract void onEvent(int errno);

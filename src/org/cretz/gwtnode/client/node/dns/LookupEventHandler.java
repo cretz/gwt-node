@@ -15,6 +15,7 @@
  */
 package org.cretz.gwtnode.client.node.dns;
 
+import org.cretz.gwtnode.client.JavaScriptFunctionArguments;
 import org.cretz.gwtnode.client.JavaScriptFunctionWrapper;
 
 /**
@@ -25,10 +26,10 @@ import org.cretz.gwtnode.client.JavaScriptFunctionWrapper;
 public abstract class LookupEventHandler extends JavaScriptFunctionWrapper {
 
     @Override
-    public void call(Object... arguments) {
-        onEvent((Error) arguments[0],
-                arguments.length > 1 ? (String) arguments[1] : null,
-                arguments.length > 2 ? (Integer) arguments[2] : null);
+    public void call(JavaScriptFunctionArguments args) {
+        onEvent((Error) args.get(0),
+                args.length() > 1 ? (String) args.get(1) : null,
+                args.length() > 2 ? (Integer) args.get(2) : null);
     }
     
     protected abstract void onEvent(Error err, String address, Integer family);

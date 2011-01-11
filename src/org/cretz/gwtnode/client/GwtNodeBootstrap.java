@@ -55,7 +55,10 @@ public abstract class GwtNodeBootstrap implements EntryPoint {
             }
         }
         //call the main method
-        Process.get().exit(main(args));
+        Integer exitCode = main(args);
+        if (exitCode != null) {
+            Process.get().exit(exitCode);
+        }
     }
     
     /**
@@ -64,7 +67,7 @@ public abstract class GwtNodeBootstrap implements EntryPoint {
      * arguments. To get the full, original argument list, use {@link Process#argv()}.
      * 
      * @param args
-     * @return
+     * @return Return null to NOT call {@link Process#exit(int)}
      */
-    public abstract int main(String... args);
+    public abstract Integer main(String... args);
 }

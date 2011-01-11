@@ -14,7 +14,7 @@
 <!-- implied. License for the specific language governing permissions and   -->
 <!-- limitations under the License.                                         -->
 
-<project name="gwt-node-hello-world">
+<project name="gwt-node-http-server">
 
     <import file="../../build.xml" />
 	
@@ -27,8 +27,8 @@
             <fileset dir="../../lib" includes="*.jar" />
             <pathelement path="src" />
 	    </path>
-		<gwtnodecompile module="org.cretz.gwtnode.examples.helloworld.HelloWorld"
-			            modulename="HelloWorld"
+		<gwtnodecompile module="org.cretz.gwtnode.examples.httpserver.HttpServer"
+			            modulename="HttpServer"
 			            classpathref="gwt.classpath"
 		                destdir="build">
 			<extra-args>

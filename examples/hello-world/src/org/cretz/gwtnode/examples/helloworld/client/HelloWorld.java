@@ -26,7 +26,7 @@ import org.cretz.gwtnode.client.node.process.Process;
 public class HelloWorld extends GwtNodeBootstrap {
 
     @Override
-    public int main(String... args) {
+    public Integer main(String... args) {
         Process.get().stdout().write("Hello world\n");
         return 0;
     }

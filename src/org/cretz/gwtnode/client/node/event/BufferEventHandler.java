@@ -15,14 +15,15 @@
  */
 package org.cretz.gwtnode.client.node.event;
 
+import org.cretz.gwtnode.client.JavaScriptFunctionArguments;
 import org.cretz.gwtnode.client.JavaScriptFunctionWrapper;
 import org.cretz.gwtnode.client.node.buffer.Buffer;
 
 public abstract class BufferEventHandler extends JavaScriptFunctionWrapper {
 
     @Override
-    public final void call(Object... arguments) {
-        onEvent((Buffer) arguments[0]);
+    public final void call(JavaScriptFunctionArguments args) {
+        onEvent((Buffer) args.get(0));
     }
     
     protected abstract void onEvent(Buffer buffer);

@@ -15,6 +15,8 @@
  */
 package org.cretz.gwtnode.client;
 
+import com.google.gwt.core.client.JavaScriptObject;
+
 /**
  * Wrapper around {@link JavaScriptReturningFunction} that can
  * be extended to override {@link #call(Object...)}
@@ -24,13 +26,15 @@ package org.cretz.gwtnode.client;
  */
 public abstract class JavaScriptReturningFunctionWrapper<T> {
 
+    private final JavaScriptObject subObj = JavaScriptObject.createObject();
+    
     /**
      * Method to override to implement this JavaScript
-     * function in Java
+     * function in Java.
      * 
-     * @param arguments
+     * @param args
      */
-    public abstract T call(Object... arguments);
+    public abstract T call(JavaScriptFunctionArguments args);
     
     /**
      * Get a reference to the native {@link JavaScriptReturningFunction}
@@ -38,6 +42,13 @@ public abstract class JavaScriptReturningFunctionWrapper<T> {
      * @return
      */
     public final native JavaScriptReturningFunction<T> getNativeFunction() /*-{
-        return this.@org.cretz.gwtnode.client.JavaScriptReturningFunctionWrapper::call([Ljava/lang/Object;);
+        var subObj = this.@org.cretz.gwtnode.client.JavaScriptReturningFunctionWrapper::subObj;
+        if (!subObj.func) {
+            var wrapper = this;
+            subObj.func = function() {
+                return wrapper.@org.cretz.gwtnode.client.JavaScriptReturningFunctionWrapper::call(Lorg/cretz/gwtnode/client/JavaScriptFunctionArguments;)(arguments);
+            }
+        }
+        return subObj.func;
     }-*/;
 }

@@ -28,6 +28,14 @@ public class ServerResponse extends WriteableStream {
     public final native void writeHead(int statusCode) /*-{
         this.writeHead(statusCode);
     }-*/;
+
+    public final void writeHead(int statusCode, JsonStringObjectMap<String> headers) {
+        writeHead(statusCode, headers.getNativeObject());
+    }
+    
+    public final native void writeHead(int statusCode, JavaScriptObject headers) /*-{
+        this.writeHead(statusCode, headers);
+    }-*/;
     
     public final native void writeHead(int statusCode, String reasonPhrase) /*-{
         this.writeHead(statusCode, reasonPhrase);

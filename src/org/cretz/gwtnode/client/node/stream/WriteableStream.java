@@ -51,6 +51,10 @@ public class WriteableStream extends Stream {
         this.end();
     }-*/;
     
+    public final native void end(String string) /*-{
+        this.end(string);
+    }-*/;
+    
     public final native void end(String string, String encoding) /*-{
         this.end(string, encoding);
     }-*/;

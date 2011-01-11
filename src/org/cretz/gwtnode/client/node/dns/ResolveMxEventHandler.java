@@ -15,6 +15,8 @@
  */
 package org.cretz.gwtnode.client.node.dns;
 
+import org.cretz.gwtnode.client.JavaScriptFunctionArguments;
+
 import com.google.gwt.core.client.JsArray;
 
 /**
@@ -26,9 +28,9 @@ public abstract class ResolveMxEventHandler extends ResolveEventHandler {
 
     @Override
     @SuppressWarnings("unchecked")
-    public void call(Object... arguments) {
-        onEvent((Error) arguments[0],
-                arguments.length > 1 ? (JsArray<MxRecord>) arguments[1] : null);
+    public void call(JavaScriptFunctionArguments args) {
+        onEvent((Error) args.get(0),
+                args.length() > 1 ? (JsArray<MxRecord>) args.get(1) : null);
     }
     
     protected abstract void onEvent(Error err, JsArray<MxRecord> addresses);

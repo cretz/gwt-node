@@ -15,14 +15,15 @@
  */
 package org.cretz.gwtnode.client.node.event;
 
+import org.cretz.gwtnode.client.JavaScriptFunctionArguments;
 import org.cretz.gwtnode.client.JavaScriptFunctionWrapper;
 import org.cretz.gwtnode.client.node.NodeJsError;
 
 public abstract class ErrorEventHandler extends JavaScriptFunctionWrapper {
 
     @Override
-    public void call(Object... arguments) {
-        onEvent((NodeJsError) arguments[0]);
+    public void call(JavaScriptFunctionArguments args) {
+        onEvent((NodeJsError) args.get(0));
     }
 
     public abstract void onEvent(NodeJsError exception);

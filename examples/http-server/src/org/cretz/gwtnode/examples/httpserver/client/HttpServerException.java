@@ -13,17 +13,19 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.cretz.gwtnode.client.node.event;
+package org.cretz.gwtnode.examples.httpserver.client;
 
-import org.cretz.gwtnode.client.JavaScriptFunctionArguments;
-import org.cretz.gwtnode.client.JavaScriptFunctionWrapper;
+@SuppressWarnings("serial")
+class HttpServerException extends Exception {
 
-public abstract class StringEventHandler extends JavaScriptFunctionWrapper {
-
-    @Override
-    public final void call(JavaScriptFunctionArguments args) {
-        onEvent((String) args.get(0));
+    private final int code;
+    
+    public HttpServerException(int code, String message) {
+        super(message);
+        this.code = code;
     }
     
-    protected abstract void onEvent(String string);
+    public int getCode() {
+        return code;
+    }
 }

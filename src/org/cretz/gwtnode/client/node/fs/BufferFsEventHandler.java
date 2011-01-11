@@ -15,6 +15,7 @@
  */
 package org.cretz.gwtnode.client.node.fs;
 
+import org.cretz.gwtnode.client.JavaScriptFunctionArguments;
 import org.cretz.gwtnode.client.JavaScriptFunctionWrapper;
 import org.cretz.gwtnode.client.node.NodeJsError;
 import org.cretz.gwtnode.client.node.buffer.Buffer;
@@ -22,10 +23,9 @@ import org.cretz.gwtnode.client.node.buffer.Buffer;
 public abstract class BufferFsEventHandler extends JavaScriptFunctionWrapper {
 
     @Override
-    public void call(Object... arguments) {
-        NodeJsError error = arguments.length > 0 ? ((NodeJsError) arguments[0]) : null;
-        Buffer buffer = arguments.length > 1 ? ((Buffer) arguments[1]) : null;
-        onEvent(error, buffer);
+    public void call(JavaScriptFunctionArguments args) {
+        onEvent(args.length() > 0 ? (NodeJsError) args.get(0) : null, 
+                args.length() > 1 ? (Buffer) args.get(1) : null);
     }
 
     public abstract void onEvent(NodeJsError error, Buffer buffer);

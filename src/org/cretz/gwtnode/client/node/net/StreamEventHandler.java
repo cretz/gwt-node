@@ -15,13 +15,14 @@
  */
 package org.cretz.gwtnode.client.node.net;
 
+import org.cretz.gwtnode.client.JavaScriptFunctionArguments;
 import org.cretz.gwtnode.client.JavaScriptFunctionWrapper;
 
 public abstract class StreamEventHandler extends JavaScriptFunctionWrapper {
 
     @Override
-    public void call(Object... arguments) {
-        onEvent((Stream) arguments[0]);
+    public void call(JavaScriptFunctionArguments args) {
+        onEvent((Stream) args.get(0));
     }
 
     protected abstract void onEvent(Stream stream);
