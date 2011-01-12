@@ -13,26 +13,31 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.cretz.gwtnode.examples.helloworld.client;
+package org.cretz.gwtnode.examples.features.client.feature;
 
-import org.cretz.gwtnode.client.GwtNodeBootstrap;
 import org.cretz.gwtnode.client.node.process.Process;
+import org.cretz.gwtnode.examples.features.client.resource.Resources;
 
-import com.google.gwt.core.client.GWT;
+import com.google.inject.Inject;
 
 /**
- * Hello world example
- * 
+ * Feature to test a client bundle
+ *
  * @author Chad Retz
  */
-public class HelloWorld extends GwtNodeBootstrap {
+public class ClientBundleFeature implements Feature {
 
-    @Override
-    public Integer main(String... args) {
-        //Process.get().stdout().write("Hello world\n");
-        Process process = GWT.create(Process.class);
-        process.stdout().write("Hello world 2\n");
-        return 0;
+    private final Process process;
+    private final Resources resources;
+    
+    @Inject
+    public ClientBundleFeature(Process process, Resources resources) {
+        this.process = process;
+        this.resources = resources;
     }
 
+    @Override
+    public void call() {
+        process.stdout().write("From temp.txt: " + resources.tempTxt().getText() + "\n");
+    }
 }

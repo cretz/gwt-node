@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.cretz.gwtnode.junit;
+package org.cretz.gwtnode.dev.junit;
 
 import org.junit.runner.Description;
 import org.junit.runner.Runner;

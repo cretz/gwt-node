@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.cretz.gwtnode.linker;
+package org.cretz.gwtnode.dev.linker;
 
 import java.util.Set;
 

@@ -29,15 +29,12 @@ import org.cretz.gwtnode.client.node.sys.Sys;
  */
 class HttpServerListener extends ServerRequestEventHandler {
 
-    @Override
-    protected void onEvent(ServerRequest request, final ServerResponse response) {
-        //let's log all this stuff
-        logRequest(request);
-        //now let the handler do its work
-        new HttpRequestHandler(request, response);
-    }
-
-    private void logRequest(ServerRequest request) {
+    /**
+     * Log the given request
+     * 
+     * @param request
+     */
+    private static void logRequest(ServerRequest request) {
         StringBuilder builder = new StringBuilder("New Request:\n");
         builder.append("Method: ").append(request.method()).append('\n').
                 append("URL: ").append(request.url()).append('\n').
@@ -48,5 +45,13 @@ class HttpServerListener extends ServerRequestEventHandler {
                     append(header.getValue()).append('\n');
         }
         Sys.get().log(builder.toString());
+    }
+
+    @Override
+    protected void onEvent(ServerRequest request, ServerResponse response) {
+        //let's log all this stuff
+        logRequest(request);
+        //now let the handler do its work
+        new HttpRequestHandler(request, response).call();
     }
 }

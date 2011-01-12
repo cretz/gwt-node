@@ -15,6 +15,11 @@
  */
 package org.cretz.gwtnode.examples.httpserver.client;
 
+/**
+ * Exception that carries an HTTP status code
+ *
+ * @author Chad Retz
+ */
 @SuppressWarnings("serial")
 class HttpServerException extends Exception {
 

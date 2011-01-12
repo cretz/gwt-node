@@ -4,8 +4,11 @@
 	<classpathentry excluding="**" kind="src" path="src/org/cretz/gwtnode/emul"/>
 	<classpathentry kind="src" path="examples/hello-world/src"/>
 	<classpathentry kind="src" path="examples/http-server/src"/>
+	<classpathentry kind="src" path="examples/features/src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
 	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/junit-4.7.jar"/>
+	<classpathentry kind="lib" path="examples/features/lib/gin-1.0.jar"/>
+	<classpathentry kind="lib" path="examples/features/lib/guice-2.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

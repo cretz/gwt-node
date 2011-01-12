@@ -24,12 +24,20 @@ import org.cretz.gwtnode.client.node.http.Server;
 import org.cretz.gwtnode.client.node.sys.Sys;
 
 /**
- * Simple HTTP server
+ * Simple HTTP server. THIS IS NOT A SECURE WEB SERVER
  *
  * @author Chad Retz
  */
 public class HttpServer extends GwtNodeBootstrap {
 
+    /**
+     * Get the argument from the given list that immediately
+     * follows the name given. Returns null if not found.
+     * 
+     * @param argList
+     * @param argName
+     * @return
+     */
     private static String getArg(List<String> argList, String argName) {
         int index = argList.indexOf(argName);
         if (index != -1 && index < argList.size() - 1) {

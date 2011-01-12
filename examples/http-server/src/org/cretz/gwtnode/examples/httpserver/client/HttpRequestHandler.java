@@ -28,8 +28,19 @@ import org.cretz.gwtnode.client.node.path.Path;
 import org.cretz.gwtnode.client.node.sys.Sys;
 import org.cretz.gwtnode.client.node.url.Url;
 
+/**
+ * Handler for an individual request
+ *
+ * @author Chad Retz
+ */
 class HttpRequestHandler {
-        
+    
+    /**
+     * Get the mime type of the given extension (w/ '.' prepended)
+     * 
+     * @param ext
+     * @return
+     */
     private static String getMimeType(String ext) {
         if (".html".equalsIgnoreCase(ext)) {
             return "text/html";
@@ -45,16 +56,24 @@ class HttpRequestHandler {
     private String path;
     private String ext;
     
+    /**
+     * Instantiate this handler
+     * 
+     * @param request
+     * @param response
+     */
     public HttpRequestHandler(ServerRequest request, ServerResponse response) {
         this.request = request;
         this.response = response;
     }
     
+    /**
+     * Call the handler
+     */
     public void call() {
         try {
-            
             path = resolveProperPath();
-            //if there isn't an extension, add it
+            //if there isn't an extension, add index.html
             ext = Path.get().extname(path);
             if (ext == null || ext.isEmpty()) {
                 ext = ".html";
@@ -77,7 +96,7 @@ class HttpRequestHandler {
             handleException(e);
         }
     }
-    
+
     private void sendFile() {
         //let's start the writing
         Sys.get().log("Writing file: " + path);
@@ -97,6 +116,12 @@ class HttpRequestHandler {
         });
     }
     
+    /**
+     * Get the proper path from the requested path
+     * 
+     * @return
+     * @throws HttpServerException
+     */
     private String resolveProperPath() throws HttpServerException {
         //find the resource
         String properPath = Path.get().normalize(Url.get().parse(request.url()).pathname());
@@ -110,7 +135,7 @@ class HttpRequestHandler {
         //join it w/ my current directory
         return Path.get().join(Global.get().dirname(), properPath);
     }
-    
+
     private void handleException(Exception e) {
         Sys.get().log("Error: " + e);
         int code;

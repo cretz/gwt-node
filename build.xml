@@ -43,11 +43,10 @@
 	</macrodef>
 	
 	<target name="build">
-		<!-- compile non client stuff -->
+		<!-- compile the non emul stuff --> 
         <delete dir="build" includeemptydirs="true" />
         <mkdir dir="build/exploded" />
         <javac srcdir="src" destdir="build/exploded">
-            <exclude name="org/cretz/gwtnode/client/**/*" />
         	<exclude name="org/cretz/gwtnode/emul/**/*" />
         	<classpath>
         		<fileset dir="lib" includes="*.jar" />

@@ -13,17 +13,27 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.cretz.gwtnode.client.node.event;
+package org.cretz.gwtnode.examples.features.client.feature;
 
-import org.cretz.gwtnode.client.JavaScriptFunctionArguments;
-import org.cretz.gwtnode.client.JavaScriptFunctionWrapper;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-public abstract class BooleanEventHandler extends JavaScriptFunctionWrapper {
+import com.google.inject.Inject;
+
+/**
+ * Feature to test the logging module
+ *
+ * @author Chad Retz
+ */
+public class LoggingFeature implements Feature {
+
+    @Inject
+    public LoggingFeature() {
+    }
 
     @Override
-    public final native void call(JavaScriptFunctionArguments args) /*-{
-        this.@org.cretz.gwtnode.client.node.event.BooleanEventHandler::onEvent(Z)(args[0]);
-    }-*/;
-    
-    protected abstract void onEvent(boolean value);
+    public void call() {
+        Logger.getLogger("LoggingFeature").log(Level.SEVERE, "Logging works!");
+    }
+
 }

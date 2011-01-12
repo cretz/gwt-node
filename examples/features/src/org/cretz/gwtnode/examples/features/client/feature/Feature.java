@@ -13,17 +13,14 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.cretz.gwtnode.client.node.event;
+package org.cretz.gwtnode.examples.features.client.feature;
 
-import org.cretz.gwtnode.client.JavaScriptFunctionArguments;
-import org.cretz.gwtnode.client.JavaScriptFunctionWrapper;
+/**
+ * Interface all features must implement
+ *
+ * @author Chad Retz
+ */
+public interface Feature {
 
-public abstract class BooleanEventHandler extends JavaScriptFunctionWrapper {
-
-    @Override
-    public final native void call(JavaScriptFunctionArguments args) /*-{
-        this.@org.cretz.gwtnode.client.node.event.BooleanEventHandler::onEvent(Z)(args[0]);
-    }-*/;
-    
-    protected abstract void onEvent(boolean value);
+    void call();
 }

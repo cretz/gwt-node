@@ -13,17 +13,24 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.cretz.gwtnode.client.node.event;
+package org.cretz.gwtnode.examples.features.client.resource;
 
-import org.cretz.gwtnode.client.JavaScriptFunctionArguments;
-import org.cretz.gwtnode.client.JavaScriptFunctionWrapper;
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.resources.client.ClientBundle;
+import com.google.gwt.resources.client.TextResource;
 
-public abstract class BooleanEventHandler extends JavaScriptFunctionWrapper {
-
-    @Override
-    public final native void call(JavaScriptFunctionArguments args) /*-{
-        this.@org.cretz.gwtnode.client.node.event.BooleanEventHandler::onEvent(Z)(args[0]);
-    }-*/;
+/**
+ * Client bundle storing a couple of resources
+ *
+ * @author Chad Retz
+ */
+public interface Resources extends ClientBundle {
     
-    protected abstract void onEvent(boolean value);
+    Resources INSTANCE = GWT.create(Resources.class);
+    
+    @Source("temp.xml")
+    TextResource tempXml();
+    
+    @Source("temp.txt")
+    TextResource tempTxt();
 }
