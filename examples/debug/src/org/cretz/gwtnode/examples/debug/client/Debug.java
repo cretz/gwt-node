@@ -13,22 +13,22 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.cretz.gwtnode.examples.helloworld.client;
+package org.cretz.gwtnode.examples.debug.client;
 
 import org.cretz.gwtnode.client.GwtNodeBootstrap;
 import org.cretz.gwtnode.client.node.process.Process;
 
 /**
- * Hello world example
+ * Hello world example in the debugger
  * 
  * @author Chad Retz
  */
-public class HelloWorld extends GwtNodeBootstrap {
+public class Debug extends GwtNodeBootstrap {
 
     @Override
     public Integer main(String... args) {
-        Process.get().stdout().write("Hello world\n"); /*{BREAK}*/
-        return 0;
+        Process.get().stdout().write("Hello world\n");
+        return null;
     }
 
 }

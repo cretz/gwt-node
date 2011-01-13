@@ -13,22 +13,32 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.cretz.gwtnode.examples.helloworld.client;
+package org.cretz.gwtnode.dev.debug.client.jdwp.common;
 
-import org.cretz.gwtnode.client.GwtNodeBootstrap;
-import org.cretz.gwtnode.client.node.process.Process;
-
-/**
- * Hello world example
- * 
- * @author Chad Retz
- */
-public class HelloWorld extends GwtNodeBootstrap {
-
-    @Override
-    public Integer main(String... args) {
-        Process.get().stdout().write("Hello world\n"); /*{BREAK}*/
-        return 0;
+public enum ModifierKind {
+    
+    COUNT,
+    CONDITIONAL,
+    THREAD_ONLY,
+    CLASS_ONLY,
+    CLASS_MATCH,
+    CLASS_EXCLUDE,
+    LOCATION_ONLY,
+    EXCEPTION_ONLY,
+    FIELD_ONLY,
+    STEP,
+    INSTANCE_ONLY,
+    SOURCE_NAME_MATCH;
+    
+    public static ModifierKind fromNumber(int number) {
+        if (number > values().length) {
+            return null;
+        } else {
+            return values()[number - 1];
+        }
     }
-
+    
+    public int getNumber() {
+        return ordinal() + 1;
+    }
 }

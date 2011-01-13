@@ -13,22 +13,12 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.cretz.gwtnode.examples.helloworld.client;
+package org.cretz.gwtnode.dev.debug.client.jdwp;
 
-import org.cretz.gwtnode.client.GwtNodeBootstrap;
-import org.cretz.gwtnode.client.node.process.Process;
+import org.cretz.gwtnode.client.Closure;
 
-/**
- * Hello world example
- * 
- * @author Chad Retz
- */
-public class HelloWorld extends GwtNodeBootstrap {
+public abstract class ReceivingCommand<C extends CommandPacket, R extends ReplyPacket> 
+        extends Command<C, R> {
 
-    @Override
-    public Integer main(String... args) {
-        Process.get().stdout().write("Hello world\n"); /*{BREAK}*/
-        return 0;
-    }
-
+    protected abstract void onCommand(C commandPacket, Closure<R> reply);
 }

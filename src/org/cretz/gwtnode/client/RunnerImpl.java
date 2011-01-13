@@ -13,22 +13,13 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.cretz.gwtnode.examples.helloworld.client;
+package org.cretz.gwtnode.client;
 
-import org.cretz.gwtnode.client.GwtNodeBootstrap;
-import org.cretz.gwtnode.client.node.process.Process;
-
-/**
- * Hello world example
- * 
- * @author Chad Retz
- */
-public class HelloWorld extends GwtNodeBootstrap {
-
+class RunnerImpl implements Runner {
+    
     @Override
-    public Integer main(String... args) {
-        Process.get().stdout().write("Hello world\n"); /*{BREAK}*/
-        return 0;
+    public void run(GwtNodeBootstrap bootstrap, Closure<Integer> callback, 
+            String... args) {
+        callback.call(bootstrap.main(args));
     }
-
 }

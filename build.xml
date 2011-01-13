@@ -30,8 +30,8 @@
 			<mkdir dir="@{workdir}/gwtnodetmp" />
 			<!-- compile JS -->
 			<java classpathref="@{classpathref}" classname="com.google.gwt.dev.Compiler" fork="true">
-				<arg value="-war" />
-				<arg value="@{workdir}/gwtnodetmp" />
+                <arg value="-war" />
+                <arg value="@{workdir}/gwtnodetmp" />
 				<extra-args />
 				<arg value="@{module}" />
 			</java>

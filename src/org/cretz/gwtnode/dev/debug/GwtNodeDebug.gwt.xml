@@ -17,17 +17,16 @@
 
 <module rename-to="GwtNode">
 
-    <inherits name="com.google.gwt.core.Core" />
+    <inherits name="org.cretz.gwtnode.GwtNode" />
 
-	<entry-point class="org.cretz.gwtnode.client.GwtNode" />
-
-	<source path="client" />
-
-    <define-linker name="node" class="org.cretz.gwtnode.dev.linker.GwtNodeLinker" />
-    <add-linker name="node" />
+    <inherits name="com.google.common.primitives.Primitives" />
     
-    <replace-with class="org.cretz.gwtnode.client.RunnerImpl">
+    <replace-with class="org.cretz.gwtnode.dev.debug.client.DebugRunnerImpl">
         <when-type-is class="org.cretz.gwtnode.client.Runner" />
     </replace-with>
-	
+
+	<entry-point class="org.cretz.gwtnode.dev.debug.client.Debug" />
+
+	<source path="client" />
+    
 </module>

@@ -13,21 +13,21 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.cretz.gwtnode.examples.helloworld.client;
+package org.cretz.gwtnode.examples.scimark.client;
 
 import org.cretz.gwtnode.client.GwtNodeBootstrap;
-import org.cretz.gwtnode.client.node.process.Process;
+import org.cretz.gwtnode.examples.scimark.client.impl.commandline;
 
 /**
- * Hello world example
+ * Delegates to the scimark code
  * 
  * @author Chad Retz
  */
-public class HelloWorld extends GwtNodeBootstrap {
+public class Scimark extends GwtNodeBootstrap {
 
     @Override
     public Integer main(String... args) {
-        Process.get().stdout().write("Hello world\n"); /*{BREAK}*/
+        commandline.main(args);
         return 0;
     }
 

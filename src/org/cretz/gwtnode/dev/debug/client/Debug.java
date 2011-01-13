@@ -13,22 +13,15 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.cretz.gwtnode.examples.helloworld.client;
+package org.cretz.gwtnode.dev.debug.client;
 
-import org.cretz.gwtnode.client.GwtNodeBootstrap;
-import org.cretz.gwtnode.client.node.process.Process;
+import com.google.gwt.core.client.EntryPoint;
 
-/**
- * Hello world example
- * 
- * @author Chad Retz
- */
-public class HelloWorld extends GwtNodeBootstrap {
+public class Debug implements EntryPoint {
 
     @Override
-    public Integer main(String... args) {
-        Process.get().stdout().write("Hello world\n"); /*{BREAK}*/
-        return 0;
+    public void onModuleLoad() {
+        
     }
 
 }

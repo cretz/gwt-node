@@ -31,6 +31,7 @@ public abstract class StringOrBufferEventHandler extends JavaScriptFunctionWrapp
         } else {
             buffer = (Buffer) args.get(0);
         }
+        onEvent();
     }
     
     public Buffer getBuffer() {

@@ -13,22 +13,26 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.cretz.gwtnode.examples.helloworld.client;
+package org.cretz.gwtnode.dev.debug.inject;
 
-import org.cretz.gwtnode.client.GwtNodeBootstrap;
-import org.cretz.gwtnode.client.node.process.Process;
+import japa.parser.ast.CompilationUnit;
+import japa.parser.ast.PackageDeclaration;
+import japa.parser.ast.visitor.VoidVisitorAdapter;
 
-/**
- * Hello world example
- * 
- * @author Chad Retz
- */
-public class HelloWorld extends GwtNodeBootstrap {
+class StatefulVisitor extends VoidVisitorAdapter<Void> {
+
+    protected CompilationUnit compilationUnit;
+    protected PackageDeclaration packageDeclaration;
 
     @Override
-    public Integer main(String... args) {
-        Process.get().stdout().write("Hello world\n"); /*{BREAK}*/
-        return 0;
+    public void visit(CompilationUnit n, Void arg) {
+        compilationUnit = n;
+        super.visit(n, arg);
     }
-
+    
+    @Override
+    public void visit(PackageDeclaration n, Void arg) {
+        packageDeclaration = n;
+        super.visit(n, arg);
+    }
 }

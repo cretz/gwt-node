@@ -15,19 +15,12 @@
 <!-- implied. License for the specific language governing permissions and   -->
 <!-- limitations under the License.                                         -->
 
-<module rename-to="GwtNode">
+<module rename-to="Debug">
+    
+    <inherits name="org.cretz.gwtnode.dev.debug.GwtNodeDebug" />
 
-    <inherits name="com.google.gwt.core.Core" />
-
-	<entry-point class="org.cretz.gwtnode.client.GwtNode" />
+	<entry-point class="org.cretz.gwtnode.examples.debug.client.Debug" />
 
 	<source path="client" />
-
-    <define-linker name="node" class="org.cretz.gwtnode.dev.linker.GwtNodeLinker" />
-    <add-linker name="node" />
-    
-    <replace-with class="org.cretz.gwtnode.client.RunnerImpl">
-        <when-type-is class="org.cretz.gwtnode.client.Runner" />
-    </replace-with>
 	
 </module>

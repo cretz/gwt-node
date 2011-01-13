@@ -43,6 +43,18 @@ public class Server extends EventEmitter {
         this.listen(port, host);
     }-*/;
     
+    public final void listen(int port, ParameterlessEventHandler callback) {
+        listen(port, callback.getNativeFunction());
+    }
+    
+    public final void listen(int port, JavaScriptFunctionWrapper callback) {
+        listen(port, callback.getNativeFunction());
+    }
+    
+    public final native void listen(int port, JavaScriptFunction callback) /*-{
+        this.listen(port, callback);
+    }-*/;
+    
     public final void listen(int port, String host, ParameterlessEventHandler callback) {
         listen(port, host, callback.getNativeFunction());
     }

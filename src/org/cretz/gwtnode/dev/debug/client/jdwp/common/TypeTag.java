@@ -13,22 +13,23 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.cretz.gwtnode.examples.helloworld.client;
+package org.cretz.gwtnode.dev.debug.client.jdwp.common;
 
-import org.cretz.gwtnode.client.GwtNodeBootstrap;
-import org.cretz.gwtnode.client.node.process.Process;
+public enum TypeTag {
 
-/**
- * Hello world example
- * 
- * @author Chad Retz
- */
-public class HelloWorld extends GwtNodeBootstrap {
-
-    @Override
-    public Integer main(String... args) {
-        Process.get().stdout().write("Hello world\n"); /*{BREAK}*/
-        return 0;
+    CLASS,
+    INTERFACE,
+    ARRAY;
+    
+    public static TypeTag fromByte(byte byt) {
+        if (byt > values().length) {
+            return null;
+        } else {
+            return values()[byt - 1];
+        }
     }
-
+    
+    public int getNumber() {
+        return ordinal() + 1;
+    }
 }

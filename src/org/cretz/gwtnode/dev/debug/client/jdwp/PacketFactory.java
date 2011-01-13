@@ -13,22 +13,24 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.cretz.gwtnode.examples.helloworld.client;
+package org.cretz.gwtnode.dev.debug.client.jdwp;
 
-import org.cretz.gwtnode.client.GwtNodeBootstrap;
-import org.cretz.gwtnode.client.node.process.Process;
+import org.cretz.gwtnode.client.node.buffer.Buffer;
 
-/**
- * Hello world example
- * 
- * @author Chad Retz
- */
-public class HelloWorld extends GwtNodeBootstrap {
+public class PacketFactory {
 
-    @Override
-    public Integer main(String... args) {
-        Process.get().stdout().write("Hello world\n"); /*{BREAK}*/
-        return 0;
+    public static Packet getPacket(Buffer buffer) {
+        //just use simple for now
+        if (buffer.length() < 11) {
+            throw new IllegalArgumentException("Invalid packet buffer");
+        }
+        if (buffer.get(8) == Packet.FLAG_REPLY_PACKET) {
+            return new SimpleReplyPacket(buffer);
+        } else {
+            return new SimpleCommandPacket(buffer);
+        }
     }
-
+    
+    private PacketFactory() {
+    }
 }

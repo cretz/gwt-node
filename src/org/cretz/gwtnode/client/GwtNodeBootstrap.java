@@ -19,6 +19,7 @@ import org.cretz.gwtnode.client.node.process.Process;
 import org.cretz.gwtnode.client.node.sys.Sys;
 
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.JsArrayString;
 
 /**
@@ -30,6 +31,7 @@ import com.google.gwt.core.client.JsArrayString;
  */
 public abstract class GwtNodeBootstrap implements EntryPoint {
 
+    
     @Override
     public final void onModuleLoad() {
         //grab the arguments
@@ -55,10 +57,15 @@ public abstract class GwtNodeBootstrap implements EntryPoint {
             }
         }
         //call the main method
-        Integer exitCode = main(args);
-        if (exitCode != null) {
-            Process.get().exit(exitCode);
-        }
+        Runner runner = GWT.create(Runner.class);
+        runner.run(this, new Closure<Integer>() {
+            @Override
+            public void call(Integer result) {
+                if (result != null) {
+                    Process.get().exit(result);
+                }
+            }
+        }, args);
     }
     
     /**

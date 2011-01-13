@@ -15,19 +15,12 @@
 <!-- implied. License for the specific language governing permissions and   -->
 <!-- limitations under the License.                                         -->
 
-<module rename-to="GwtNode">
-
-    <inherits name="com.google.gwt.core.Core" />
-
-	<entry-point class="org.cretz.gwtnode.client.GwtNode" />
+<module rename-to="Scimark">
+    
+    <inherits name="org.cretz.gwtnode.GwtNode" />
+    
+	<entry-point class="org.cretz.gwtnode.examples.scimark.client.Scimark" />
 
 	<source path="client" />
 
-    <define-linker name="node" class="org.cretz.gwtnode.dev.linker.GwtNodeLinker" />
-    <add-linker name="node" />
-    
-    <replace-with class="org.cretz.gwtnode.client.RunnerImpl">
-        <when-type-is class="org.cretz.gwtnode.client.Runner" />
-    </replace-with>
-	
 </module>
