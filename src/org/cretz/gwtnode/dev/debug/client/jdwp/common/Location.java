@@ -16,9 +16,10 @@
 package org.cretz.gwtnode.dev.debug.client.jdwp.common;
 
 import org.cretz.gwtnode.client.node.buffer.Buffer;
+import org.cretz.gwtnode.dev.debug.client.jdwp.BufferBuilder;
 import org.cretz.gwtnode.dev.debug.client.jdwp.BufferUtils;
 
-public class Location {
+public class Location implements BufferBuilder {
 
     public static final int SIZE = 17;
     
@@ -67,5 +68,18 @@ public class Location {
 
     public void setIndex(long index) {
         this.index = index;
+    }
+
+    @Override
+    public Buffer buildBuffer() {
+        /*typeTag = TypeTag.fromByte(buffer.get(0));
+        classId = BufferUtils.toInteger(buffer.slice(1, 5));
+        methodId = BufferUtils.toInteger(buffer.slice(5, 9));
+        index = BufferUtils.toLong(buffer.slice(9, 17));*/
+        return BufferUtils.concat(
+                Buffer.create(typeTag.getByte()),
+                BufferUtils.toBuffer(classId),
+                BufferUtils.toBuffer(methodId),
+                BufferUtils.toBuffer(index));
     }
 }

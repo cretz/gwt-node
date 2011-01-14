@@ -19,4 +19,5 @@ public abstract class VirtualMachineCommandSet {
 
     public static final byte COMMAND_SET = 1;
 
+    public static final Version VERSION_COMMAND = new Version();
 }

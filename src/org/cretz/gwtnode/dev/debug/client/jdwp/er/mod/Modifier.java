@@ -13,23 +13,22 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.cretz.gwtnode.dev.debug.client.jdwp.common;
+package org.cretz.gwtnode.dev.debug.client.jdwp.er.mod;
 
-public enum TypeTag {
+import org.cretz.gwtnode.client.node.buffer.Buffer;
+import org.cretz.gwtnode.dev.debug.client.jdwp.common.ModifierKind;
 
-    CLASS,
-    INTERFACE,
-    ARRAY;
+public abstract class Modifier {
+
+    private ModifierKind modifierKind;
     
-    public static TypeTag fromByte(byte byt) {
-        if (byt > values().length) {
-            return null;
-        } else {
-            return values()[byt - 1];
-        }
+    public ModifierKind getModifierKind() {
+        return modifierKind;
     }
     
-    public byte getByte() {
-        return (byte) (ordinal() + 1);
+    public void setModifierKind(ModifierKind modifierKind) {
+        this.modifierKind = modifierKind;
     }
+    
+    public abstract int buildFromBuffer(Buffer buffer, int startIndex);
 }

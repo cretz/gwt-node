@@ -15,9 +15,23 @@
  */
 package org.cretz.gwtnode.dev.debug.client.jdwp.er;
 
-public abstract class EventRequestCommandSet {
+import org.cretz.gwtnode.client.Closure;
+import org.cretz.gwtnode.client.node.buffer.Buffer;
+import org.cretz.gwtnode.dev.debug.client.jdwp.ReceivingCommand;
+import org.cretz.gwtnode.dev.debug.client.jdwp.ReplyPacket;
 
-    public static final byte COMMAND_SET = 15;
+public class Set extends ReceivingCommand<SetCommandPacket, ReplyPacket> {
+
+    public static final int COMMAND = 1;
     
-    public static final Set SET_COMMAND = new Set();
+    @Override
+    protected SetCommandPacket buildCommandPacket(Buffer buffer) {
+        return new SetCommandPacket(buffer);
+    }
+    
+    @Override
+    protected void onCommand(SetCommandPacket commandPacket, Closure<ReplyPacket> reply) {
+        throw new UnsupportedOperationException();
+    }
+
 }

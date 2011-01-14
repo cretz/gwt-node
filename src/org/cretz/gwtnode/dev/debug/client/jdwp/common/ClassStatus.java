@@ -15,21 +15,30 @@
  */
 package org.cretz.gwtnode.dev.debug.client.jdwp.common;
 
-public enum TypeTag {
-
-    CLASS,
-    INTERFACE,
-    ARRAY;
+public enum ClassStatus {
     
-    public static TypeTag fromByte(byte byt) {
-        if (byt > values().length) {
-            return null;
-        } else {
-            return values()[byt - 1];
+    VERIFIED(1),
+    PREPARED(2),
+    INITIALIZED(4),
+    ERROR(8);
+    
+    public static ClassStatus fromNumber(int number) {
+        switch (number) {
+        case 1 : return VERIFIED;
+        case 2 : return PREPARED;
+        case 4 : return INITIALIZED;
+        case 8 : return ERROR;
+        default : return null;
         }
     }
     
-    public byte getByte() {
-        return (byte) (ordinal() + 1);
+    private final int number;
+    
+    private ClassStatus(int number) {
+        this.number = number;
+    }
+    
+    public int getNumber() {
+        return number;
     }
 }

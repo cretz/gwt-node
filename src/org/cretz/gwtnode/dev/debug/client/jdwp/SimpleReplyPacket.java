@@ -23,6 +23,9 @@ public class SimpleReplyPacket extends ReplyPacket {
 
     private Buffer data;
     
+    public SimpleReplyPacket() {
+    }
+    
     public SimpleReplyPacket(Buffer buffer) {
         setPacketId(BufferUtils.toInteger(buffer.slice(4, 8)));
         setFlags(buffer.get(8));
@@ -34,12 +37,12 @@ public class SimpleReplyPacket extends ReplyPacket {
         }
     }
     
-    public void setData(Buffer data) {
-        this.data = data;
-    }
-    
     public Buffer getData() {
         return data;
+    }
+    
+    public void setData(Buffer data) {
+        this.data = data;
     }
     
     @Override

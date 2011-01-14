@@ -19,7 +19,7 @@ import org.cretz.gwtnode.client.node.buffer.Buffer;
 
 import com.google.common.base.Objects;
 
-public abstract class Packet {
+public abstract class Packet implements BufferBuilder {
     
     public static final byte FLAG_REPLY_PACKET = (byte) 0x80;
     

@@ -23,6 +23,9 @@ public class SimpleCommandPacket extends CommandPacket {
 
     private Buffer data;
     
+    public SimpleCommandPacket() {
+    }
+    
     public SimpleCommandPacket(Buffer buffer) {
         setPacketId(BufferUtils.toInteger(buffer.slice(4, 8)));
         setFlags(buffer.get(8));
@@ -35,12 +38,12 @@ public class SimpleCommandPacket extends CommandPacket {
         }
     }
     
-    public void setData(Buffer data) {
-        this.data = data;
-    }
-    
     public Buffer getData() {
         return data;
+    }
+    
+    public void setData(Buffer data) {
+        this.data = data;
     }
     
     @Override

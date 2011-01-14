@@ -13,23 +13,19 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.cretz.gwtnode.dev.debug.client.jdwp.common;
+package org.cretz.gwtnode.dev.debug.client.jdwp.ec;
 
-public enum TypeTag {
+import org.cretz.gwtnode.client.node.buffer.Buffer;
+import org.cretz.gwtnode.dev.debug.client.jdwp.CommandPacket;
 
-    CLASS,
-    INTERFACE,
-    ARRAY;
+public class CompositeCommandPacket extends CommandPacket {
+
     
-    public static TypeTag fromByte(byte byt) {
-        if (byt > values().length) {
-            return null;
-        } else {
-            return values()[byt - 1];
-        }
-    }
     
-    public byte getByte() {
-        return (byte) (ordinal() + 1);
+    @Override
+    protected Buffer buildData() {
+        // TODO Auto-generated method stub
+        return null;
     }
+
 }

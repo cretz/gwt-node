@@ -29,7 +29,7 @@ public class Buffer extends JavaScriptObject {
         return new Buffer(size);
     }-*/;
 
-    public static final native Buffer create(byte[] array) /*-{
+    public static final native Buffer create(byte... array) /*-{
         return new Buffer(array);
     }-*/;
 

@@ -13,23 +13,8 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.cretz.gwtnode.dev.debug.client.jdwp.common;
+package org.cretz.gwtnode.dev.debug.client.jdwp.ec;
 
-public enum TypeTag {
+public class Composite {
 
-    CLASS,
-    INTERFACE,
-    ARRAY;
-    
-    public static TypeTag fromByte(byte byt) {
-        if (byt > values().length) {
-            return null;
-        } else {
-            return values()[byt - 1];
-        }
-    }
-    
-    public byte getByte() {
-        return (byte) (ordinal() + 1);
-    }
 }

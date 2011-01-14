@@ -13,27 +13,26 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.cretz.gwtnode.dev.debug.client.jdwp.er;
+package org.cretz.gwtnode.dev.debug.client.jdwp.er.mod;
 
+import org.cretz.gwtnode.client.node.buffer.Buffer;
 import org.cretz.gwtnode.dev.debug.client.jdwp.common.Location;
-import org.cretz.gwtnode.dev.debug.client.jdwp.common.ModifierKind;
 
-@SuppressWarnings("unused")
-public class Event {
+public class LocationOnlyModifier extends Modifier {
 
-    private ModifierKind modifierKind;
-    private int count;
-    private int exprId;
-    private int threadId;
-    private int referenceTypeId;
-    private String pattern;
     private Location location;
-    private boolean caught;
-    private boolean uncaught;
-    private int fieldId;
-    private int size;
-    private int depth;
-    private int objectId;
     
+    public Location getLocation() {
+        return location;
+    }
     
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+    
+    @Override
+    public int buildFromBuffer(Buffer buffer, int startIndex) {
+        location = new Location(buffer);
+        return startIndex + Location.SIZE;
+    }
 }

@@ -44,26 +44,26 @@ public enum EventKind {
     VM_DEATH(99),
     VM_DISCONNECTED(100);
     
-    private static final Map<Integer, EventKind> kinds = 
-        new HashMap<Integer, EventKind>(values().length);
+    private static final Map<Byte, EventKind> kinds = 
+        new HashMap<Byte, EventKind>(values().length);
     
     static {
         for (EventKind kind : values()) {
-            kinds.put(kind.number, kind);
+            kinds.put(kind.byt, kind);
         }
     }
     
-    public static EventKind fromNumber(int number) {
-        return kinds.get(number);
+    public static EventKind fromNumber(byte byt) {
+        return kinds.get(byt);
     }
     
-    private final int number;
+    private final byte byt;
     
-    private EventKind(int number) {
-        this.number = number;
+    private EventKind(int byt) {
+        this.byt = (byte) byt;
     }
     
-    public int getNumber() {
-        return number;
+    public byte getByte() {
+        return byt;
     }
 }

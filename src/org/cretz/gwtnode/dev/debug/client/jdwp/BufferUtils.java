@@ -18,6 +18,26 @@ package org.cretz.gwtnode.dev.debug.client.jdwp;
 import org.cretz.gwtnode.client.node.buffer.Buffer;
 
 public class BufferUtils {
+
+    public static Buffer toBuffer(long val) {
+        Buffer buff = Buffer.create(8);
+        buff.set(7, (byte) (val & 255));
+        val = val >> 8;
+        buff.set(6, (byte) (val & 255));
+        val = val >> 8;
+        buff.set(5, (byte) (val & 255));
+        val = val >> 8;
+        buff.set(4, (byte) (val & 255));
+        val = val >> 8;
+        buff.set(3, (byte) (val & 255));
+        val = val >> 8;
+        buff.set(2, (byte) (val & 255));
+        val = val >> 8;
+        buff.set(1, (byte) (val & 255));
+        val = val >> 8;
+        buff.set(0, (byte) (val & 255));
+        return buff;
+    }
     
     public static long toLong(Buffer buffer) {
         return Long.parseLong(getLongHex(buffer), 16);
@@ -73,6 +93,18 @@ public class BufferUtils {
     public static Buffer toBuffer(String string) {
         Buffer length = toBuffer(Buffer.byteLength(string, "utf8"));
         return concat(length, Buffer.create(string, "utf8"));
+    }
+    
+    public static String toString(Buffer buffer) {
+        return buffer.toString("utf8");
+    }
+    
+    public static Buffer toBuffer(boolean bool) {
+        return Buffer.create(bool ? 1 : 0);
+    }
+    
+    public static boolean toBoolean(byte byt) {
+        return byt != 0;
     }
     
     public static Buffer concat(Buffer... buffers) {

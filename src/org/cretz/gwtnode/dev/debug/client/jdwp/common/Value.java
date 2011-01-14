@@ -15,21 +15,6 @@
  */
 package org.cretz.gwtnode.dev.debug.client.jdwp.common;
 
-public enum TypeTag {
+public class Value {
 
-    CLASS,
-    INTERFACE,
-    ARRAY;
-    
-    public static TypeTag fromByte(byte byt) {
-        if (byt > values().length) {
-            return null;
-        } else {
-            return values()[byt - 1];
-        }
-    }
-    
-    public byte getByte() {
-        return (byte) (ordinal() + 1);
-    }
 }
