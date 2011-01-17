@@ -26,8 +26,11 @@ import org.junit.runner.notification.RunNotifier;
  */
 public class NodeJsTestRunner extends Runner {
 
+    //private final Description description;
+    
     public NodeJsTestRunner(Class<?> clazz) {
-        super();
+        //not yet
+        throw new UnsupportedOperationException();
     }
     
     @Override

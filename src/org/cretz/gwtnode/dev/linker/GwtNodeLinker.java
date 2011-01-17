@@ -77,6 +77,9 @@ public class GwtNodeLinker extends AbstractLinker {
         out.newline();
         out.print("var $sessionId = function() { };");
         out.newline();
+        //preload code
+        addPreloadCode(logger, context, artifacts, result, out);
+        out.newline();
         out.print("gwtOnLoad(null, '" + context.getModuleName() + "', null);");
         out.newline();
         out.print("})();");
@@ -84,6 +87,12 @@ public class GwtNodeLinker extends AbstractLinker {
         //and to string
         toReturn.add(emitString(logger, out.toString(), context.getModuleName() + ".js"));
         return toReturn;
+    }
+    
+    protected void addPreloadCode(TreeLogger logger, LinkerContext context,
+            ArtifactSet artifacts, CompilationResult result,
+            DefaultTextOutput out) throws UnableToCompleteException {
+        //noop
     }
 
 }

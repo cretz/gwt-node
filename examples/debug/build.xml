@@ -19,6 +19,7 @@
     <import file="../../build.xml" />
 	
 	<target name="compile">
+		<fail message="NOT YET FINISHED" />
 		<ant antfile="../../build.xml" inheritall="false" target="build" />
 		<delete dir="build" includeemptydirs="true" /> 
 		<mkdir dir="build" />
@@ -32,8 +33,10 @@
 			            classpathref="gwt.classpath"
 		                destdir="build">
 			<extra-args>
-				<arg value="-style" />
-				<arg value="PRETTY" />
+                <arg value="-style" />
+                <arg value="DETAILED" />
+                <arg value="-optimize" />
+                <arg value="0" />
 			</extra-args>
 		</gwtnodecompile>
 	</target>

@@ -13,24 +13,19 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.cretz.gwtnode.examples.debug.client;
+package org.cretz.gwtnode.examples.junit.client;
 
-import org.cretz.gwtnode.client.GwtNodeBootstrap;
-import org.cretz.gwtnode.client.node.process.Process;
+import org.cretz.gwtnode.dev.junit.NodeJsTestRunner;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite.SuiteClasses;
 
-/**
- * Hello world example in the debugger. 
- * 
- * @deprecated This example is NOT YET FINISHED
- * @author Chad Retz
- */
-@Deprecated
-public class Debug extends GwtNodeBootstrap {
-
-    @Override
-    public Integer main(String... args) {
-        Process.get().stdout().write("Hello world\n");
-        return null;
-    }
-
+@RunWith(NodeJsTestRunner.class)
+@SuiteClasses({ 
+    AnnotationTestClass.class,
+    FailedTest.class,
+    IgnoredTest.class,
+    NativeTest.class,
+    ParameterizedTest.class
+})
+public class TestSuite {
 }

@@ -13,24 +13,20 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.cretz.gwtnode.examples.debug.client;
+package org.cretz.gwtnode.examples.junit.client;
 
-import org.cretz.gwtnode.client.GwtNodeBootstrap;
-import org.cretz.gwtnode.client.node.process.Process;
+import org.cretz.gwtnode.dev.junit.NodeJsTestRunner;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
-/**
- * Hello world example in the debugger. 
- * 
- * @deprecated This example is NOT YET FINISHED
- * @author Chad Retz
- */
-@Deprecated
-public class Debug extends GwtNodeBootstrap {
+@RunWith(NodeJsTestRunner.class)
+public class IgnoredTest {
 
-    @Override
-    public Integer main(String... args) {
-        Process.get().stdout().write("Hello world\n");
-        return null;
+    @Test
+    @Ignore("I am ignored")
+    public void ignored() {
+        Assert.fail();
     }
-
 }

@@ -17,7 +17,7 @@
 
 <module rename-to="GwtNodeTest">
     
-    <inherits name="org.cretz.gwtnode.GwtTest" />
+    <inherits name="org.cretz.gwtnode.GwtNode" />
     
     <super-source path="emul" />
     	

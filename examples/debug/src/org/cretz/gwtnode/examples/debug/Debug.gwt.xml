@@ -16,11 +16,17 @@
 <!-- limitations under the License.                                         -->
 
 <module rename-to="Debug">
-    
+
+    <!--     
     <inherits name="org.cretz.gwtnode.dev.debug.GwtNodeDebug" />
+    -->
+    <inherits name="org.cretz.gwtnode.GwtNode" />
 
 	<entry-point class="org.cretz.gwtnode.examples.debug.client.Debug" />
 
 	<source path="client" />
+	
+    <define-linker name="node" class="org.cretz.gwtnode.dev.linker.GwtNodeSymbolStoreLinker" />
+    <add-linker name="node" />
 	
 </module>

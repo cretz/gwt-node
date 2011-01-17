@@ -15,22 +15,15 @@
  */
 package org.cretz.gwtnode.examples.debug.client;
 
-import org.cretz.gwtnode.client.GwtNodeBootstrap;
-import org.cretz.gwtnode.client.node.process.Process;
+import org.cretz.gwtnode.client.node.sys.Sys;
 
-/**
- * Hello world example in the debugger. 
- * 
- * @deprecated This example is NOT YET FINISHED
- * @author Chad Retz
- */
-@Deprecated
-public class Debug extends GwtNodeBootstrap {
+public class SampleObject {
 
-    @Override
-    public Integer main(String... args) {
-        Process.get().stdout().write("Hello world\n");
-        return null;
+    public void write() {
+        write("Reflected method call!");
     }
 
+    public void write(String value) {
+        Sys.get().log(value);
+    }
 }
