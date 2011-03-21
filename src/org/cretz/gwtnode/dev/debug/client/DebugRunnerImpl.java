@@ -22,7 +22,7 @@ import org.cretz.gwtnode.client.Closure;
 import org.cretz.gwtnode.client.GwtNodeBootstrap;
 import org.cretz.gwtnode.client.Runner;
 import org.cretz.gwtnode.client.node.event.ParameterlessEventHandler;
-import org.cretz.gwtnode.client.node.sys.Sys;
+import org.cretz.gwtnode.client.node.util.Util;
 
 class DebugRunnerImpl implements Runner {
 
@@ -43,7 +43,7 @@ class DebugRunnerImpl implements Runner {
                 try {
                     debugPort = Integer.parseInt(args[i + 1]);
                 } catch (NumberFormatException e) {
-                    Sys.get().log("Invalid debug port: " + args[i + 1]);
+                    Util.get().log("Invalid debug port: " + args[i + 1]);
                 }
             } else if ("-gwt-node-debug-host".equals(arg) && i != args.length - 1) {
                 skipNext = true;

@@ -15,7 +15,7 @@
  */
 package org.cretz.gwtnode.examples.debug.client;
 
-import org.cretz.gwtnode.client.node.sys.Sys;
+import org.cretz.gwtnode.client.node.util.Util;
 
 public class SampleObject {
 
@@ -24,6 +24,6 @@ public class SampleObject {
     }
 
     public void write(String value) {
-        Sys.get().log(value);
+        Util.get().log(value);
     }
 }

@@ -16,7 +16,7 @@
 package org.cretz.gwtnode.client;
 
 import org.cretz.gwtnode.client.node.process.Process;
-import org.cretz.gwtnode.client.node.sys.Sys;
+import org.cretz.gwtnode.client.node.util.Util;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
@@ -48,7 +48,7 @@ public abstract class GwtNodeBootstrap implements EntryPoint {
         //make the final native string array
         String[] args;
         if (jsArgIndex == nativeArgs.length()) {
-            Sys.get().log("Unable to find argument ending with .js");
+            Util.get().log("Unable to find argument ending with .js");
             args = new String[0];
         } else {
             args = new String[nativeArgs.length() - jsArgIndex - 1];

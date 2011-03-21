@@ -17,10 +17,18 @@ package org.cretz.gwtnode.client.node.event;
 
 import org.cretz.gwtnode.client.JavaScriptFunction;
 import org.cretz.gwtnode.client.JavaScriptFunctionWrapper;
+import org.cretz.gwtnode.client.JavaScriptUtils;
 
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArray;
+import com.google.gwt.core.client.JsArrayMixed;
 
+/**
+ * The node.js 
+ * <a href="http://nodejs.org/docs/v0.4.3/api/events.html">EventEmitter</a>
+ * 
+ * @author Chad Retz
+ */
 public class EventEmitter extends JavaScriptObject {
 
     private static EventEmitter instance;
@@ -39,12 +47,38 @@ public class EventEmitter extends JavaScriptObject {
     protected EventEmitter() {
     }
     
+    /**
+     * @param handler
+     * @since 0.2.0
+     */
+    public final void onNewListener(NewListenerEventHandler handler) {
+        on("newListener", handler);
+    }
+    
     public final void on(String event, JavaScriptFunctionWrapper wrapper) {
         on(event, wrapper.getNativeFunction());
     }
     
     public final native void on(String event, JavaScriptFunction func) /*-{
         this.on(event, func);
+    }-*/;
+    
+    /**
+     * @param event
+     * @param wrapper
+     * @since 0.2.0
+     */
+    public final void once(String event, JavaScriptFunctionWrapper wrapper) {
+        once(event, wrapper.getNativeFunction());
+    }
+    
+    /**
+     * @param event
+     * @param func
+     * @since 0.2.0
+     */
+    public final native void once(String event, JavaScriptFunction func) /*-{
+        this.once(event, func);
     }-*/;
     
     public final void removeListener(String event, JavaScriptFunctionWrapper listener) {
@@ -59,18 +93,24 @@ public class EventEmitter extends JavaScriptObject {
         this.removeAllListeners(event);
     }-*/;
     
+    public final native void setMaxListeners(int n) /*-{
+        this.setMaxListeners(n);
+    }-*/;
+    
     public final native JsArray<JavaScriptFunction> listeners(String event) /*-{
         return this.listeners(event);
     }-*/;
     
     public final void emit(String event, Object... arguments) {
-        Object[] args = new Object[arguments.length + 1];
-        args[0] = event;
-        System.arraycopy(arguments, 0, args, 1, arguments.length);
+        JsArrayMixed args = JavaScriptObject.createArray().cast();
+        JavaScriptUtils.addToArray(args, event);
+        for (Object argument : arguments) {
+            JavaScriptUtils.addToArray(args, argument);
+        }
         emitNative(args);
     }
     
-    private final native void emitNative(Object... arguments) /*-{
+    private final native void emitNative(JsArrayMixed arguments) /*-{
         this.emit.apply(this, arguments);
     }-*/;
 }

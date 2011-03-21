@@ -99,4 +99,23 @@ public class Socket extends EventEmitter {
     public final native void setTTL(int ttl) /*-{
         this.setTTL(ttl);
     }-*/;
+    
+    public final native void setMulticastTTL(int ttl) /*-{
+        this.setMulticastTTL(ttl);
+    }-*/;
+    
+    public final native void setMulticastLoopback(int flag) /*-{
+        this.setMulticastLoopback(flag);
+    }-*/;
+    
+    //TODO: check the parameter types of these methods
+    //  and figure out what multicastInterface represents
+
+    public final native void addMembership(String multicastAddress) /*-{
+        this.addMembership(multicastAddress);
+    }-*/;
+    
+    public final native void dropMembership(String multicastAddress) /*-{
+        this.dropMembership(multicastAddress);
+    }-*/;
 }

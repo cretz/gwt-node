@@ -24,7 +24,7 @@ import com.google.gwt.core.client.JavaScriptObject;
 
 /**
  * The node.js
- * <a href="http://nodejs.org/docs/v0.2.6/api.html#dgram-267">dgram</a>
+ * <a href="http://nodejs.org/docs/v0.4.3/api/dgram.html">dgram</a>
  * module.
  * 
  * @author Chad Retz

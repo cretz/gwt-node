@@ -20,13 +20,13 @@ import org.cretz.gwtnode.client.node.Global;
 import org.cretz.gwtnode.client.node.NodeJsError;
 import org.cretz.gwtnode.client.node.buffer.Buffer;
 import org.cretz.gwtnode.client.node.event.BooleanEventHandler;
-import org.cretz.gwtnode.client.node.fs.BufferFsEventHandler;
+import org.cretz.gwtnode.client.node.fs.BufferEventHandler;
 import org.cretz.gwtnode.client.node.fs.Fs;
 import org.cretz.gwtnode.client.node.http.ServerRequest;
 import org.cretz.gwtnode.client.node.http.ServerResponse;
 import org.cretz.gwtnode.client.node.path.Path;
-import org.cretz.gwtnode.client.node.sys.Sys;
 import org.cretz.gwtnode.client.node.url.Url;
+import org.cretz.gwtnode.client.node.util.Util;
 
 /**
  * Handler for an individual request
@@ -84,7 +84,7 @@ class HttpRequestHandler {
                 @Override
                 protected void onEvent(boolean value) {
                     if (!value) {
-                        Sys.get().log("Can't find path: " + path);
+                        Util.get().log("Can't find path: " + path);
                         handleException(new HttpServerException(404, "Not found"));
                     } else {
                         //oh it does exist? word...
@@ -99,8 +99,8 @@ class HttpRequestHandler {
 
     private void sendFile() {
         //let's start the writing
-        Sys.get().log("Writing file: " + path);
-        Fs.get().readFile(path, new BufferFsEventHandler() {
+        Util.get().log("Writing file: " + path);
+        Fs.get().readFile(path, new BufferEventHandler() {
             @Override
             public void onEvent(NodeJsError error, Buffer buffer) {
                 if (error != null) {
@@ -137,7 +137,7 @@ class HttpRequestHandler {
     }
 
     private void handleException(Exception e) {
-        Sys.get().log("Error: " + e);
+        Util.get().log("Error: " + e);
         int code;
         String message;
         if (e instanceof HttpServerException) {

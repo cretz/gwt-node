@@ -22,6 +22,13 @@ import org.cretz.gwtnode.client.node.NodeJsModule;
 
 import com.google.gwt.core.client.JavaScriptObject;
 
+/**
+ * The node.js
+ * <a href="http://nodejs.org/docs/v0.4.3/api/net.html">net</a>
+ * module.
+ * 
+ * @author Chad Retz
+ */
 public class Net extends JavaScriptObject implements NodeJsModule {
 
     private static Net instance;
@@ -48,11 +55,53 @@ public class Net extends JavaScriptObject implements NodeJsModule {
         return this.createServer(connectionListener);
     }-*/;
     
-    public final native Stream createConnection(int port) /*-{
+    /**
+     * @param allowHalfOpen
+     * @param connectionListener
+     * @return
+     * @since 0.2.0
+     */
+    public final Server createServer(boolean allowHalfOpen,
+            StreamEventHandler connectionListener) {
+        return createServer(allowHalfOpen, connectionListener.getNativeFunction());
+    }
+    
+    /**
+     * @param allowHalfOpen
+     * @param connectionListener
+     * @return
+     * @since 0.2.0
+     */
+    public final Server createServer(boolean allowHalfOpen,
+            JavaScriptFunctionWrapper connectionListener) {
+        return createServer(allowHalfOpen, connectionListener.getNativeFunction());
+    }
+    
+    /**
+     * @param allowHalfOpen
+     * @param connectionListener
+     * @return
+     * @since 0.2.0
+     */
+    public final native Server createServer(boolean allowHalfOpen,
+            JavaScriptFunction connectionListener) /*-{
+        return this.createServer(allowHalfOpen, connectionListener);
+    }-*/;
+    
+    public final native Socket createConnection(int port) /*-{
         return this.createConnection(port);
     }-*/;
     
-    public final native Stream createConnection(int port, String host) /*-{
+    public final native Socket createConnection(int port, String host) /*-{
         return this.createConnection(port, host);
+    }-*/;
+    
+    /**
+     * @param path
+     * @return
+     * @since 0.2.0
+     */
+    public final native Socket createConnection(String path) /*-{
+        return this.createConnection(path);
     }-*/;
 }

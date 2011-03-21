@@ -33,8 +33,6 @@ public class Server extends EventEmitter {
         on("close", handler);
     }
     
-    //server.listen(port, [host], [callback])
-    
     public final native void listen(int port) /*-{
         this.listen(port);
     }-*/;
@@ -85,6 +83,21 @@ public class Server extends EventEmitter {
     
     public final native void listenFD(int fd) /*-{
         this.listenFD(fd);
+    }-*/;
+    
+    /**
+     * @since 0.2.0
+     */
+    public final native void close() /*-{
+        this.close();
+    }-*/;
+    
+    /**
+     * @return
+     * @since 0.2.0
+     */
+    public final native String address() /*-{
+        return this.address();
     }-*/;
     
     public final native int maxConnections() /*-{

@@ -25,4 +25,11 @@ public class ClientRequest extends WriteableStream {
     public final void onResponse(ClientResponseEventHandler handler) {
         on("response", handler);
     }
+    
+    /**
+     * @since 0.2.0
+     */
+    public final native void abort() /*-{
+        this.abort();
+    }-*/;
 }

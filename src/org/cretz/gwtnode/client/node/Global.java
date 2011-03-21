@@ -22,8 +22,8 @@ import com.google.gwt.core.client.JsArrayString;
 
 /**
  * The node.js
- * <a href="http://nodejs.org/docs/v0.2.6/api.html#global-objects-44">Global</a>
- * namespace
+ * <a href="http://nodejs.org/docs/v0.4.3/api/globals.html#global">blobal</a>
+ * namespace.
  * 
  * @author Chad Retz
  */
@@ -42,6 +42,15 @@ public class Global extends JavaScriptObject {
     
     public final native <T extends JavaScriptObject & NodeJsModule> T require(String name) /*-{
         return require(name);
+    }-*/;
+    
+    /**
+     * @param name
+     * @return
+     * @since 0.2.0
+     */
+    public final native String requireResolve(String name) /*-{
+        return require.resolve(name);
     }-*/;
     
     public final native JsArrayString requirePaths() /*-{

@@ -26,6 +26,12 @@ import org.cretz.gwtnode.client.node.stream.WriteableStream;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArrayString;
 
+/**
+ * The node.js
+ * <a href="http://nodejs.org/docs/v0.4.3/api/fs.html">fs</a> module.
+ * 
+ * @author Chad Retz
+ */
 public class Fs extends JavaScriptObject implements NodeJsModule {
 
     private static Fs instance;
@@ -117,7 +123,7 @@ public class Fs extends JavaScriptObject implements NodeJsModule {
         stat(path, callback.getNativeFunction());
     }
     
-    public final void stat(String path, StatFsEventHandler callback) {
+    public final void stat(String path, StatEventHandler callback) {
         stat(path, callback.getNativeFunction());
     }
     
@@ -133,7 +139,7 @@ public class Fs extends JavaScriptObject implements NodeJsModule {
         lstat(path, callback.getNativeFunction());
     }
     
-    public final void lstat(String path, StatFsEventHandler callback) {
+    public final void lstat(String path, StatEventHandler callback) {
         lstat(path, callback.getNativeFunction());
     }
     
@@ -149,7 +155,7 @@ public class Fs extends JavaScriptObject implements NodeJsModule {
         fstat(fd, callback.getNativeFunction());
     }
     
-    public final void fstat(int fd, StatFsEventHandler callback) {
+    public final void fstat(int fd, StatEventHandler callback) {
         fstat(fd, callback.getNativeFunction());
     }
     
@@ -223,7 +229,7 @@ public class Fs extends JavaScriptObject implements NodeJsModule {
         readlink(path, callback.getNativeFunction());
     }
     
-    public final void readlink(String path, PathFsEventHandler callback) {
+    public final void readlink(String path, PathEventHandler callback) {
         readlink(path, callback.getNativeFunction());
     }
     
@@ -243,7 +249,7 @@ public class Fs extends JavaScriptObject implements NodeJsModule {
         realpath(path, callback.getNativeFunction());
     }
     
-    public final void realpath(String path, PathFsEventHandler callback) {
+    public final void realpath(String path, PathEventHandler callback) {
         realpath(path, callback.getNativeFunction());
     }
     
@@ -303,7 +309,7 @@ public class Fs extends JavaScriptObject implements NodeJsModule {
         mkdir(path, mode, callback.getNativeFunction());
     }
     
-    public final void mkdir(String path, int mode, PathFsEventHandler callback) {
+    public final void mkdir(String path, int mode, PathEventHandler callback) {
         mkdir(path, mode, callback.getNativeFunction());
     }
     
@@ -323,7 +329,7 @@ public class Fs extends JavaScriptObject implements NodeJsModule {
         readdir(path, callback.getNativeFunction());
     }
     
-    public final void readdir(String path, ReaddirFsEventHandler callback) {
+    public final void readdir(String path, ReaddirEventHandler callback) {
         readdir(path, callback.getNativeFunction());
     }
     
@@ -365,7 +371,7 @@ public class Fs extends JavaScriptObject implements NodeJsModule {
     }
 
     public final void open(String path, String flags, int mode,
-            FileDescriptorFsEventHandler callback) {
+            FileDescriptorEventHandler callback) {
         open(path, flags, mode, callback.getNativeFunction());
     }
 
@@ -388,7 +394,7 @@ public class Fs extends JavaScriptObject implements NodeJsModule {
     }
 
     public final void open(String path, String flags,
-            FileDescriptorFsEventHandler callback) {
+            FileDescriptorEventHandler callback) {
         open(path, flags, callback.getNativeFunction());
     }
 
@@ -412,7 +418,7 @@ public class Fs extends JavaScriptObject implements NodeJsModule {
     }
     
     public final void write(int fd, Buffer buffer, int offset,
-            int length, Integer position, ByteCountFsEventHandler callback) {
+            int length, Integer position, ByteCountEventHandler callback) {
         write(fd, buffer, offset, length, position, callback.getNativeFunction());
     }
     
@@ -446,7 +452,7 @@ public class Fs extends JavaScriptObject implements NodeJsModule {
     }
     
     public final void read(int fd, Buffer buffer, int offset,
-            int length, Integer position, ByteCountFsEventHandler callback) {
+            int length, Integer position, ByteCountEventHandler callback) {
         read(fd, buffer, offset, length, position, callback.getNativeFunction());
     }
     
@@ -475,7 +481,7 @@ public class Fs extends JavaScriptObject implements NodeJsModule {
     }
 
     public final void readFile(String filename, String encoding,
-            StringFsEventHandler callback) {
+            StringEventHandler callback) {
         readFile(filename, encoding, callback.getNativeFunction());
     }
     
@@ -498,7 +504,7 @@ public class Fs extends JavaScriptObject implements NodeJsModule {
     }
 
     public final void readFile(String filename,
-            BufferFsEventHandler callback) {
+            BufferEventHandler callback) {
         readFile(filename, callback.getNativeFunction());
     }
     
@@ -646,7 +652,7 @@ public class Fs extends JavaScriptObject implements NodeJsModule {
         return this.createReadStream(path, options);
     }-*/;
     
-    //TODO: open
+    //TODO: open event on the stream
 
     public final native WriteableStream createWriteStream(String path) /*-{
         return this.createWriteStream(path);

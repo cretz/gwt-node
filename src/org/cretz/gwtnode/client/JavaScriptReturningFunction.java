@@ -16,6 +16,7 @@
 package org.cretz.gwtnode.client;
 
 import com.google.gwt.core.client.JavaScriptObject;
+import com.google.gwt.core.client.JsArrayMixed;
 
 /**
  * Simple wrapper for a native JavaScript function that returns a value
@@ -26,6 +27,11 @@ public class JavaScriptReturningFunction<T> extends JavaScriptObject {
 
     protected JavaScriptReturningFunction() {
     }
+    
+
+    public final T apply(Object... arguments) {
+        return apply(JavaScriptUtils.toMixedArray(arguments));
+    }
    
     /**
      * Call this function using 
@@ -34,9 +40,13 @@ public class JavaScriptReturningFunction<T> extends JavaScriptObject {
      * 
      * @param arguments
      */
-    public final native T apply(Object... arguments) /*-{
+    public final native T apply(JsArrayMixed arguments) /*-{
         return this.apply(this, arguments);
     }-*/; 
+    
+    public final T applyLocal(Object newThis, Object... arguments) {
+        return applyLocal(newThis, JavaScriptUtils.toMixedArray(arguments));
+    }
     
     /**
      * Call this function using
@@ -46,7 +56,7 @@ public class JavaScriptReturningFunction<T> extends JavaScriptObject {
      * @param newThis
      * @param arguments
      */
-    public final native T applyLocal(Object newThis, Object... arguments) /*-{
+    public final native T applyLocal(Object newThis, JsArrayMixed arguments) /*-{
         return this.apply(newThis, arguments);
     }-*/;
 

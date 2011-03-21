@@ -17,15 +17,20 @@ package org.cretz.gwtnode.client.node.process;
 
 import org.cretz.gwtnode.client.JavaScriptFunction;
 import org.cretz.gwtnode.client.JavaScriptFunctionWrapper;
-import org.cretz.gwtnode.client.node.event.EventEmitter;
 import org.cretz.gwtnode.client.node.event.ErrorEventHandler;
+import org.cretz.gwtnode.client.node.event.EventEmitter;
 import org.cretz.gwtnode.client.node.event.ParameterlessEventHandler;
-import org.cretz.gwtnode.client.node.stream.ReadableStream;
 import org.cretz.gwtnode.client.node.stream.WriteableStream;
 
-import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArrayString;
 
+/**
+ * The node.js 
+ * <a href="http://nodejs.org/docs/v0.4.3/api/process.html">process</a>
+ * global object.
+ * 
+ * @author Chad Retz
+ */
 public class Process extends EventEmitter {
     
     public static final native Process get() /*-{
@@ -51,8 +56,12 @@ public class Process extends EventEmitter {
         return this.stdout;
     }-*/;
     
-    public final native ReadableStream openStdin() /*-{
-        return this.openStdin();
+    /**
+     * @return
+     * @since 0.2.0
+     */
+    public final native WriteableStream stderr() /*-{
+        return this.stderr;
     }-*/;
     
     public final native JsArrayString argv() /*-{
@@ -65,10 +74,6 @@ public class Process extends EventEmitter {
     
     public final native void chdir(String dir) /*-{
         this.chdir(dir);
-    }-*/;
-    
-    public final native <T extends JavaScriptObject> T compile(String code, String filename) /*-{
-        return this.compile(code, filename);
     }-*/;
     
     public final native String cwd() /*-{

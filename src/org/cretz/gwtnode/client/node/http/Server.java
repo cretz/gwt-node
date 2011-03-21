@@ -17,9 +17,8 @@ package org.cretz.gwtnode.client.node.http;
 
 import org.cretz.gwtnode.client.JavaScriptFunction;
 import org.cretz.gwtnode.client.JavaScriptFunctionWrapper;
-import org.cretz.gwtnode.client.node.crypto.Credentials;
-import org.cretz.gwtnode.client.node.event.EventEmitter;
 import org.cretz.gwtnode.client.node.event.ErrorEventHandler;
+import org.cretz.gwtnode.client.node.event.EventEmitter;
 import org.cretz.gwtnode.client.node.net.StreamEventHandler;
 
 public class Server extends EventEmitter {
@@ -34,9 +33,17 @@ public class Server extends EventEmitter {
     public final void onConnection(StreamEventHandler handler) {
         on("connection", handler);
     }
-    
+
     public final void onClose(ServerCloseEventHandler handler) {
         on("close", handler);
+    }
+    
+    /**
+     * @param handler
+     * @since 0.2.0
+     */
+    public final void onCheckContinue(ServerRequestEventHandler handler) {
+        on("checkContinue", handler);
     }
     
     public final void onUpgrade(ServerUpgradeEventHandler handler) {
@@ -73,10 +80,6 @@ public class Server extends EventEmitter {
     
     public final native void listen(String path, JavaScriptFunction callback) /*-{
         this.listen(path, callback);
-    }-*/;
-    
-    public final native void setSecure(Credentials credentials) /*-{
-        this.setSecure(credentials);
     }-*/;
     
     public final native void close() /*-{

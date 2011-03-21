@@ -19,7 +19,7 @@ import org.cretz.gwtnode.client.JsonStringObjectMap;
 import org.cretz.gwtnode.client.node.event.EventEmitter;
 import org.cretz.gwtnode.client.node.event.ParameterlessEventHandler;
 import org.cretz.gwtnode.client.node.event.StringOrBufferEventHandler;
-import org.cretz.gwtnode.client.node.net.Stream;
+import org.cretz.gwtnode.client.node.net.Socket;
 
 import com.google.gwt.core.client.JavaScriptObject;
 
@@ -51,17 +51,17 @@ public class ServerRequest extends EventEmitter {
     public final native JavaScriptObject headers() /*-{
         return this.headers;
     }-*/;
+    
+    public final JsonStringObjectMap<String> trailerMap() {
+        return new JsonStringObjectMap<String>(trailers());
+    }
+
+    public final native JavaScriptObject trailers() /*-{
+        return this.trailers;
+    }-*/;
 
     public final native String httpVersion() /*-{
         return this.httpVersion;
-    }-*/;
-    
-    public final native int httpVersionMajor() /*-{
-        return this.httpVersionMajor;
-    }-*/;
-    
-    public final native int httpVersionMinor() /*-{
-        return this.httpVersionMinor;
     }-*/;
     
     public final native void setEncoding() /*-{
@@ -80,9 +80,8 @@ public class ServerRequest extends EventEmitter {
         this.resume();
     }-*/;
     
-    public final native Stream connection() /*-{
+    public final native Socket connection() /*-{
         this.connection;
     }-*/;
-    
     
 }

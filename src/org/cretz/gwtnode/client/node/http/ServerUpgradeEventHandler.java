@@ -18,17 +18,18 @@ package org.cretz.gwtnode.client.node.http;
 import org.cretz.gwtnode.client.JavaScriptFunctionArguments;
 import org.cretz.gwtnode.client.JavaScriptFunctionWrapper;
 import org.cretz.gwtnode.client.node.buffer.Buffer;
+import org.cretz.gwtnode.client.node.stream.Stream;
 
 public abstract class ServerUpgradeEventHandler extends JavaScriptFunctionWrapper {
 
     @Override
     public void call(JavaScriptFunctionArguments args) {
         onEvent((ServerRequest) args.get(0), 
-                (String) args.get(1),
+                (Stream) args.get(1),
                 (Buffer) args.get(2));
     }
     
-    protected abstract void onEvent(ServerRequest request, String socket,
+    protected abstract void onEvent(ServerRequest request, Stream socket,
             Buffer head);
 
 }

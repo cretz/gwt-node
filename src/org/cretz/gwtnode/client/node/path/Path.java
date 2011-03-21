@@ -17,6 +17,7 @@ package org.cretz.gwtnode.client.node.path;
 
 import org.cretz.gwtnode.client.JavaScriptFunction;
 import org.cretz.gwtnode.client.JavaScriptFunctionWrapper;
+import org.cretz.gwtnode.client.JavaScriptUtils;
 import org.cretz.gwtnode.client.node.Global;
 import org.cretz.gwtnode.client.node.NodeJsModule;
 import org.cretz.gwtnode.client.node.event.BooleanEventHandler;
@@ -24,6 +25,13 @@ import org.cretz.gwtnode.client.node.event.BooleanEventHandler;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArrayString;
 
+/**
+ * The node.js
+ * <a href="http://nodejs.org/docs/v0.4.3/api/path.html">path</a>
+ * module.
+ * 
+ * @author Chad Retz
+ */
 public class Path extends JavaScriptObject implements NodeJsModule {
 
     private static Path instance;
@@ -38,20 +46,30 @@ public class Path extends JavaScriptObject implements NodeJsModule {
     protected Path() {
     }
     
-    public final native String join(String... paths) /*-{
-        return this.join.apply(this, paths);
-    }-*/;
+    public final String join(String... paths) {
+        return join(JavaScriptUtils.toStringArray(paths));
+    }
     
     public final native String join(JsArrayString paths) /*-{
         return this.join.apply(this, paths);
     }-*/;
     
-    public final native String[] normalizeArray(String... arr) /*-{
-        return this.normalizeArray.apply(this, arr);
-    }-*/;
+    /**
+     * @param to
+     * @return
+     * @since 0.2.0
+     */
+    public final String resolve(String... to) {
+        return resolve(JavaScriptUtils.toStringArray(to));
+    }
     
-    public final native JsArrayString normalizeArray(JsArrayString arr) /*-{
-        return this.normalizeArray.apply(this, arr);
+    /**
+     * @param to
+     * @return
+     * @since 0.2.0
+     */
+    public final native String resolve(JsArrayString to) /*-{
+        return this.resolve.apply(this, to)
     }-*/;
     
     public final native String normalize(String p) /*-{

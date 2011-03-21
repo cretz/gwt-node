@@ -20,7 +20,7 @@ import java.util.Map.Entry;
 import org.cretz.gwtnode.client.node.http.ServerRequest;
 import org.cretz.gwtnode.client.node.http.ServerRequestEventHandler;
 import org.cretz.gwtnode.client.node.http.ServerResponse;
-import org.cretz.gwtnode.client.node.sys.Sys;
+import org.cretz.gwtnode.client.node.util.Util;
 
 /**
  * A crude listener for HTTP requests. THIS IS NOT A SECURE WEB SERVER!
@@ -44,7 +44,7 @@ class HttpServerListener extends ServerRequestEventHandler {
             builder.append("  ").append(header.getKey()).append(" : ").
                     append(header.getValue()).append('\n');
         }
-        Sys.get().log(builder.toString());
+        Util.get().log(builder.toString());
     }
 
     @Override

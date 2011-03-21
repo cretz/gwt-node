@@ -15,15 +15,24 @@
  */
 package org.cretz.gwtnode.client.node.http;
 
+import org.cretz.gwtnode.client.JavaScriptUtils;
 import org.cretz.gwtnode.client.JsonStringObjectMap;
 import org.cretz.gwtnode.client.node.stream.WriteableStream;
 
 import com.google.gwt.core.client.JavaScriptObject;
+import com.google.gwt.core.client.JsArrayString;
 
 public class ServerResponse extends WriteableStream {
 
     protected ServerResponse() {
     }
+    
+    /**
+     * @since 0.2.0
+     */
+    public final native void writeContinue() /*-{
+        this.writeContinue();
+    }-*/;
 
     public final native void writeHead(int statusCode) /*-{
         this.writeHead(statusCode);
@@ -49,5 +58,73 @@ public class ServerResponse extends WriteableStream {
     public final native void writeHead(int statusCode, String reasonPhrase,
             JavaScriptObject headers) /*-{
         this.writeHead(statusCode, reasonPhrase, headers);
+    }-*/;
+    
+    /**
+     * @param statusCode
+     * @since 0.2.0
+     */
+    public final native void statusCode(int statusCode) /*-{
+        this.statusCode = statusCode;
+    }-*/;
+    
+    /**
+     * @param name
+     * @param value
+     * @since 0.2.0
+     */
+    public final native void setHeader(String name, String value) /*-{
+        this.setHeader(name, value);
+    }-*/;
+    
+    /**
+     * @param name
+     * @param value
+     * @since 0.2.0
+     */
+    public final void setHeader(String name, String... value) {
+        setHeader(name, JavaScriptUtils.toStringArray(value));
+    }
+    
+    /**
+     * @param name
+     * @param value
+     * @since 0.2.0
+     */
+    public final native void setHeader(String name, JsArrayString value) /*-{
+        this.setHeader(name, value);
+    }-*/;
+
+    /**
+     * @param name
+     * @return
+     * @since 0.2.0
+     */
+    public final native JsArrayString getHeader(String name) /*-{
+        return this.getHeader(name);
+    }-*/;
+    
+    /**
+     * @param name
+     * @since 0.2.0
+     */
+    public final native void removeHeader(String name) /*-{
+        this.removeHeader(name);
+    }-*/;
+    
+    /**
+     * @param trailers
+     * @since 0.2.0
+     */
+    public final void addTrailers(JsonStringObjectMap<String> trailers) {
+        addTrailers(trailers.getNativeObject());
+    }
+    
+    /**
+     * @param trailers
+     * @since 0.2.0
+     */
+    public final native void addTrailers(JavaScriptObject trailers) /*-{
+        this.writeHead(trailers);
     }-*/;
 }

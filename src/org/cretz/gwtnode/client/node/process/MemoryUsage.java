@@ -16,7 +16,6 @@
 package org.cretz.gwtnode.client.node.process;
 
 import com.google.gwt.core.client.JavaScriptObject;
-import com.google.gwt.core.client.UnsafeNativeLong;
 
 /**
  * A node.js memory usage object as returned by
@@ -29,23 +28,19 @@ public class MemoryUsage extends JavaScriptObject {
     protected MemoryUsage() {
     }
     
-    @UnsafeNativeLong
-    public final native long rss() /*-{
+    public final native double rss() /*-{
         return this.rss;
     }-*/;
 
-    @UnsafeNativeLong
-    public final native long vsize() /*-{
+    public final native double vsize() /*-{
         return this.vsize;
     }-*/;
 
-    @UnsafeNativeLong
-    public final native long heapTotal() /*-{
+    public final native double heapTotal() /*-{
         return this.heapTotal;
     }-*/;
 
-    @UnsafeNativeLong
-    public final native long heapUsed() /*-{
+    public final native double heapUsed() /*-{
         return this.heapUsed;
     }-*/;
 }

@@ -22,7 +22,7 @@ import com.google.gwt.core.client.JavaScriptObject;
 
 /**
  * The node.js
- * <a href="http://nodejs.org/docs/v0.2.6/api.html#crypto-238">Crypto</a>
+ * <a href="http://nodejs.org/docs/v0.4.3/api/crypto.html">Crypto</a>
  * module.
  * 
  * @author Chad Retz

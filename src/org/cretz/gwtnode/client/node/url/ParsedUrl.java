@@ -52,8 +52,12 @@ public class ParsedUrl extends JavaScriptObject {
         return this.pathname;
     }-*/;
     
-    public final native String string() /*-{
-        return this.string;
+    /**
+     * @return
+     * @since 0.2.0
+     */
+    public final native String search() /*-{
+        return this.search;
     }-*/;
     
     public final JsonStringObjectMap<String[]> queryMap() {

@@ -16,7 +16,7 @@
 package org.cretz.gwtnode.examples.features.client;
 
 import org.cretz.gwtnode.client.node.process.Process;
-import org.cretz.gwtnode.client.node.sys.Sys;
+import org.cretz.gwtnode.client.node.util.Util;
 import org.cretz.gwtnode.examples.features.client.feature.ClientBundleFeature;
 import org.cretz.gwtnode.examples.features.client.feature.FormatFeature;
 import org.cretz.gwtnode.examples.features.client.feature.HttpFeature;
@@ -44,10 +44,10 @@ public class FeaturesModule extends AbstractGinModule {
                 return Process.get();
             }
         }.getClass());
-        bind(Sys.class).toProvider(new Provider<Sys>() {
+        bind(Util.class).toProvider(new Provider<Util>() {
             @Override
-            public Sys get() {
-                return Sys.get();
+            public Util get() {
+                return Util.get();
             }
         }.getClass());
         

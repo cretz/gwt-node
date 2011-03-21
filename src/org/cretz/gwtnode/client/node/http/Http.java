@@ -19,10 +19,16 @@ import org.cretz.gwtnode.client.JavaScriptFunction;
 import org.cretz.gwtnode.client.JavaScriptFunctionWrapper;
 import org.cretz.gwtnode.client.node.Global;
 import org.cretz.gwtnode.client.node.NodeJsModule;
-import org.cretz.gwtnode.client.node.crypto.Credentials;
 
 import com.google.gwt.core.client.JavaScriptObject;
 
+/**
+ * The node.js
+ * <a href="http://nodejs.org/docs/v0.4.3/api/http.html">http</a>
+ * module.
+ * 
+ * @author Chad Retz
+ */
 public class Http extends JavaScriptObject implements NodeJsModule {
 
     private static Http instance;
@@ -49,20 +55,69 @@ public class Http extends JavaScriptObject implements NodeJsModule {
         return this.createServer(requestListener);
     }-*/;
     
-    public final native Client createClient(int port) /*-{
-        return this.createClient(port);
-    }-*/;
+    /**
+     * @param options
+     * @param callback
+     * @return
+     * @since 0.2.0
+     */
+    public final ClientRequest request(HttpRequestOptions options, 
+            ClientResponseEventHandler callback) {
+        return request(options, callback.getNativeFunction());
+    }
     
-    public final native Client createClient(int port, String host) /*-{
-        return this.createClient(port, host);
-    }-*/;
+    /**
+     * @param options
+     * @param callback
+     * @return
+     * @since 0.2.0
+     */
+    public final ClientRequest request(HttpRequestOptions options, 
+            JavaScriptFunctionWrapper callback) {
+        return request(options, callback.getNativeFunction());
+    }
     
-    public final native Client createClient(int port, String host, boolean secure) /*-{
-        return this.createClient(port, host, secure);
+    /**
+     * @param options
+     * @param callback
+     * @return
+     * @since 0.2.0
+     */
+    public final native ClientRequest request(HttpRequestOptions options,
+            JavaScriptFunction callback) /*-{
+        return this.request(options, callback);
     }-*/;
+
+    /**
+     * @param options
+     * @param callback
+     * @return
+     * @since 0.2.0
+     */
+    public final ClientRequest get(HttpRequestOptions options, 
+            ClientResponseEventHandler callback) {
+        return get(options, callback.getNativeFunction());
+    }
     
-    public final native Client createClient(int port, String host, 
-            boolean secure, Credentials credentials) /*-{
-        return this.createClient(port, host, secure, credentials);
+    /**
+     * @param options
+     * @param callback
+     * @return
+     * @since 0.2.0
+     */
+    public final ClientRequest get(HttpRequestOptions options, 
+            JavaScriptFunctionWrapper callback) {
+        return get(options, callback.getNativeFunction());
+    }
+    
+    /**
+     * @param options
+     * @param callback
+     * @return
+     * @since 0.2.0
+     */
+    public final native ClientRequest get(HttpRequestOptions options,
+            JavaScriptFunction callback) /*-{
+        return this.get(options, callback);
     }-*/;
 }

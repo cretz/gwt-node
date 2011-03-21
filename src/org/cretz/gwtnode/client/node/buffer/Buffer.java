@@ -15,11 +15,14 @@
  */
 package org.cretz.gwtnode.client.node.buffer;
 
+import org.cretz.gwtnode.client.JavaScriptUtils;
+
 import com.google.gwt.core.client.JavaScriptObject;
+import com.google.gwt.core.client.JsArrayInteger;
 
 /**
  * A node.js
- * <a href="http://nodejs.org/docs/v0.2.6/api.html#buffers-2">Buffer</a>
+ * <a href="http://nodejs.org/docs/v0.4.3/api/buffers.html">Buffer</a>
  * 
  * @author Chad Retz
  */
@@ -29,7 +32,11 @@ public class Buffer extends JavaScriptObject {
         return new Buffer(size);
     }-*/;
 
-    public static final native Buffer create(byte... array) /*-{
+    public static final Buffer create(byte... array) {
+        return create(JavaScriptUtils.toIntegerArray(array));
+    }
+    
+    public static final native Buffer create(JsArrayInteger array) /*-{
         return new Buffer(array);
     }-*/;
 
@@ -39,6 +46,15 @@ public class Buffer extends JavaScriptObject {
 
     public static final native Buffer create(String string, String encoding) /*-{
         return new Buffer(string, encoding);
+    }-*/;
+    
+    /**
+     * @param obj
+     * @return
+     * @since 0.2.0
+     */
+    public static final native boolean isBuffer(JavaScriptObject obj) /*-{
+        return Buffer.isBuffer(obj);
     }-*/;
     
     public static final native int byteLength(String string) /*-{

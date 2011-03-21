@@ -18,6 +18,11 @@ package org.cretz.gwtnode.client.node.stream;
 import org.cretz.gwtnode.client.node.buffer.Buffer;
 import org.cretz.gwtnode.client.node.event.ParameterlessEventHandler;
 
+/**
+ * A node.js
+ * <a href="http://nodejs.org/docs/v0.4.3/api/streams.html#writeable_Stream">WriteableStream</a>
+ * @author Chad Retz
+ */
 public class WriteableStream extends Stream {
     
     protected WriteableStream() {
@@ -25,6 +30,14 @@ public class WriteableStream extends Stream {
     
     public final void onDrain(ParameterlessEventHandler handler) {
         on("drain", handler);
+    }
+    
+    /**
+     * @param handler
+     * @since 0.2.0
+     */
+    public final void onPipe(PipeEventHandler handler) {
+        on("pipe", handler);
     }
     
     public final native boolean writeable() /*-{

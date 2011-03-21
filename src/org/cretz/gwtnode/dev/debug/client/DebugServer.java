@@ -20,9 +20,9 @@ import org.cretz.gwtnode.client.node.event.ParameterlessEventHandler;
 import org.cretz.gwtnode.client.node.event.StringOrBufferEventHandler;
 import org.cretz.gwtnode.client.node.net.Net;
 import org.cretz.gwtnode.client.node.net.Server;
-import org.cretz.gwtnode.client.node.net.Stream;
+import org.cretz.gwtnode.client.node.net.Socket;
 import org.cretz.gwtnode.client.node.net.StreamEventHandler;
-import org.cretz.gwtnode.client.node.sys.Sys;
+import org.cretz.gwtnode.client.node.util.Util;
 import org.cretz.gwtnode.dev.debug.client.jdwp.Packet;
 import org.cretz.gwtnode.dev.debug.client.jdwp.PacketFactory;
 
@@ -41,7 +41,7 @@ public class DebugServer {
     
     private boolean log;
     private Server server;
-    private Stream stream;
+    private Socket stream;
     private boolean suspended;
     
     private DebugServer() {
@@ -52,7 +52,7 @@ public class DebugServer {
         this.log = log;
         server = Net.get().createServer(new StreamEventHandler() {
             @Override
-            protected void onEvent(Stream stream) {
+            protected void onEvent(Socket stream) {
                 DebugServer.this.stream = stream;
                 //add handlers
                 stream.onConnect(new ParameterlessEventHandler() {
@@ -85,7 +85,7 @@ public class DebugServer {
     
     private void log(String string) {
         if (log) {
-            Sys.get().log(string);
+            Util.get().log(string);
         }
     }
     

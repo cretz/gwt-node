@@ -25,7 +25,7 @@ import com.google.gwt.core.client.JsArrayString;
 
 /**
  * The node.js
- * <a href="http://nodejs.org/docs/v0.2.6/api.html#child-processes-89">Child Process</a>
+ * <a href="http://nodejs.org/docs/v0.4.3/api/child_processes.html">Child Process</a>
  * module.
  * 
  * @author Chad Retz

@@ -16,7 +16,7 @@
 package org.cretz.gwtnode.examples.features.client.feature;
 
 import org.cretz.gwtnode.client.node.process.Process;
-import org.cretz.gwtnode.client.node.sys.Sys;
+import org.cretz.gwtnode.client.node.util.Util;
 
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.jsonp.client.JsonpRequestBuilder;
@@ -34,12 +34,12 @@ public class JsonpFeature implements Feature {
     //  doesn't mind if I use his key :-)
     private static final String URL = "http://www.google.com/uds/GwebSearch?lstkp=0&context=0&rsz=large&key=ABQIAAAAYtWO2s_klJQZgGk9oArIARTB9suGdOarCoAGySaRlJcFzsJRGxTWO1LlmU6_G0RYEf8P0-y3hppdfQ&v=0.1&q=node.js";
     
-    private final Sys sys;
+    private final Util util;
     private final Process process;
     
     @Inject
-    public JsonpFeature(Sys sys, Process process) {
-        this.sys = sys;
+    public JsonpFeature(Util util, Process process) {
+        this.util = util;
         this.process = process;
     }
 
@@ -54,7 +54,7 @@ public class JsonpFeature implements Feature {
 
             @Override
             public void onSuccess(JavaScriptObject result) {
-                process.stdout().write("JSONP request succeeded: " + sys.inspect(result));
+                process.stdout().write("JSONP request succeeded: " + util.inspect(result));
             }
         });
     }

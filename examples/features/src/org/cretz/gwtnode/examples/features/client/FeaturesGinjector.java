@@ -16,7 +16,7 @@
 package org.cretz.gwtnode.examples.features.client;
 
 import org.cretz.gwtnode.client.node.process.Process;
-import org.cretz.gwtnode.client.node.sys.Sys;
+import org.cretz.gwtnode.client.node.util.Util;
 import org.cretz.gwtnode.examples.features.client.feature.ClientBundleFeature;
 import org.cretz.gwtnode.examples.features.client.feature.FormatFeature;
 import org.cretz.gwtnode.examples.features.client.feature.HttpFeature;
@@ -35,7 +35,7 @@ public interface FeaturesGinjector extends Ginjector {
 
     //modules
     Process getProcess();
-    Sys getSys();
+    Util getUtil();
     
     //features
     ClientBundleFeature getClientBundleFeature();

@@ -21,7 +21,7 @@ import java.util.List;
 import org.cretz.gwtnode.client.GwtNodeBootstrap;
 import org.cretz.gwtnode.client.node.http.Http;
 import org.cretz.gwtnode.client.node.http.Server;
-import org.cretz.gwtnode.client.node.sys.Sys;
+import org.cretz.gwtnode.client.node.util.Util;
 
 /**
  * Simple HTTP server. THIS IS NOT A SECURE WEB SERVER
@@ -55,16 +55,16 @@ public class HttpServer extends GwtNodeBootstrap {
         try {
             port = Integer.parseInt(getArg(argList, "-port"));
         } catch (Exception e) {
-            Sys.get().log("Unable to obtain integer-based -port parameter");
+            Util.get().log("Unable to obtain integer-based -port parameter");
             return 1;
         }
         //get the host (not required)
         String host = getArg(argList, "-host");
         //start it up
-        Sys.get().log("Creating server");
+        Util.get().log("Creating server");
         HttpServerListener listener = new HttpServerListener();
         Server server = Http.get().createServer(listener);
-        Sys.get().log("Listening");
+        Util.get().log("Listening");
         if (host != null) {
             server.listen(port, host);
         } else {

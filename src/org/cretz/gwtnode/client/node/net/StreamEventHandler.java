@@ -22,8 +22,8 @@ public abstract class StreamEventHandler extends JavaScriptFunctionWrapper {
 
     @Override
     public void call(JavaScriptFunctionArguments args) {
-        onEvent((Stream) args.get(0));
+        onEvent((Socket) args.get(0));
     }
 
-    protected abstract void onEvent(Stream stream);
+    protected abstract void onEvent(Socket stream);
 }
