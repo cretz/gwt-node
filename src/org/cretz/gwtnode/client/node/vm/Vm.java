@@ -22,11 +22,10 @@ import com.google.gwt.core.client.JavaScriptObject;
 
 /**
  * The node.js
- * <a href="http://nodejs.org/docs/v0.4.3/api/vm.html">vm</a>
+ * <a href="http://nodejs.org/docs/v0.5.0/api/vm.html">vm</a>
  * module.
  * 
  * @author Chad Retz
- * @since 0.2.0
  */
 public class Vm extends JavaScriptObject implements NodeJsModule {
 

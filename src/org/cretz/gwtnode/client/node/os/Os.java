@@ -15,6 +15,7 @@
  */
 package org.cretz.gwtnode.client.node.os;
 
+import org.cretz.gwtnode.client.JsonStringObjectMap;
 import org.cretz.gwtnode.client.node.Global;
 import org.cretz.gwtnode.client.node.NodeJsModule;
 
@@ -24,7 +25,7 @@ import com.google.gwt.core.client.JsArrayNumber;
 
 /**
  * The node.js
- * <a href="http://nodejs.org/docs/v0.4.3/api/os.html">os</a>
+ * <a href="http://nodejs.org/docs/v0.5.0/api/os.html">os</a>
  * module.
  * 
  * @author Chad Retz
@@ -51,6 +52,14 @@ public class Os extends JavaScriptObject implements NodeJsModule {
         return this.type();
     }-*/;
 
+    public final native String platform() /*-{
+        return this.platform();
+    }-*/;
+
+    public final native String arch() /*-{
+        return this.arch();
+    }-*/;
+
     public final native String release() /*-{
         return this.release();
     }-*/;
@@ -73,5 +82,13 @@ public class Os extends JavaScriptObject implements NodeJsModule {
 
     public final native JsArray<Cpu> cpus() /*-{
         return this.cpus();
+    }-*/;
+    
+    public final JsonStringObjectMap<JsArray<NetworkInterfaceAddress>> getNetworkInterfacesMap() {
+        return new JsonStringObjectMap<JsArray<NetworkInterfaceAddress>>(getNetworkInterfaces());
+    }
+    
+    public final native JavaScriptObject getNetworkInterfaces() /*-{
+        return this.getNetworkInterfaces();
     }-*/;
 }

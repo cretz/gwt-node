@@ -20,6 +20,13 @@ import org.cretz.gwtnode.client.node.NodeJsModule;
 
 import com.google.gwt.core.client.JavaScriptObject;
 
+/**
+ * The node.js
+ * <a href="http://nodejs.org/docs/v0.5.0/api/url.html">url</a>
+ * module.
+ *
+ * @author Chad Retz
+ */
 public class Url extends JavaScriptObject implements NodeJsModule {
 
     private static Url instance;

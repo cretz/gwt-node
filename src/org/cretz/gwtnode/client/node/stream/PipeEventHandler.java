@@ -18,10 +18,6 @@ package org.cretz.gwtnode.client.node.stream;
 import org.cretz.gwtnode.client.JavaScriptFunctionArguments;
 import org.cretz.gwtnode.client.JavaScriptFunctionWrapper;
 
-/**
- * @author Chad Retz
- * @since 0.2.0
- */
 public abstract class PipeEventHandler extends JavaScriptFunctionWrapper {
     
     @Override

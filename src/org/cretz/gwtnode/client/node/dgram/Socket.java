@@ -114,8 +114,16 @@ public class Socket extends EventEmitter {
     public final native void addMembership(String multicastAddress) /*-{
         this.addMembership(multicastAddress);
     }-*/;
+
+    public final native void addMembership(String multicastAddress, String multicastInterface) /*-{
+        this.addMembership(multicastAddress, multicastInterface);
+    }-*/;
     
     public final native void dropMembership(String multicastAddress) /*-{
         this.dropMembership(multicastAddress);
+    }-*/;
+    
+    public final native void dropMembership(String multicastAddress, String multicastInterface) /*-{
+        this.dropMembership(multicastAddress, multicastInterface);
     }-*/;
 }

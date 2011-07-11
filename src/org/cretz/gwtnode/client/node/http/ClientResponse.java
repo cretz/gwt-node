@@ -33,6 +33,14 @@ public class ClientResponse extends ReadableStream {
         return this.httpVersion;
     }-*/;
     
+    public final native int httpVersionMajor() /*-{
+        return this.httpVersionMajor;
+    }-*/;
+    
+    public final native int httpVersionMinor() /*-{
+        return this.httpVersionMinor;
+    }-*/;
+    
     public final JsonStringObjectMap<String> headerMap() {
         return new JsonStringObjectMap<String>(headers());
     }
@@ -40,19 +48,11 @@ public class ClientResponse extends ReadableStream {
     public final native JavaScriptObject headers() /*-{
         return this.headers;
     }-*/;
-    
-    /**
-     * @return
-     * @since 0.2.0
-     */
+
     public final JsonStringObjectMap<String> trailersMap() {
         return new JsonStringObjectMap<String>(trailers());
     }
 
-    /**
-     * @return
-     * @since 0.2.0
-     */
     public final native JavaScriptObject trailers() /*-{
         return this.trailers;
     }-*/;

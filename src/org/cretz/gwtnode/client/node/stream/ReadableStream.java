@@ -15,13 +15,16 @@
  */
 package org.cretz.gwtnode.client.node.stream;
 
+import org.cretz.gwtnode.client.JsonStringObjectMap;
 import org.cretz.gwtnode.client.node.event.FileDescriptorEventHandler;
 import org.cretz.gwtnode.client.node.event.ParameterlessEventHandler;
 import org.cretz.gwtnode.client.node.event.StringOrBufferEventHandler;
 
+import com.google.gwt.core.client.JavaScriptObject;
+
 /**
  * A node.js
- * <a href="http://nodejs.org/docs/v0.4.3/api/streams.html#readable_Stream">ReadableStream</a>
+ * <a href="http://nodejs.org/docs/v0.5.0/api/streams.html#readable_Stream">ReadableStream</a>
  * 
  * @author Chad Retz
  */
@@ -57,28 +60,20 @@ public class ReadableStream extends Stream {
     public final native void resume() /*-{
         this.resume();
     }-*/;
-    
-    /**
-     * @since 0.2.0
-     */
-    public final native void destroySoon() /*-{
-        this.destroySoon();
-    }-*/;
-    
-    /**
-     * @param destination
-     * @since 0.2.0
-     */
+
     public final native void pipe(WriteableStream destination) /*-{
         this.pipe(destination);
     }-*/;
     
-    /**
-     * @param destination
-     * @param end
-     * @since 0.2.0
-     */
     public final native void pipe(WriteableStream destination, boolean end) /*-{
-        this.pipe(destination, end);
+        this.pipe(destination, {'end' : end });
+    }-*/;
+    
+    public final void pipe(WriteableStream destination, JsonStringObjectMap<?> map) {
+        pipe(destination, map.getNativeObject());
+    }
+    
+    public final native void pipe(WriteableStream destination, JavaScriptObject options) /*-{
+        this.pipe(destination, options);
     }-*/;
 }

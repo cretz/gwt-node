@@ -16,13 +16,14 @@
 package org.cretz.gwtnode.client.node;
 
 import org.cretz.gwtnode.client.node.process.Process;
+import org.cretz.gwtnode.client.node.stdio.Console;
 
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArrayString;
 
 /**
  * The node.js
- * <a href="http://nodejs.org/docs/v0.4.3/api/globals.html#global">blobal</a>
+ * <a href="http://nodejs.org/docs/v0.5.0/api/globals.html">global</a>
  * namespace.
  * 
  * @author Chad Retz
@@ -36,21 +37,24 @@ public class Global extends JavaScriptObject {
     protected Global() {
     }
     
-    public final native Process process() /*-{
-        return process;
-    }-*/;
+    public final Process process() {
+        return Process.get();
+    }
+    
+    public final Console console() {
+        return Console.get();
+    }
     
     public final native <T extends JavaScriptObject & NodeJsModule> T require(String name) /*-{
         return require(name);
     }-*/;
     
-    /**
-     * @param name
-     * @return
-     * @since 0.2.0
-     */
     public final native String requireResolve(String name) /*-{
         return require.resolve(name);
+    }-*/;
+    
+    public final native <T extends JavaScriptObject> T requireCache() /*-{
+        return require.cache;
     }-*/;
     
     public final native JsArrayString requirePaths() /*-{

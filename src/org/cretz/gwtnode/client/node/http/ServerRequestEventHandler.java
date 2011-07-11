@@ -18,7 +18,6 @@ package org.cretz.gwtnode.client.node.http;
 import org.cretz.gwtnode.client.JavaScriptFunctionArguments;
 import org.cretz.gwtnode.client.JavaScriptFunctionWrapper;
 
-
 public abstract class ServerRequestEventHandler extends JavaScriptFunctionWrapper {
 
     @Override

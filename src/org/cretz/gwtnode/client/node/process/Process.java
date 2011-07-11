@@ -26,7 +26,7 @@ import com.google.gwt.core.client.JsArrayString;
 
 /**
  * The node.js 
- * <a href="http://nodejs.org/docs/v0.4.3/api/process.html">process</a>
+ * <a href="http://nodejs.org/docs/v0.5.0/api/process.html">process</a>
  * global object.
  * 
  * @author Chad Retz
@@ -56,10 +56,6 @@ public class Process extends EventEmitter {
         return this.stdout;
     }-*/;
     
-    /**
-     * @return
-     * @since 0.2.0
-     */
     public final native WriteableStream stderr() /*-{
         return this.stderr;
     }-*/;
@@ -128,9 +124,9 @@ public class Process extends EventEmitter {
         process.kill(pid);
     }-*/;
     
-    public final void kill(int pid, String signal) {
-        kill(pid, signal);
-    }
+    public final native void kill(int pid, String signal) /*-{
+        process.kill(pid, signal);
+    }-*/;
     
     public final native int pid() /*-{
         return process.pid;
@@ -142,6 +138,10 @@ public class Process extends EventEmitter {
     
     public final native void title(String title) /*-{
         process.title = title;
+    }-*/;
+    
+    public final native String arch() /*-{
+        return process.arch;
     }-*/;
     
     public final native String platform() /*-{
@@ -170,5 +170,10 @@ public class Process extends EventEmitter {
     
     public final native int umask(int mask) /*-{
         return process.umask(mask);
+    }-*/;
+
+    //TODO: should return a long?
+    public final native int uptime() /*-{
+        return process.uptime();
     }-*/;
 }

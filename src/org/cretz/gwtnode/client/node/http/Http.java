@@ -24,7 +24,7 @@ import com.google.gwt.core.client.JavaScriptObject;
 
 /**
  * The node.js
- * <a href="http://nodejs.org/docs/v0.4.3/api/http.html">http</a>
+ * <a href="http://nodejs.org/docs/v0.5.0/api/http.html">http</a>
  * module.
  * 
  * @author Chad Retz
@@ -43,6 +43,10 @@ public class Http extends JavaScriptObject implements NodeJsModule {
     protected Http() {
     }
     
+    public final native Server createServer() /*-{
+        return this.createServer();
+    }-*/;
+    
     public final Server createServer(JavaScriptFunctionWrapper requestListener) {
         return createServer(requestListener.getNativeFunction());
     }
@@ -54,70 +58,38 @@ public class Http extends JavaScriptObject implements NodeJsModule {
     public final native Server createServer(JavaScriptFunction requestListener) /*-{
         return this.createServer(requestListener);
     }-*/;
-    
-    /**
-     * @param options
-     * @param callback
-     * @return
-     * @since 0.2.0
-     */
+
     public final ClientRequest request(HttpRequestOptions options, 
             ClientResponseEventHandler callback) {
         return request(options, callback.getNativeFunction());
     }
-    
-    /**
-     * @param options
-     * @param callback
-     * @return
-     * @since 0.2.0
-     */
+
     public final ClientRequest request(HttpRequestOptions options, 
             JavaScriptFunctionWrapper callback) {
         return request(options, callback.getNativeFunction());
     }
-    
-    /**
-     * @param options
-     * @param callback
-     * @return
-     * @since 0.2.0
-     */
+
     public final native ClientRequest request(HttpRequestOptions options,
             JavaScriptFunction callback) /*-{
         return this.request(options, callback);
     }-*/;
 
-    /**
-     * @param options
-     * @param callback
-     * @return
-     * @since 0.2.0
-     */
     public final ClientRequest get(HttpRequestOptions options, 
             ClientResponseEventHandler callback) {
         return get(options, callback.getNativeFunction());
     }
-    
-    /**
-     * @param options
-     * @param callback
-     * @return
-     * @since 0.2.0
-     */
+
     public final ClientRequest get(HttpRequestOptions options, 
             JavaScriptFunctionWrapper callback) {
         return get(options, callback.getNativeFunction());
     }
-    
-    /**
-     * @param options
-     * @param callback
-     * @return
-     * @since 0.2.0
-     */
+
     public final native ClientRequest get(HttpRequestOptions options,
             JavaScriptFunction callback) /*-{
         return this.get(options, callback);
+    }-*/;
+    
+    public final native Agent getAgent(AgentOptions options) /*-{
+        return this.getAgent(options);
     }-*/;
 }

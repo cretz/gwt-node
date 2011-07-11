@@ -27,7 +27,7 @@ import com.google.gwt.core.client.JsArrayString;
 
 /**
  * The node.js
- * <a href="http://nodejs.org/docs/v0.4.3/api/path.html">path</a>
+ * <a href="http://nodejs.org/docs/v0.5.0/api/path.html">path</a>
  * module.
  * 
  * @author Chad Retz
@@ -53,21 +53,11 @@ public class Path extends JavaScriptObject implements NodeJsModule {
     public final native String join(JsArrayString paths) /*-{
         return this.join.apply(this, paths);
     }-*/;
-    
-    /**
-     * @param to
-     * @return
-     * @since 0.2.0
-     */
+
     public final String resolve(String... to) {
         return resolve(JavaScriptUtils.toStringArray(to));
     }
-    
-    /**
-     * @param to
-     * @return
-     * @since 0.2.0
-     */
+
     public final native String resolve(JsArrayString to) /*-{
         return this.resolve.apply(this, to)
     }-*/;
@@ -92,8 +82,8 @@ public class Path extends JavaScriptObject implements NodeJsModule {
         return this.extname(p);
     }-*/;
     
-    public final native boolean exists(String p) /*-{
-        return this.exists(p);
+    public final native void exists(String p) /*-{
+        this.exists(p);
     }-*/;
     
     public final void exists(String p, BooleanEventHandler callback) {
@@ -105,6 +95,10 @@ public class Path extends JavaScriptObject implements NodeJsModule {
     }
     
     public final native void exists(String p, JavaScriptFunction callback) /*-{
-        return this.exists(p, callback);
+        this.exists(p, callback);
+    }-*/;
+    
+    public final native boolean existsSync(String p) /*-{
+        return this.exists(p);
     }-*/;
 }

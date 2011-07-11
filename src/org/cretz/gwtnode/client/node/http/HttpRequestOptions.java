@@ -19,7 +19,6 @@ import com.google.gwt.core.client.JavaScriptObject;
 
 /**
  * @author Chad Retz
- * @since 0.2.0
  */
 public class HttpRequestOptions extends JavaScriptObject {
     

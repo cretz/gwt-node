@@ -26,7 +26,6 @@ import org.cretz.gwtnode.client.node.event.StringOrBufferEventHandler;
 
 /**
  * @author Chad Retz
- * @since 0.2.0
  */
 public class Socket extends EventEmitter {
 
@@ -103,10 +102,6 @@ public class Socket extends EventEmitter {
     
     public final native double bufferSize() /*-{
         return this.bufferSize;
-    }-*/;
-    
-    public final native String remoteAddress() /*-{
-        return this.remoteAddress;
     }-*/;
     
     public final native void setEncoding() /*-{
@@ -246,5 +241,17 @@ public class Socket extends EventEmitter {
     
     public final native void setKeepAlive(boolean enable, int initialDelay) /*-{
         this.setKeepAlive(enable, initialDelay);
+    }-*/;
+    
+    public final native Address address() /*-{
+        return this.address();
+    }-*/;
+    
+    public final native String remoteAddress() /*-{
+        return this.remoteAddress;
+    }-*/;
+    
+    public final native int remotePort() /*-{
+        return this.remotePort;
     }-*/;
 }

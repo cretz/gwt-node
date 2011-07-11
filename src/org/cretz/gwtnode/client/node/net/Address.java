@@ -13,8 +13,24 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.cretz.gwtnode.dev.debug.client.jdwp.common;
+package org.cretz.gwtnode.client.node.net;
 
-public class Value {
+import com.google.gwt.core.client.JavaScriptObject;
 
+public class Address extends JavaScriptObject {
+    
+    public static Address create() {
+        return JavaScriptObject.createObject().cast();
+    }
+
+    protected Address() {
+    }
+    
+    public native final String address() /*-{
+        return this.address;
+    }-*/;
+    
+    public native final int port() /*-{
+        return this.port;
+    }-*/;
 }

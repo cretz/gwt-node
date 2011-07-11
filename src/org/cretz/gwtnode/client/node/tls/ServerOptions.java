@@ -22,7 +22,6 @@ import com.google.gwt.core.client.JsArrayString;
 
 /**
  * @author Chad Retz
- * @since 0.2.0
  */
 public class ServerOptions extends ConnectOptions {
 

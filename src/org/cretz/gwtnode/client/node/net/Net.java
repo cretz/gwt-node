@@ -24,7 +24,7 @@ import com.google.gwt.core.client.JavaScriptObject;
 
 /**
  * The node.js
- * <a href="http://nodejs.org/docs/v0.4.3/api/net.html">net</a>
+ * <a href="http://nodejs.org/docs/v0.5.0/api/net.html">net</a>
  * module.
  * 
  * @author Chad Retz
@@ -54,35 +54,17 @@ public class Net extends JavaScriptObject implements NodeJsModule {
     public final native Server createServer(JavaScriptFunction connectionListener) /*-{
         return this.createServer(connectionListener);
     }-*/;
-    
-    /**
-     * @param allowHalfOpen
-     * @param connectionListener
-     * @return
-     * @since 0.2.0
-     */
+
     public final Server createServer(boolean allowHalfOpen,
             StreamEventHandler connectionListener) {
         return createServer(allowHalfOpen, connectionListener.getNativeFunction());
     }
     
-    /**
-     * @param allowHalfOpen
-     * @param connectionListener
-     * @return
-     * @since 0.2.0
-     */
     public final Server createServer(boolean allowHalfOpen,
             JavaScriptFunctionWrapper connectionListener) {
         return createServer(allowHalfOpen, connectionListener.getNativeFunction());
     }
-    
-    /**
-     * @param allowHalfOpen
-     * @param connectionListener
-     * @return
-     * @since 0.2.0
-     */
+
     public final native Server createServer(boolean allowHalfOpen,
             JavaScriptFunction connectionListener) /*-{
         return this.createServer(allowHalfOpen, connectionListener);
@@ -95,13 +77,22 @@ public class Net extends JavaScriptObject implements NodeJsModule {
     public final native Socket createConnection(int port, String host) /*-{
         return this.createConnection(port, host);
     }-*/;
-    
-    /**
-     * @param path
-     * @return
-     * @since 0.2.0
-     */
+
     public final native Socket createConnection(String path) /*-{
         return this.createConnection(path);
+    }-*/;
+    
+    //TODO: callback versions please of createConnection
+
+    public final native int isIP(String input) /*-{
+        return this.isIP(input);
+    }-*/;
+    
+    public final native boolean isIPv4(String input) /*-{
+        return this.isIPv4(input);
+    }-*/;
+    
+    public final native boolean isIPv6(String input) /*-{
+        return this.isIPv6(input);
     }-*/;
 }

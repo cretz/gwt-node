@@ -19,10 +19,6 @@ import org.cretz.gwtnode.client.JavaScriptFunction;
 import org.cretz.gwtnode.client.JavaScriptFunctionArguments;
 import org.cretz.gwtnode.client.JavaScriptFunctionWrapper;
 
-/**
- * @author Chad Retz
- * @since 0.2.0
- */
 public abstract class NewListenerEventHandler extends JavaScriptFunctionWrapper {
 
     @Override

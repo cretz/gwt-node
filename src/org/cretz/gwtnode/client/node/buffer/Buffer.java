@@ -22,7 +22,7 @@ import com.google.gwt.core.client.JsArrayInteger;
 
 /**
  * A node.js
- * <a href="http://nodejs.org/docs/v0.4.3/api/buffers.html">Buffer</a>
+ * <a href="http://nodejs.org/docs/v0.5.0/api/buffers.html">Buffer</a>
  * 
  * @author Chad Retz
  */
@@ -48,11 +48,6 @@ public class Buffer extends JavaScriptObject {
         return new Buffer(string, encoding);
     }-*/;
     
-    /**
-     * @param obj
-     * @return
-     * @since 0.2.0
-     */
     public static final native boolean isBuffer(JavaScriptObject obj) /*-{
         return Buffer.isBuffer(obj);
     }-*/;
@@ -115,5 +110,84 @@ public class Buffer extends JavaScriptObject {
     
     public final native Buffer slice(int start, int end) /*-{
         return this.slice(start, end);
+    }-*/;
+    
+    //unsigned byte
+    public final native short readUInt8(int offset, String endian) /*-{
+        return this.readUInt8(offset, endian);
+    }-*/;
+    
+    //unsigned short
+    public final native int readUInt16(int offset, String endian) /*-{
+        return this.readUInt16(offset, endian);
+    }-*/;
+    
+    //unsigned int
+    public final native double readUInt32(int offset, String endian) /*-{
+        return this.readUInt32(offset, endian);
+    }-*/;
+    
+    public final native byte readInt8(int offset, String endian) /*-{
+        return this.readInt8(offset, endian);
+    }-*/;
+    
+    public final native short readInt16(int offset, String endian) /*-{
+        return this.readInt16(offset, endian);
+    }-*/;
+    
+    public final native int readInt32(int offset, String endian) /*-{
+        return this.readInt32(offset, endian);
+    }-*/;
+    
+    public final native float readFloat(int offset, String endian) /*-{
+        return this.readFloat(offset, endian);
+    }-*/;
+    
+    public final native double readDouble(int offset, String endian) /*-{
+        return this.readDouble(offset, endian);
+    }-*/;
+    
+    public final native void writeUInt8(short value, int offset, String endian) /*-{
+        this.writeUInt8(value, offset, endian);
+    }-*/;
+    
+    public final native void writeUInt16(int value, int offset, String endian) /*-{
+        this.writeUInt16(value, offset, endian);
+    }-*/;
+    
+    public final native void writeUInt32(double value, int offset, String endian) /*-{
+        this.writeUInt32(value, offset, endian);
+    }-*/;
+    
+    public final native void writeInt8(byte value, int offset, String endian) /*-{
+        this.writeInt8(value, offset, endian);
+    }-*/;
+    
+    public final native void writeInt16(short value, int offset, String endian) /*-{
+        this.writeInt16(value, offset, endian);
+    }-*/;
+    
+    public final native void writeInt32(int value, int offset, String endian) /*-{
+        this.writeInt32(value, offset, endian);
+    }-*/;
+    
+    public final native void writeFloat(float value, int offset, String endian) /*-{
+        this.writeFloat(value, offset, endian);
+    }-*/;
+    
+    public final native void writeDouble(double value, int offset, String endian) /*-{
+        this.writeDouble(value, offset, endian);
+    }-*/;
+    
+    public final native void fill(Object value) /*-{
+        this.fill(value);
+    }-*/;
+    
+    public final native void fill(Object value, int offset) /*-{
+        this.fill(value, offset);
+    }-*/;
+    
+    public final native void fill(Object value, int offset, int length) /*-{
+        this.fill(value, offset, length);
     }-*/;
 }

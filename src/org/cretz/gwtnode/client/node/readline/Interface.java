@@ -13,26 +13,14 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.cretz.gwtnode.dev.debug.client.jdwp.er.mod;
+package org.cretz.gwtnode.client.node.readline;
 
-import org.cretz.gwtnode.client.node.buffer.Buffer;
-import org.cretz.gwtnode.dev.debug.client.jdwp.common.Location;
+import com.google.gwt.core.client.JavaScriptObject;
 
-public class LocationOnlyModifier extends Modifier {
+public class Interface extends JavaScriptObject {
 
-    private Location location;
-    
-    public Location getLocation() {
-        return location;
+    protected Interface() {
     }
     
-    public void setLocation(Location location) {
-        this.location = location;
-    }
-    
-    @Override
-    public int buildFromBuffer(Buffer buffer, int startIndex) {
-        location = new Location(buffer);
-        return startIndex + Location.SIZE;
-    }
+    //TODO: wait on docs or read code
 }

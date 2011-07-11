@@ -19,7 +19,6 @@ import org.cretz.gwtnode.client.node.childprocess.ChildProcess;
 
 /**
  * @author Chad Retz
- * @since 0.2.0
  */
 public class TtyProcess {
 

@@ -35,6 +35,10 @@ public class ServerRequest extends EventEmitter {
     public final void end(ParameterlessEventHandler handler) {
         on("end", handler);
     }
+
+    public final void onClose(ServerCloseEventHandler handler) {
+        on("close", handler);
+    }
     
     public final native String method() /*-{
         return this.method;

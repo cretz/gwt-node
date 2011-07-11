@@ -85,17 +85,14 @@ public class Server extends EventEmitter {
         this.listenFD(fd);
     }-*/;
     
-    /**
-     * @since 0.2.0
-     */
+    public final native void pause(double msecs) /*-{
+        this.pause(msecs);
+    }-*/;
+
     public final native void close() /*-{
         this.close();
     }-*/;
-    
-    /**
-     * @return
-     * @since 0.2.0
-     */
+
     public final native String address() /*-{
         return this.address();
     }-*/;

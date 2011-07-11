@@ -37,11 +37,7 @@ public class Server extends EventEmitter {
     public final void onClose(ServerCloseEventHandler handler) {
         on("close", handler);
     }
-    
-    /**
-     * @param handler
-     * @since 0.2.0
-     */
+
     public final void onCheckContinue(ServerRequestEventHandler handler) {
         on("checkContinue", handler);
     }

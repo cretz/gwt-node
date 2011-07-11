@@ -21,6 +21,13 @@ import org.cretz.gwtnode.client.node.stream.ReadableStream;
 
 import com.google.gwt.core.client.JavaScriptObject;
 
+/**
+ * The node.js
+ * <a href="http://nodejs.org/docs/v0.5.0/api/repl.html">repl</a>
+ * module.
+ *
+ * @author Chad Retz
+ */
 public class Repl extends JavaScriptObject implements NodeJsModule {
 
     private static Repl instance;

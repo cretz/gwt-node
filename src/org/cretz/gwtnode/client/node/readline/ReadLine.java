@@ -13,19 +13,33 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.cretz.gwtnode.dev.debug.client.context;
+package org.cretz.gwtnode.client.node.readline;
 
-public class DebugContext {
+import org.cretz.gwtnode.client.node.Global;
+import org.cretz.gwtnode.client.node.NodeJsModule;
 
-    private static DebugContext instance;
+import com.google.gwt.core.client.JavaScriptObject;
+
+/**
+ * The node.js
+ * <a href="http://nodejs.org/docs/v0.5.0/api/readline.html">readline</a>
+ * module.
+ *
+ * @author Chad Retz
+ */
+public class ReadLine extends JavaScriptObject implements NodeJsModule {
+
+    private static ReadLine instance;
     
-    public static DebugContext get() {
+    public static ReadLine get() {
         if (instance == null) {
-            instance = new DebugContext();
+            instance = Global.get().require("readline");
         }
         return instance;
     }
     
-    private DebugContext() {
+    protected ReadLine() {
     }
+
+    //TODO: wait on docs or read code
 }

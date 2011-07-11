@@ -19,6 +19,12 @@ import org.cretz.gwtnode.client.node.event.EventEmitter;
 import org.cretz.gwtnode.client.node.event.ErrorEventHandler;
 import org.cretz.gwtnode.client.node.event.ParameterlessEventHandler;
 
+/**
+ * The base node.js
+ * <a href="http://nodejs.org/docs/v0.5.0/api/streams.html">stream</a>
+ *
+ * @author Chad Retz
+ */
 public class Stream extends EventEmitter {
 
     protected Stream() {
@@ -34,5 +40,9 @@ public class Stream extends EventEmitter {
     
     public final native void destroy() /*-{
         this.destroy();
+    }-*/;
+
+    public final native void destroySoon() /*-{
+        this.destroySoon();
     }-*/;
 }

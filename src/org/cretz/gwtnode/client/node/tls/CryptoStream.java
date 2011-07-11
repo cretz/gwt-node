@@ -20,7 +20,6 @@ import org.cretz.gwtnode.client.node.stream.Stream;
 
 /**
  * @author Chad Retz
- * @since 0.2.0
  */
 public class CryptoStream extends Stream {
 

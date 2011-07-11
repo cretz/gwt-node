@@ -23,6 +23,13 @@ import org.cretz.gwtnode.client.node.NodeJsModule;
 
 import com.google.gwt.core.client.JavaScriptObject;
 
+/**
+ * The node.js
+ * <a href="http://nodejs.org/docs/v0.5.0/api/querystring.html">querystring</a>
+ * module.
+ *
+ * @author Chad Retz
+ */
 public class QueryString extends JavaScriptObject implements NodeJsModule {
 
     private static QueryString instance;

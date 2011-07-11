@@ -27,11 +27,10 @@ import com.google.gwt.core.client.JavaScriptObject;
 
 /**
  * The node.js
- * <a href="http://nodejs.org/docs/v0.4.3/api/util.html">util</a>
+ * <a href="http://nodejs.org/docs/v0.5.0/api/util.html">util</a>
  * module.
  * 
  * @author Chad Retz
- * @since 0.2.0
  */
 public class Util extends JavaScriptObject implements NodeJsModule {
 

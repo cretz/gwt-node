@@ -26,10 +26,7 @@ public class ServerResponse extends WriteableStream {
 
     protected ServerResponse() {
     }
-    
-    /**
-     * @since 0.2.0
-     */
+
     public final native void writeContinue() /*-{
         this.writeContinue();
     }-*/;
@@ -59,71 +56,39 @@ public class ServerResponse extends WriteableStream {
             JavaScriptObject headers) /*-{
         this.writeHead(statusCode, reasonPhrase, headers);
     }-*/;
-    
-    /**
-     * @param statusCode
-     * @since 0.2.0
-     */
+
+    public final native int statusCode() /*-{
+        return this.statusCode;
+    }-*/;
+
     public final native void statusCode(int statusCode) /*-{
         this.statusCode = statusCode;
     }-*/;
-    
-    /**
-     * @param name
-     * @param value
-     * @since 0.2.0
-     */
+
     public final native void setHeader(String name, String value) /*-{
         this.setHeader(name, value);
     }-*/;
-    
-    /**
-     * @param name
-     * @param value
-     * @since 0.2.0
-     */
+
     public final void setHeader(String name, String... value) {
         setHeader(name, JavaScriptUtils.toStringArray(value));
     }
-    
-    /**
-     * @param name
-     * @param value
-     * @since 0.2.0
-     */
+
     public final native void setHeader(String name, JsArrayString value) /*-{
         this.setHeader(name, value);
     }-*/;
 
-    /**
-     * @param name
-     * @return
-     * @since 0.2.0
-     */
     public final native JsArrayString getHeader(String name) /*-{
         return this.getHeader(name);
     }-*/;
-    
-    /**
-     * @param name
-     * @since 0.2.0
-     */
+
     public final native void removeHeader(String name) /*-{
         this.removeHeader(name);
     }-*/;
-    
-    /**
-     * @param trailers
-     * @since 0.2.0
-     */
+
     public final void addTrailers(JsonStringObjectMap<String> trailers) {
         addTrailers(trailers.getNativeObject());
     }
-    
-    /**
-     * @param trailers
-     * @since 0.2.0
-     */
+
     public final native void addTrailers(JavaScriptObject trailers) /*-{
         this.writeHead(trailers);
     }-*/;

@@ -19,6 +19,13 @@ import org.cretz.gwtnode.client.JavaScriptFunction;
 import org.cretz.gwtnode.client.JavaScriptFunctionWrapper;
 import org.cretz.gwtnode.client.JavaScriptReturningFunction;
 
+/**
+ * The node.js
+ * <a href="http://nodejs.org/docs/v0.5.0/api/timers.html">timer</a>
+ * functions.
+ *
+ * @author Chad Retz
+ */
 public class Timer {
     
     public static String setTimeout(JavaScriptFunctionWrapper wrapper, int delay,

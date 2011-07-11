@@ -20,7 +20,6 @@ import com.google.gwt.core.client.JsArray;
 
 /**
  * @author Chad Retz
- * @since 0.2.0
  */
 public class Cpu extends JavaScriptObject {
 

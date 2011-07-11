@@ -13,43 +13,40 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.cretz.gwtnode.client.node.net;
+package org.cretz.gwtnode.client.node.http;
 
 import com.google.gwt.core.client.JavaScriptObject;
 
-/**
- * @author Chad Retz
- */
-public class SocketOptions extends JavaScriptObject {
-
-    public static final SocketOptions create() {
+public class AgentOptions extends JavaScriptObject {
+    
+    public static AgentOptions create() {
         return JavaScriptObject.createObject().cast();
     }
-    
-    protected SocketOptions() {
+
+    protected AgentOptions() {
     }
     
-    public final native Integer fd() /*-{
-        return this.fd;
+    public final native String host() /*-{
+        return this.host;
     }-*/;
     
-    public final native void fd(Integer fd) /*-{
-        this.fd = fd;
+    public final native void host(String host) /*-{
+        this.host = host;
     }-*/;
     
-    public final native Integer type() /*-{
-        return this.type;
+    public final native int port() /*-{
+        return this.port;
     }-*/;
     
-    public final native void type(Integer type) /*-{
-        this.type = type;
+    public final native void port(int port) /*-{
+        this.port = port;
     }-*/;
     
-    public final native boolean allowHalfOpen() /*-{
-        return this.allowHalfOpen;
+    public final native String socketPath() /*-{
+        return this.socketPath;
     }-*/;
     
-    public final native void allowHalfOpen(boolean allowHalfOpen) /*-{
-        this.allowHalfOpen = allowHalfOpen;
+    public final native void socketPath(String socketPath) /*-{
+        this.socketPath = socketPath;
     }-*/;
 }

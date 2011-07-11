@@ -28,7 +28,7 @@ import com.google.gwt.core.client.JsArrayString;
 
 /**
  * The node.js
- * <a href="http://nodejs.org/docs/v0.4.3/api/fs.html">fs</a> module.
+ * <a href="http://nodejs.org/docs/v0.5.0/api/fs.html">fs</a> module.
  * 
  * @author Chad Retz
  */
@@ -50,18 +50,15 @@ public class Fs extends JavaScriptObject implements NodeJsModule {
         this.rename(path1, path2);
     }-*/;
     
-    public final void rename(String path1, String path2, 
-            JavaScriptFunctionWrapper callback) {
+    public final void rename(String path1, String path2, JavaScriptFunctionWrapper callback) {
         rename(path1, path2, callback.getNativeFunction());
     }
     
-    public final void rename(String path1, String path2, 
-            FsEventHandler callback) {
+    public final void rename(String path1, String path2, FsEventHandler callback) {
         rename(path1, path2, callback.getNativeFunction());
     }
     
-    public final native void rename(String path1, String path2, 
-            JavaScriptFunction callback) /*-{
+    public final native void rename(String path1, String path2, JavaScriptFunction callback) /*-{
         this.rename(path1, path2, callback);
     }-*/;
     
@@ -73,46 +70,140 @@ public class Fs extends JavaScriptObject implements NodeJsModule {
         this.truncate(fd, len);
     }-*/;
     
-    public final void truncate(int fd, int len, 
-            JavaScriptFunctionWrapper callback) {
+    public final void truncate(int fd, int len, JavaScriptFunctionWrapper callback) {
         truncate(fd, len, callback.getNativeFunction());
     }
     
-    public final void truncate(int fd, int len, 
-            FsEventHandler callback) {
+    public final void truncate(int fd, int len, FsEventHandler callback) {
         truncate(fd, len, callback.getNativeFunction());
     }
     
-    public final native void truncate(int fd, int len, 
-            JavaScriptFunction callback) /*-{
-        this.chmod(fd, len, callback);
+    public final native void truncate(int fd, int len, JavaScriptFunction callback) /*-{
+        this.truncate(fd, len, callback);
     }-*/;
     
     public final native void truncateSync(int fd, int len) /*-{
-        this.chmodSync(fd, len);
+        this.truncateSync(fd, len);
+    }-*/;
+
+    public final native void chown(String path, int mode) /*-{
+        this.chown(path, mode);
+    }-*/;
+    
+    public final void chown(String path, int mode, JavaScriptFunctionWrapper callback) {
+        chown(path, mode, callback.getNativeFunction());
+    }
+    
+    public final void chown(String path, int mode, FsEventHandler callback) {
+        chown(path, mode, callback.getNativeFunction());
+    }
+    
+    public final native void chown(String path, int mode, JavaScriptFunction callback) /*-{
+        this.chown(path, mode, callback);
+    }-*/;
+    
+    public final native void chownSync(String path, int mode) /*-{
+        this.chownSync(path, mode);
+    }-*/;
+
+    public final native void fchown(String path, int mode) /*-{
+        this.fchown(path, mode);
+    }-*/;
+    
+    public final void fchown(String path, int mode, JavaScriptFunctionWrapper callback) {
+        fchown(path, mode, callback.getNativeFunction());
+    }
+    
+    public final void fchown(String path, int mode, FsEventHandler callback) {
+        fchown(path, mode, callback.getNativeFunction());
+    }
+    
+    public final native void fchown(String path, int mode, JavaScriptFunction callback) /*-{
+        this.fchown(path, mode, callback);
+    }-*/;
+    
+    public final native void fchownSync(String path, int mode) /*-{
+        this.fchownSync(path, mode);
+    }-*/;
+
+    public final native void lchown(String path, int mode) /*-{
+        this.lchown(path, mode);
+    }-*/;
+    
+    public final void lchown(String path, int mode, JavaScriptFunctionWrapper callback) {
+        lchown(path, mode, callback.getNativeFunction());
+    }
+    
+    public final void lchown(String path, int mode, FsEventHandler callback) {
+        lchown(path, mode, callback.getNativeFunction());
+    }
+    
+    public final native void lchown(String path, int mode, JavaScriptFunction callback) /*-{
+        this.lchown(path, mode, callback);
+    }-*/;
+    
+    public final native void lchownSync(String path, int mode) /*-{
+        this.lchownSync(path, mode);
     }-*/;
 
     public final native void chmod(String path, int mode) /*-{
         this.chmod(path, mode);
     }-*/;
     
-    public final void chmod(String path, int mode, 
-            JavaScriptFunctionWrapper callback) {
+    public final void chmod(String path, int mode, JavaScriptFunctionWrapper callback) {
         chmod(path, mode, callback.getNativeFunction());
     }
     
-    public final void chmod(String path, int mode, 
-            FsEventHandler callback) {
+    public final void chmod(String path, int mode, FsEventHandler callback) {
         chmod(path, mode, callback.getNativeFunction());
     }
     
-    public final native void chmod(String path, int mode, 
-            JavaScriptFunction callback) /*-{
+    public final native void chmod(String path, int mode, JavaScriptFunction callback) /*-{
         this.chmod(path, mode, callback);
     }-*/;
     
     public final native void chmodSync(String path, int mode) /*-{
         this.chmodSync(path, mode);
+    }-*/;
+
+    public final native void fchmod(int fd, int mode) /*-{
+        this.fchmod(fd, mode);
+    }-*/;
+    
+    public final void fchmod(int fd, int mode, JavaScriptFunctionWrapper callback) {
+        fchmod(fd, mode, callback.getNativeFunction());
+    }
+    
+    public final void fchmod(int fd, int mode, FsEventHandler callback) {
+        fchmod(fd, mode, callback.getNativeFunction());
+    }
+    
+    public final native void fchmod(int fd, int mode, JavaScriptFunction callback) /*-{
+        this.fchmod(fd, mode, callback);
+    }-*/;
+    
+    public final native void fchmodSync(String path, int mode) /*-{
+        this.fchmodSync(path, mode);
+    }-*/;
+
+    public final native void lchmod(int fd, int mode) /*-{
+        this.lchmod(fd, mode);
+    }-*/;
+    
+    public final void lchmod(int fd, int mode, JavaScriptFunctionWrapper callback) {
+        lchmod(fd, mode, callback.getNativeFunction());
+    }
+    
+    public final void lchmod(int fd, int mode, FsEventHandler callback) {
+        lchmod(fd, mode, callback.getNativeFunction());
+    }
+    
+    public final native void lchmod(int fd, int mode, JavaScriptFunction callback) /*-{
+        this.lchmod(fd, mode, callback);
+    }-*/;
+    
+    public final native void lchmodSync(String path, int mode) /*-{
+        this.lchmodSync(path, mode);
     }-*/;
     
     public final native void stat(String path) /*-{
@@ -405,6 +496,66 @@ public class Fs extends JavaScriptObject implements NodeJsModule {
     
     public final native int openSync(String path, String flags) /*-{
         return this.openSync(path, flags);
+    }-*/;
+
+    public final native void utimes(String path, double atime, double mtime) /*-{
+        this.utimes(path, atime, mtime);
+    }-*/;
+    
+    public final void utimes(String path, double atime, double mtime, JavaScriptFunctionWrapper callback) {
+        utimes(path, atime, mtime, callback.getNativeFunction());
+    }
+    
+    public final void utimes(String path, double atime, double mtime, FsEventHandler callback) {
+        utimes(path, atime, mtime, callback.getNativeFunction());
+    }
+    
+    public final native void utimes(String path, double atime, double mtime, JavaScriptFunction callback) /*-{
+        this.utimes(path, atime, mtime, callback);
+    }-*/;
+    
+    public final native void utimesSync(String path, double atime, double mtime) /*-{
+        this.utimesSync(path, atime, mtime);
+    }-*/;
+
+    public final native void futimes(String path, double atime, double mtime) /*-{
+        this.futimes(path, atime, mtime);
+    }-*/;
+    
+    public final void futimes(String path, double atime, double mtime, JavaScriptFunctionWrapper callback) {
+        futimes(path, atime, mtime, callback.getNativeFunction());
+    }
+    
+    public final void futimes(String path, double atime, double mtime, FsEventHandler callback) {
+        futimes(path, atime, mtime, callback.getNativeFunction());
+    }
+    
+    public final native void futimes(String path, double atime, double mtime, JavaScriptFunction callback) /*-{
+        this.futimes(path, atime, mtime, callback);
+    }-*/;
+    
+    public final native void futimesSync(String path, double atime, double mtime) /*-{
+        this.futimesSync(path, atime, mtime);
+    }-*/;
+
+    public final native void fsync(int fd) /*-{
+        this.fsync(fd);
+    }-*/;
+    
+    public final void fsync(int fd, JavaScriptFunctionWrapper callback) {
+        fsync(fd, callback.getNativeFunction());
+    }
+    
+    public final void fsync(int fd, FsEventHandler callback) {
+        fsync(fd, callback.getNativeFunction());
+    }
+    
+    public final native void fsync(int fd, JavaScriptFunction callback) /*-{
+        this.fsync(fd, callback);
+    }-*/;
+    
+    public final native Stat fsyncSync(int fd) /*-{
+        return this.fsyncSync(fd);
     }-*/;
     
     public final native void write(int fd, Buffer buffer, int offset,

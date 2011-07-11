@@ -22,7 +22,7 @@ import com.google.gwt.core.client.JavaScriptObject;
 
 /**
  * The node.js
- * <a href="http://nodejs.org/docs/v0.4.3/api/crypto.html">Crypto</a>
+ * <a href="http://nodejs.org/docs/v0.5.0/api/crypto.html">Crypto</a>
  * module.
  * 
  * @author Chad Retz
@@ -67,6 +67,14 @@ public class Crypto extends JavaScriptObject implements NodeJsModule {
 
     public final native Verifier createVerify(String algorithm) /*-{
         return this.createVerify(algorithm);
+    }-*/;
+
+    public final native DiffieHellman createDiffieHellman(int primeLength) /*-{
+        return this.createDiffieHellman(primeLength);
+    }-*/;
+
+    public final native DiffieHellman createDiffieHellman(int prime, String encoding) /*-{
+        return this.createDiffieHellman(prime, encoding);
     }-*/;
     
 }

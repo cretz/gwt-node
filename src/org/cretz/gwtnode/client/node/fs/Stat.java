@@ -74,38 +74,29 @@ public class Stat extends JavaScriptObject {
         return this.ctime;
     }-*/;
     
-//    * stats.isFile()
     public final native boolean isFile() /*-{
         return this.isFile();
     }-*/;
-//    * stats.isDirectory()
+
     public final native boolean isDirectory() /*-{
         return this.isDirectory();
     }-*/;
-//    * stats.isBlockDevice()
 
     public final native boolean isBlockDevice() /*-{
         return this.isBlockDevice();
     }-*/;
-    
-//    * stats.isCharacterDevice()
-    
 
     public final native boolean isCharacterDevice() /*-{
         return this.isCharacterDevice();
     }-*/;
-//    * stats.isSymbolicLink() (only valid with fs.lstat())
 
     public final native boolean isSymbolicLink() /*-{
         return this.isSymbolicLink();
     }-*/;
-//    * stats.isFIFO()
 
     public final native boolean isFIFO() /*-{
         return this.isFIFO();
     }-*/;
-//    * stats.isSocket()
-    
 
     public final native boolean isSocket() /*-{
         return this.isSocket();

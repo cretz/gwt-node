@@ -20,7 +20,8 @@ import org.cretz.gwtnode.client.node.event.ParameterlessEventHandler;
 
 /**
  * A node.js
- * <a href="http://nodejs.org/docs/v0.4.3/api/streams.html#writeable_Stream">WriteableStream</a>
+ * <a href="http://nodejs.org/docs/v0.5.0/api/streams.html#writeable_Stream">WriteableStream</a>
+ * 
  * @author Chad Retz
  */
 public class WriteableStream extends Stream {
@@ -32,10 +33,6 @@ public class WriteableStream extends Stream {
         on("drain", handler);
     }
     
-    /**
-     * @param handler
-     * @since 0.2.0
-     */
     public final void onPipe(PipeEventHandler handler) {
         on("pipe", handler);
     }

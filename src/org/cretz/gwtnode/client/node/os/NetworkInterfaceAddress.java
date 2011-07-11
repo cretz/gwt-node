@@ -13,9 +13,24 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.cretz.gwtnode.dev.debug.client.jdwp.ec;
+package org.cretz.gwtnode.client.node.os;
 
-public abstract class EventCommandSet {
+import com.google.gwt.core.client.JavaScriptObject;
 
-    public static final byte COMMAND_SET = 64;
+public class NetworkInterfaceAddress extends JavaScriptObject {
+
+    protected NetworkInterfaceAddress() {
+    }
+    
+    public native final String address() /*-{
+        return this.address;
+    }-*/;
+    
+    public native final String family() /*-{
+        return this.family;
+    }-*/;
+    
+    public native final boolean internal() /*-{
+        return this.internal;
+    }-*/;
 }

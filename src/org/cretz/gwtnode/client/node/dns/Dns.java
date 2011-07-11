@@ -24,7 +24,7 @@ import com.google.gwt.core.client.JavaScriptObject;
 
 /**
  * The node.js
- * <a href="http://nodejs.org/docs/v0.4.3/api/dns.html">dns</a>
+ * <a href="http://nodejs.org/docs/v0.5.0/api/dns.html">dns</a>
  * module.
  * 
  * @author Chad Retz
@@ -161,5 +161,29 @@ public class Dns extends JavaScriptObject implements NodeJsModule {
     
     public final native void reverse(String ip, JavaScriptFunction callback) /*-{
         this.reverse(ip, callback);
+    }-*/;
+    
+    public final void resolveNs(String domain, ResolveStringEventHandler callback) {
+        resolveNs(domain, callback.getNativeFunction());
+    }
+    
+    public final void resolveNs(String domain, JavaScriptFunctionWrapper callback) {
+        resolveNs(domain, callback.getNativeFunction());
+    }
+    
+    public final native void resolveNs(String domain, JavaScriptFunction callback) /*-{
+        this.resolveNs(domain, callback);
+    }-*/;
+    
+    public final void resolveCname(String domain, ResolveStringEventHandler callback) {
+        resolveCname(domain, callback.getNativeFunction());
+    }
+    
+    public final void resolveCname(String domain, JavaScriptFunctionWrapper callback) {
+        resolveCname(domain, callback.getNativeFunction());
+    }
+    
+    public final native void resolveCname(String domain, JavaScriptFunction callback) /*-{
+        this.resolveCname(domain, callback);
     }-*/;
 }

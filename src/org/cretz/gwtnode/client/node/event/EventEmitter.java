@@ -25,7 +25,7 @@ import com.google.gwt.core.client.JsArrayMixed;
 
 /**
  * The node.js 
- * <a href="http://nodejs.org/docs/v0.4.3/api/events.html">EventEmitter</a>
+ * <a href="http://nodejs.org/docs/v0.5.0/api/events.html">EventEmitter</a>
  * 
  * @author Chad Retz
  */
@@ -47,10 +47,6 @@ public class EventEmitter extends JavaScriptObject {
     protected EventEmitter() {
     }
     
-    /**
-     * @param handler
-     * @since 0.2.0
-     */
     public final void onNewListener(NewListenerEventHandler handler) {
         on("newListener", handler);
     }
@@ -62,21 +58,11 @@ public class EventEmitter extends JavaScriptObject {
     public final native void on(String event, JavaScriptFunction func) /*-{
         this.on(event, func);
     }-*/;
-    
-    /**
-     * @param event
-     * @param wrapper
-     * @since 0.2.0
-     */
+
     public final void once(String event, JavaScriptFunctionWrapper wrapper) {
         once(event, wrapper.getNativeFunction());
     }
-    
-    /**
-     * @param event
-     * @param func
-     * @since 0.2.0
-     */
+
     public final native void once(String event, JavaScriptFunction func) /*-{
         this.once(event, func);
     }-*/;
