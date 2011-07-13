@@ -27,7 +27,7 @@
             <fileset dir="../../lib" includes="*.jar" />
             <pathelement path="src" />
 	    </path>
-		<gwtnodecompile module="org.cretz.gwtnode.examples.scimark.Scimark"
+		<gwtnodecompile module="org.gwtnode.examples.scimark.Scimark"
 			            modulename="Scimark"
 			            classpathref="gwt.classpath"
 		                destdir="build">

@@ -50,7 +50,7 @@ like this:
 
     <?xml version="1.0" encoding="UTF-8"?>
     <module rename-to="HelloWorld">
-        <inherits name="org.cretz.gwtnode.GwtNode" />
+        <inherits name="org.gwtnode.GwtNode" />
         <entry-point class="helloworld.client.HelloWorld" />
         <source path="client" />
     </module>
@@ -58,7 +58,7 @@ like this:
 ### Entry Point Class
 
 Now that the Module XML file is present, the entry point must be created. Extending 
-from the `org.cretz.gwtnode.client.GwtNodeBootstrap` class in your entry point will
+from the `org.gwtnode.client.GwtNodeBootstrap` class in your entry point will
 make command line arguments available to you and give you the ability to provide an
 exit code. This is not required. So the simple HelloWorld.java class in the
 `helloworld.client` will look like:
@@ -150,7 +150,7 @@ the next section on how to use these features.
 
 After installing [jsdom] and [node-htmlparser] (I recommend [npm]), you can now use several
 GWT features. There are some settings you will need in your module in order for this to work. 
-At the top of your module, along with the `org.cretz.gwtnode.GwtNode` inherits, add an 
+At the top of your module, along with the `org.gwtnode.GwtNode` inherits, add an 
 inherits for `com.google.gwt.user.User`. 
 
 In order to use this, we need to use the single script linker. The default iframe linker (or 

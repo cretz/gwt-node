@@ -28,7 +28,7 @@
             <fileset dir="../../lib" includes="*.jar" />
             <pathelement path="src" />
 	    </path>
-		<gwtnodecompile module="org.cretz.gwtnode.examples.debug.Debug"
+		<gwtnodecompile module="org.gwtnode.examples.debug.Debug"
 			            modulename="Debug"
 			            classpathref="gwt.classpath"
 		                destdir="build">

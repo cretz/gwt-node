@@ -38,7 +38,7 @@
             <pathelement path="src" />
             <pathelement path="compiled" />
 	    </path>
-		<gwtnodecompile module="org.cretz.gwtnode.examples.features.Features"
+		<gwtnodecompile module="org.gwtnode.examples.features.Features"
 			            modulename="Features"
 			            classpathref="gwt.classpath"
 		                destdir="build">

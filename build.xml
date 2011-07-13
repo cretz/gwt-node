@@ -47,7 +47,7 @@
         <delete dir="build" includeemptydirs="true" />
         <mkdir dir="build/exploded" />
         <javac srcdir="src" destdir="build/exploded">
-        	<exclude name="org/cretz/gwtnode/emul/**/*" />
+        	<exclude name="org/gwtnode/emul/**/*" />
         	<classpath>
         		<fileset dir="lib" includes="*.jar" />
         	</classpath>

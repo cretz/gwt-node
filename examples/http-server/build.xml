@@ -27,7 +27,7 @@
             <fileset dir="../../lib" includes="*.jar" />
             <pathelement path="src" />
 	    </path>
-		<gwtnodecompile module="org.cretz.gwtnode.examples.httpserver.HttpServer"
+		<gwtnodecompile module="org.gwtnode.examples.httpserver.HttpServer"
 			            modulename="HttpServer"
 			            classpathref="gwt.classpath"
 		                destdir="build">

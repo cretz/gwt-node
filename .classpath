@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry excluding="org/cretz/gwtnode/emul/" kind="src" path="src"/>
-	<classpathentry excluding="**" kind="src" path="src/org/cretz/gwtnode/emul"/>
+	<classpathentry excluding="org/gwtnode/emul/" kind="src" path="src"/>
 	<classpathentry kind="src" path="examples/hello-world/src"/>
 	<classpathentry kind="src" path="examples/http-server/src"/>
 	<classpathentry kind="src" path="examples/features/src"/>
-	<classpathentry excluding="org/cretz/gwtnode/examples/scimark/emul/" kind="src" path="examples/scimark/src"/>
+	<classpathentry excluding="org/gwtnode/examples/scimark/emul/" kind="src" path="examples/scimark/src"/>
 	<classpathentry kind="src" path="examples/debug/src"/>
 	<classpathentry kind="src" path="examples/junit/src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>

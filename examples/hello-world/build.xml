@@ -27,7 +27,7 @@
             <fileset dir="../../lib" includes="*.jar" />
             <pathelement path="src" />
 	    </path>
-		<gwtnodecompile module="org.cretz.gwtnode.examples.helloworld.HelloWorld"
+		<gwtnodecompile module="org.gwtnode.examples.helloworld.HelloWorld"
 			            modulename="HelloWorld"
 			            classpathref="gwt.classpath"
 		                destdir="build">
