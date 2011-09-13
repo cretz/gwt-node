@@ -20,13 +20,14 @@ import org.gwtnode.client.JavaScriptFunctionWrapper;
 import org.gwtnode.client.node.event.ErrorEventHandler;
 import org.gwtnode.client.node.event.EventEmitter;
 import org.gwtnode.client.node.event.ParameterlessEventHandler;
+import org.gwtnode.client.node.stream.ReadableStream;
 import org.gwtnode.client.node.stream.WriteableStream;
 
 import com.google.gwt.core.client.JsArrayString;
 
 /**
  * The node.js 
- * <a href="http://nodejs.org/docs/v0.5.0/api/process.html">process</a>
+ * <a href="http://nodejs.org/docs/v0.5.6/api/process.html">process</a>
  * global object.
  * 
  * @author Chad Retz
@@ -58,6 +59,10 @@ public class Process extends EventEmitter {
     
     public final native WriteableStream stderr() /*-{
         return this.stderr;
+    }-*/;
+    
+    public final native ReadableStream stdin() /*-{
+        return this.stdin;
     }-*/;
     
     public final native JsArrayString argv() /*-{

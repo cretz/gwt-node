@@ -24,7 +24,7 @@ import com.google.gwt.core.client.JavaScriptObject;
 
 /**
  * The node.js
- * <a href="http://nodejs.org/docs/v0.5.0/api/http.html">http</a>
+ * <a href="http://nodejs.org/docs/v0.5.6/api/http.html">http</a>
  * module.
  * 
  * @author Chad Retz
@@ -89,7 +89,7 @@ public class Http extends JavaScriptObject implements NodeJsModule {
         return this.get(options, callback);
     }-*/;
     
-    public final native Agent getAgent(AgentOptions options) /*-{
-        return this.getAgent(options);
+    public final native Agent globalAgent() /*-{
+        return this.globalAgent;
     }-*/;
 }

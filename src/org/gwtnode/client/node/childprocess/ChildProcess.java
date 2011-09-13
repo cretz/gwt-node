@@ -25,7 +25,7 @@ import com.google.gwt.core.client.JsArrayString;
 
 /**
  * The node.js
- * <a href="http://nodejs.org/docs/v0.5.0/api/child_processes.html">Child Process</a>
+ * <a href="http://nodejs.org/docs/v0.5.6/api/child_processes.html">Child Process</a>
  * module.
  * 
  * @author Chad Retz
@@ -82,5 +82,15 @@ public class ChildProcess extends JavaScriptObject implements NodeJsModule {
         this.exec(command, options, callback);
     }-*/;
     
-    //TODO: fork
+    public final native Child fork(String modulePath) /*-{
+        return this.fork(modulePath);
+    }-*/;
+    
+    public final native Child fork(String modulePath, JsArrayString args) /*-{
+        return this.fork(modulePath, args);
+    }-*/;
+    
+    public final native Child fork(String modulePath, JsArrayString args, ChildSpawnOptions options) /*-{
+        return this.fork(modulePath, args, options);
+    }-*/;
 }

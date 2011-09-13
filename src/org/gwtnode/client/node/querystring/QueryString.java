@@ -25,7 +25,7 @@ import com.google.gwt.core.client.JavaScriptObject;
 
 /**
  * The node.js
- * <a href="http://nodejs.org/docs/v0.5.0/api/querystring.html">querystring</a>
+ * <a href="http://nodejs.org/docs/v0.5.6/api/querystring.html">querystring</a>
  * module.
  *
  * @author Chad Retz

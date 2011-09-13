@@ -26,4 +26,8 @@ public class Credentials extends JavaScriptObject {
 
     protected Credentials() {
     }
+    
+    public final native SecureContext context() /*-{
+        return this.context;
+    }-*/;
 }

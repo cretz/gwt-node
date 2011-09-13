@@ -29,7 +29,7 @@ import com.google.gwt.core.client.JavaScriptObject;
 
 /**
  * The node.js
- * <a href="http://nodejs.org/docs/v0.5.0/api/https.html">https</a>
+ * <a href="http://nodejs.org/docs/v0.5.6/api/https.html">https</a>
  * module.
  * 
  * @author Chad Retz

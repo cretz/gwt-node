@@ -15,12 +15,12 @@
  */
 package org.gwtnode.dev.linker;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
 import org.gwtnode.client.debug.ClientSymbolStore;
 
-import com.google.common.io.CharStreams;
 import com.google.gwt.core.ext.LinkerContext;
 import com.google.gwt.core.ext.TreeLogger;
 import com.google.gwt.core.ext.TreeLogger.Type;
@@ -30,6 +30,9 @@ import com.google.gwt.core.ext.linker.CompilationResult;
 import com.google.gwt.core.ext.linker.SymbolData;
 import com.google.gwt.dev.util.DefaultTextOutput;
 
+/**
+ * @author Chad Retz
+ */
 public class GwtNodeSymbolStoreLinker extends GwtNodeLinker {
     
     @Override
@@ -42,20 +45,29 @@ public class GwtNodeSymbolStoreLinker extends GwtNodeLinker {
         out.newline();
         out.print("//create symbol mapping object");
         out.newline();
-        String objectJs;
+        StringBuilder objectJs = new StringBuilder();
+        BufferedReader reader = null;
         try {
-            objectJs = CharStreams.toString(new InputStreamReader(
+            reader = new BufferedReader(new InputStreamReader(
                     GwtNodeSymbolStoreLinker.class.getResourceAsStream("SymbolStoreObject.js")));
+            String line = reader.readLine();
+            while (line != null) {
+                line = line.replace("${objectName}", ClientSymbolStore.GLOBAL_JS_OBJECT_NAME);
+                line = line.replace("${classesName}", ClientSymbolStore.CLASSES_MAP_NAME);
+                line = line.replace("${methodsName}", ClientSymbolStore.METHODS_MAP_NAME);
+                line = line.replace("${fieldsName}", ClientSymbolStore.FIELDS_MAP_NAME);
+                objectJs.append(line).append("\n");
+                line = reader.readLine();
+            }
         } catch (IOException e) {
             logger.log(Type.ERROR, "Can't read local file", e);
             throw new UnableToCompleteException();
+        } finally {
+            try {
+                reader.close();
+            } catch (Exception ignore) { }
         }
-        //replace stuff
-        objectJs = objectJs.replace("${objectName}", ClientSymbolStore.GLOBAL_JS_OBJECT_NAME);
-        objectJs = objectJs.replace("${classesName}", ClientSymbolStore.CLASSES_MAP_NAME);
-        objectJs = objectJs.replace("${methodsName}", ClientSymbolStore.METHODS_MAP_NAME);
-        objectJs = objectJs.replace("${fieldsName}", ClientSymbolStore.FIELDS_MAP_NAME);
-        out.print(objectJs);
+        out.print(objectJs.toString());
         out.newline();
         out.print("//add symbols");
         for (SymbolData symbol : result.getSymbolMap()) {

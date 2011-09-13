@@ -49,7 +49,7 @@ public class Agent extends EventEmitter {
         return this.sockets;
     }-*/;
     
-    public final native JsArray<ClientRequest> queue() /*-{
-        return this.queue;
+    public final native JsArray<ClientRequest> requests() /*-{
+        return this.requests;
     }-*/;
 }

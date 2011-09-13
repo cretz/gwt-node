@@ -22,7 +22,7 @@ import com.google.gwt.core.client.JavaScriptObject;
 
 /**
  * The node.js
- * <a href="http://nodejs.org/docs/v0.5.0/api/crypto.html">Crypto</a>
+ * <a href="http://nodejs.org/docs/v0.5.6/api/crypto.html">Crypto</a>
  * module.
  * 
  * @author Chad Retz
@@ -53,12 +53,20 @@ public class Crypto extends JavaScriptObject implements NodeJsModule {
         return this.createHmac(algorithm, key);
     }-*/;
 
-    public final native Cipher createCipher(String algorithm, String key) /*-{
-        return this.createCipher(algorithm, key);
+    public final native Cipher createCipher(String algorithm, String password) /*-{
+        return this.createCipher(algorithm, password);
     }-*/;
 
-    public final native Decipher createDecipher(String algorithm, String key) /*-{
-        return this.createDecipher(algorithm, key);
+    public final native Cipher createCipheriv(String algorithm, String key, String iv) /*-{
+        return this.createCipheriv(algorithm, key, iv);
+    }-*/;
+
+    public final native Decipher createDecipher(String algorithm, String password) /*-{
+        return this.createDecipher(algorithm, password);
+    }-*/;
+
+    public final native Decipher createDecipheriv(String algorithm, String key, String iv) /*-{
+        return this.createDecipheriv(algorithm, key, iv);
     }-*/;
 
     public final native Signer createSign(String algorithm) /*-{
@@ -77,4 +85,9 @@ public class Crypto extends JavaScriptObject implements NodeJsModule {
         return this.createDiffieHellman(prime, encoding);
     }-*/;
     
+    public final native void pbkdf2(String password, String salt, int iterations,
+            int keylen, Pbkdf2Callback callback) /*-{
+        this.pbkdf2(password, salt, iterations, keylen, 
+            callback.@org.gwtnode.client.node.crypto.Pbkdf2Callback::getNativeFunction()());
+    }-*/;
 }

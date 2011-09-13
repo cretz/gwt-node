@@ -22,7 +22,7 @@ import com.google.gwt.core.client.JavaScriptObject;
 
 /**
  * The node.js
- * <a href="http://nodejs.org/docs/v0.5.0/api/vm.html">vm</a>
+ * <a href="http://nodejs.org/docs/v0.5.6/api/vm.html">vm</a>
  * module.
  * 
  * @author Chad Retz
@@ -62,6 +62,24 @@ public class Vm extends JavaScriptObject implements NodeJsModule {
     public final native <T extends JavaScriptObject> T runInNewContext(String code, 
             JavaScriptObject sandbox, String filename) /*-{
         return this.runInNewContext(code, sandbox, filename);
+    }-*/;
+    
+    public final native <T extends JavaScriptObject> T runInContext(String code,
+            Context context) /*-{
+        return this.runInContext(code, context);
+    }-*/;
+    
+    public final native <T extends JavaScriptObject> T runInContext(String code,
+            Context context, String filename) /*-{
+        return this.runInContext(code, context, filename);
+    }-*/;
+    
+    public final native Context createContext() /*-{
+        return this.createContext();
+    }-*/;
+    
+    public final native Context createContext(JavaScriptObject initSandbox) /*-{
+        return this.createContext(initSandbox);
     }-*/;
     
     public static native Script createScript(String code) /*-{

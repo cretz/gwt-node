@@ -19,7 +19,7 @@ import com.google.gwt.core.client.JavaScriptObject;
 
 /**
  * The node.js
- * <a href="http://nodejs.org/docs/v0.5.0/api/stdio.html#console">console</a> object
+ * <a href="http://nodejs.org/docs/v0.5.6/api/stdio.html#console">console</a> object
  *
  * @author Chad Retz
  */

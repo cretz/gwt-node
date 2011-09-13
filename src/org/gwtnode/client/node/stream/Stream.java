@@ -21,7 +21,7 @@ import org.gwtnode.client.node.event.ParameterlessEventHandler;
 
 /**
  * The base node.js
- * <a href="http://nodejs.org/docs/v0.5.0/api/streams.html">stream</a>
+ * <a href="http://nodejs.org/docs/v0.5.6/api/streams.html">stream</a>
  *
  * @author Chad Retz
  */

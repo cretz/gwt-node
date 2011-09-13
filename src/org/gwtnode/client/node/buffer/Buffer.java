@@ -22,7 +22,7 @@ import com.google.gwt.core.client.JsArrayInteger;
 
 /**
  * A node.js
- * <a href="http://nodejs.org/docs/v0.5.0/api/buffers.html">Buffer</a>
+ * <a href="http://nodejs.org/docs/v0.5.6/api/buffers.html">Buffer</a>
  * 
  * @author Chad Retz
  */
@@ -63,16 +63,20 @@ public class Buffer extends JavaScriptObject {
     protected Buffer() {
     }
     
-    public final native void write(String string) /*-{
-        this.write(string);
+    public final native int write(String string) /*-{
+        return this.write(string);
     }-*/;
     
-    public final native void write(String string, int offset) /*-{
-        this.write(string, offset);
+    public final native int write(String string, int offset) /*-{
+        return this.write(string, offset);
     }-*/;
     
-    public final native void write(String string, int offset, String encoding) /*-{
-        this.write(string, offset, encoding);
+    public final native int write(String string, int offset, int length) /*-{
+        return this.write(string, offset, length);
+    }-*/;
+    
+    public final native int write(String string, int offset, int length, String encoding) /*-{
+        return this.write(string, offset, length, encoding);
     }-*/;
     
     public final native String toString(String encoding) /*-{
@@ -190,4 +194,6 @@ public class Buffer extends JavaScriptObject {
     public final native void fill(Object value, int offset, int length) /*-{
         this.fill(value, offset, length);
     }-*/;
+    
+    //TODO: INSPECT_MAX_BYTES
 }

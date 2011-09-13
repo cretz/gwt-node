@@ -254,4 +254,12 @@ public class Socket extends EventEmitter {
     public final native int remotePort() /*-{
         return this.remotePort;
     }-*/;
+    
+    public final native int bytesRead() /*-{
+        return this.bytesRead;
+    }-*/;
+    
+    public final native int bytesWritten() /*-{
+        return this.bytesWritten;
+    }-*/;
 }

@@ -22,12 +22,11 @@ import org.gwtnode.client.node.Global;
 import org.gwtnode.client.node.NodeJsModule;
 import org.gwtnode.client.node.event.EventEmitter;
 import org.gwtnode.client.node.event.ParameterlessEventHandler;
-import org.gwtnode.client.node.net.Server;
 import org.gwtnode.client.node.stream.Stream;
 
 /**
  * The node.js
- * <a href="http://nodejs.org/docs/v0.5.0/api/tls.html">TLS</a> module
+ * <a href="http://nodejs.org/docs/v0.5.6/api/tls.html">TLS</a> module
  * 
  * @author Chad Retz
  */
@@ -49,25 +48,27 @@ public class Tls extends EventEmitter implements NodeJsModule {
         on("secureConnection", handler);
     }
     
-    public final <T extends Stream> T connect(int port,  
+    public final CleartextStream connect(int port,  
             ConnectOptions options, ParameterlessEventHandler callback) {
-        return this.<T>connect(port, options, callback.getNativeFunction());
+        return this.connect(port, options, callback.getNativeFunction());
     }
 
-    public final native <T extends Stream> T connect(int port, 
+    public final native CleartextStream connect(int port, 
             ConnectOptions options, JavaScriptFunction callback) /*-{
         return this.connect(port, options, callback);
     }-*/;
     
-    public final <T extends Stream> T connect(int port, String host, 
+    public final CleartextStream connect(int port, String host, 
             ConnectOptions options, ParameterlessEventHandler callback) {
-        return this.<T>connect(port, host, options, callback.getNativeFunction());
+        return this.connect(port, host, options, callback.getNativeFunction());
     }
 
-    public final native <T extends Stream> T connect(int port, String host, 
+    public final native CleartextStream connect(int port, String host, 
             ConnectOptions options, JavaScriptFunction callback) /*-{
         return this.connect(port, host, options, callback);
     }-*/;
+    
+    //TODO: securePair
     
     public final native Server createServer(ServerOptions options) /*-{
         return this.createServer(options);

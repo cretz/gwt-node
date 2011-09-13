@@ -1,7 +1,7 @@
 # gwt-node
 
-Complete node.js implementation in GWT. This implementation is targeted at node.js v0.5.0
-and GWT 2.2.0. Both of these versions are the latest stable versions at the time of this
+Complete node.js implementation in GWT. This implementation is targeted at node.js v0.5.6
+and GWT 2.4.0. Both of these versions are the latest stable versions at the time of this
 writing.
   
 Although the API covers all node.js modules, it has not been extensively tested yet. It is
@@ -23,6 +23,8 @@ any of this complete until the first release is made.
  - Larger JRE emulation (i.e. java.io and java.net)
  - Better GIN support
  - Test [gwt-exporter] to see if it's possible to easily expose Java-based modules
+ - OOPHM debugger support
+ - Custom ANT task to support compilation
  
 ### Limitations
 
@@ -43,7 +45,7 @@ a JAR file named gwt-node.jar in the build/ folder.
 ### Module XML
 
 The first thing every gwt-node project needs (just like every GWT project) is a
-[Module XML] file. It needs to inherit the `org.cretz.gwtnode.GwtNode` module. Also,
+[Module XML] file. It needs to inherit the `org.gwtnode.GwtNode` module. Also,
 the main entry point needs to be defined. So, assuming we choose to use the package
 `helloworld`, the HelloWorld.gwt.xml file within may look
 like this:
@@ -231,10 +233,10 @@ There are a few examples to demonstrate a few basic ideas in gwt-node:
   [gin]: http://code.google.com/p/google-gin/
   [node.js modules]: https://github.com/ry/node/wiki/modules
   [JavaScriptObject]: http://google-web-toolkit.googlecode.com/svn/javadoc/2.1/com/google/gwt/core/client/JavaScriptObject.html
-  [NodeJsModule]: https://github.com/cretz/gwt-node/blob/master/src/org/cretz/gwtnode/client/node/NodeJsModule.java
+  [NodeJsModule]: https://github.com/cretz/gwt-node/blob/master/src/org/gwtnode/client/node/NodeJsModule.java
   [JSNI]: http://code.google.com/webtoolkit/doc/latest/DevGuideCodingBasicsJSNI.html
   [gwt-exporter]: http://code.google.com/p/gwt-exporter/
-  [Sys]: https://github.com/cretz/gwt-node/blob/master/src/org/cretz/gwtnode/client/node/sys/Sys.java
+  [Sys]: https://github.com/cretz/gwt-node/blob/master/src/org/gwtnode/client/node/sys/Sys.java
   [hello-world]: https://github.com/cretz/gwt-node/tree/master/examples/hello-world
   [http-server]: https://github.com/cretz/gwt-node/tree/master/examples/http-server
   [features]: https://github.com/cretz/gwt-node/tree/master/examples/features

@@ -17,10 +17,19 @@ package org.gwtnode.client.node.readline;
 
 import com.google.gwt.core.client.JavaScriptObject;
 
+/**
+ * @author Chad Retz
+ */
 public class Interface extends JavaScriptObject {
 
     protected Interface() {
     }
     
-    //TODO: wait on docs or read code
+    public final native void setPrompt(String prompt) /*-{
+        this.setPrompt(prompt);
+    }-*/;
+    
+    public final native void setPrompt(String prompt, int length) /*-{
+        this.setPrompt(prompt, length);
+    }-*/;
 }

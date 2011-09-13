@@ -15,19 +15,26 @@
  */
 package org.gwtnode.client.node.readline;
 
+import org.gwtnode.client.JavaScriptFunction;
+import org.gwtnode.client.JavaScriptReturningFunction;
 import org.gwtnode.client.node.Global;
 import org.gwtnode.client.node.NodeJsModule;
+import org.gwtnode.client.node.event.EventEmitter;
+import org.gwtnode.client.node.event.ParameterlessEventHandler;
+import org.gwtnode.client.node.event.StringEventHandler;
+import org.gwtnode.client.node.stream.ReadableStream;
+import org.gwtnode.client.node.stream.WriteableStream;
 
-import com.google.gwt.core.client.JavaScriptObject;
+import com.google.gwt.core.client.JsArrayString;
 
 /**
  * The node.js
- * <a href="http://nodejs.org/docs/v0.5.0/api/readline.html">readline</a>
+ * <a href="http://nodejs.org/docs/v0.5.6/api/readline.html">readline</a>
  * module.
  *
  * @author Chad Retz
  */
-public class ReadLine extends JavaScriptObject implements NodeJsModule {
+public class ReadLine extends EventEmitter implements NodeJsModule {
 
     private static ReadLine instance;
     
@@ -40,6 +47,49 @@ public class ReadLine extends JavaScriptObject implements NodeJsModule {
     
     protected ReadLine() {
     }
+    
+    public final void onLine(StringEventHandler handler) {
+        on("line", handler);
+    }
+    
+    public final void onClose(ParameterlessEventHandler handler) {
+        on("close", handler);
+    }
 
-    //TODO: wait on docs or read code
+    public final native Interface createInterface(ReadableStream input, WriteableStream output) /*-{
+        return this.createInterface(input, output);
+    }-*/;
+    
+    public final Interface createInterface(ReadableStream input, WriteableStream output,
+            Completer completer) {
+        return createInterface(input, output, completer.getNativeFunction());
+    }
+
+    public final native Interface createInterface(ReadableStream input, WriteableStream output,
+            JavaScriptReturningFunction<JsArrayString> completer) /*-{
+        return this.createInterface(input, output, completer);
+    }-*/;
+    
+    public final void question(String query, QuestionCallback callback) {
+        question(query, callback.getNativeFunction());
+    }
+    
+    public final native void question(String query, JavaScriptFunction callback) /*-{
+        this.question(query, callback);
+    }-*/;
+    
+    public final native void close() /*-{
+        this.close();
+    }-*/;
+
+    public final native void pause() /*-{
+        this.pause();
+    }-*/;
+
+    public final native void resume() /*-{
+        this.resume();
+    }-*/;
+
+    //TODO: write()
+
 }

@@ -23,7 +23,7 @@ import com.google.gwt.core.client.JsArrayString;
 
 /**
  * The node.js
- * <a href="http://nodejs.org/docs/v0.5.0/api/globals.html">global</a>
+ * <a href="http://nodejs.org/docs/v0.5.6/api/globals.html">global</a>
  * namespace.
  * 
  * @author Chad Retz
@@ -57,6 +57,11 @@ public class Global extends JavaScriptObject {
         return require.cache;
     }-*/;
     
+    /**
+     * @return
+     * @deprecated See <a href="https://github.com/joyent/node/issues/1348">this</a>
+     */
+    @Deprecated
     public final native JsArrayString requirePaths() /*-{
         return require.paths;
     }-*/;
@@ -69,5 +74,11 @@ public class Global extends JavaScriptObject {
         return __dirname;
     }-*/;
     
-    //TODO: module
+    public final native <T extends JavaScriptObject & NodeJsModule> T module() /*-{
+        return module;
+    }-*/;
+    
+    public final native JavaScriptObject exports() /*-{
+        return exports;
+    }-*/;
 }

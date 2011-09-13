@@ -27,7 +27,7 @@ import com.google.gwt.core.client.JsArrayString;
 
 /**
  * The node.js
- * <a href="http://nodejs.org/docs/v0.5.0/api/path.html">path</a>
+ * <a href="http://nodejs.org/docs/v0.5.6/api/path.html">path</a>
  * module.
  * 
  * @author Chad Retz
@@ -64,6 +64,10 @@ public class Path extends JavaScriptObject implements NodeJsModule {
     
     public final native String normalize(String p) /*-{
         return this.normalize(p);
+    }-*/;
+    
+    public final native String relative(String from, String to) /*-{
+        return this.relative(from, to);
     }-*/;
     
     public final native String dirname(String p) /*-{

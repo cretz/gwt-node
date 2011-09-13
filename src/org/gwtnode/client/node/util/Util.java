@@ -17,6 +17,7 @@ package org.gwtnode.client.node.util;
 
 import org.gwtnode.client.JavaScriptFunction;
 import org.gwtnode.client.JavaScriptFunctionWrapper;
+import org.gwtnode.client.JavaScriptUtils;
 import org.gwtnode.client.node.Global;
 import org.gwtnode.client.node.NodeJsModule;
 import org.gwtnode.client.node.event.ErrorEventHandler;
@@ -24,10 +25,11 @@ import org.gwtnode.client.node.stream.ReadableStream;
 import org.gwtnode.client.node.stream.WriteableStream;
 
 import com.google.gwt.core.client.JavaScriptObject;
+import com.google.gwt.core.client.JsArrayMixed;
 
 /**
  * The node.js
- * <a href="http://nodejs.org/docs/v0.5.0/api/util.html">util</a>
+ * <a href="http://nodejs.org/docs/v0.5.6/api/util.html">util</a>
  * module.
  * 
  * @author Chad Retz
@@ -45,6 +47,14 @@ public class Util extends JavaScriptObject implements NodeJsModule {
     
     protected Util() {
     }
+    
+    public final String format(Object... params) {
+        return formatNative(JavaScriptUtils.toMixedArray(params));
+    }
+    
+    private final native String formatNative(JsArrayMixed params) /*-{
+        return this.format.apply(this, params);
+    }-*/;
     
     public final native void debug(String string) /*-{
         this.debug(string);

@@ -24,7 +24,7 @@ import com.google.gwt.core.client.JavaScriptObject;
 
 /**
  * The node.js
- * <a href="http://nodejs.org/docs/v0.5.0/api/net.html">net</a>
+ * <a href="http://nodejs.org/docs/v0.5.6/api/net.html">net</a>
  * module.
  * 
  * @author Chad Retz

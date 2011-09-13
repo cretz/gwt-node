@@ -22,7 +22,7 @@ import com.google.gwt.core.client.JavaScriptObject;
 
 /**
  * The node.js
- * <a href="http://nodejs.org/docs/v0.5.0/api/url.html">url</a>
+ * <a href="http://nodejs.org/docs/v0.5.6/api/url.html">url</a>
  * module.
  *
  * @author Chad Retz
@@ -47,6 +47,11 @@ public class Url extends JavaScriptObject implements NodeJsModule {
     
     public final native ParsedUrl parse(String url, boolean parseQueryString) /*-{
         return this.parse(url, parseQueryString);
+    }-*/;
+    
+    public final native ParsedUrl parse(String url, boolean parseQueryString, 
+            boolean slashesDenoteHost) /*-{
+        return this.parse(url, parseQueryString, slashesDenoteHost);
     }-*/;
     
     public final native String format(ParsedUrl urlObj) /*-{

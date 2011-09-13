@@ -25,7 +25,7 @@ import com.google.gwt.core.client.JsArrayNumber;
 
 /**
  * The node.js
- * <a href="http://nodejs.org/docs/v0.5.0/api/os.html">os</a>
+ * <a href="http://nodejs.org/docs/v0.5.6/api/os.html">os</a>
  * module.
  * 
  * @author Chad Retz

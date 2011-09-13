@@ -30,40 +30,6 @@ public class ConnectOptions extends JavaScriptObject {
     public static final <T extends ConnectOptions> T create() {
         return (T) JavaScriptObject.createObject();
     }
-
-    public static final native <T extends ConnectOptions> T create(
-            String key, String cert) /*-{
-        return {
-            'key' : key,
-            'cert' : cert,
-        };
-    }-*/;
-    
-    public static final native <T extends ConnectOptions> T create(
-            Buffer key, Buffer cert) /*-{
-        return {
-            'key' : key,
-            'cert' : cert,
-        };
-    }-*/;
-    
-    public static final native <T extends ConnectOptions> T create(
-            String key, String cert, JsArrayString ca) /*-{
-        return {
-            'key' : key,
-            'cert' : cert,
-            'ca' : ca
-        };
-    }-*/;
-    
-    public static final native <T extends ConnectOptions> T create(
-            Buffer key, Buffer cert, JsArray<Buffer> ca) /*-{
-        return {
-            'key' : key,
-            'cert' : cert,
-            'ca' : ca
-        };
-    }-*/;
     
     protected ConnectOptions() {
     }
@@ -116,4 +82,27 @@ public class ConnectOptions extends JavaScriptObject {
         this.ca = ca;
     }-*/;
     
+    public final native JsArrayString npnProtocolsStringArray() /*-{
+        return this.NPNProtocols;
+    }-*/;
+        
+    public final native void npnProtocolsStringArray(JsArrayString npnProtocols) /*-{
+        this.NPNProtocols = npnProtocols;
+    }-*/;
+    
+    public final native Buffer npnProtocolsBuffer() /*-{
+        return this.NPNProtocols;
+    }-*/;
+        
+    public final native void npnProtocolsBuffer(Buffer npnProtocols) /*-{
+        this.NPNProtocols = npnProtocols;
+    }-*/;
+    
+    public final native String servername() /*-{
+        return this.servername;
+    }-*/;
+    
+    public final native void servername(String servername) /*-{
+        this.servername = servername;
+    }-*/;
 }

@@ -12,9 +12,5 @@
 	<classpathentry kind="lib" path="lib/junit-4.7.jar"/>
 	<classpathentry kind="lib" path="examples/features/lib/gin-1.0.jar"/>
 	<classpathentry kind="lib" path="examples/features/lib/guice-2.0.jar"/>
-	<classpathentry kind="lib" path="lib/javaparser-1.0.8.jar"/>
-	<classpathentry kind="lib" path="lib/jsr305.jar"/>
-	<classpathentry kind="lib" path="lib/guava-r08-gwt.jar"/>
-	<classpathentry kind="lib" path="lib/guava-r08.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

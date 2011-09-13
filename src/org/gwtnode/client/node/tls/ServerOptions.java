@@ -15,7 +15,9 @@
  */
 package org.gwtnode.client.node.tls;
 
+import org.gwtnode.client.JavaScriptReturningFunction;
 import org.gwtnode.client.node.buffer.Buffer;
+import org.gwtnode.client.node.crypto.SecureContext;
 
 import com.google.gwt.core.client.JsArray;
 import com.google.gwt.core.client.JsArrayString;
@@ -88,4 +90,11 @@ public class ServerOptions extends ConnectOptions {
         this.rejectUnauthorized = rejectUnauthorized;
     }-*/;
     
+    public final native JavaScriptReturningFunction<SecureContext> sniCallback() /*-{
+        return this.SNICallback;
+    }-*/;
+    
+    public final native void sniCallback(SniCallback sniCallback) /*-{
+        this.SNICallback = sniCallback.@org.gwtnode.client.node.tls.SniCallback::getNativeFunction()();
+    }-*/;    
 }
