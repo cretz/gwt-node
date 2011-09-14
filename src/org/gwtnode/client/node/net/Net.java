@@ -95,4 +95,14 @@ public class Net extends JavaScriptObject implements NodeJsModule {
     public final native boolean isIPv6(String input) /*-{
         return this.isIPv6(input);
     }-*/;
+    
+    //package private...
+    
+    final native Socket createSocket() /*-{
+        return new this.Socket();
+    }-*/;
+    
+    final native Socket createSocket(SocketOptions options) /*-{
+        return new this.Socket(options);
+    }-*/;
 }

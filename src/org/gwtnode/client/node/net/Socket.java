@@ -29,13 +29,13 @@ import org.gwtnode.client.node.event.StringOrBufferEventHandler;
  */
 public class Socket extends EventEmitter {
 
-    public static final native Socket create() /*-{
-        return new net.Socket();
-    }-*/;
+    public static final Socket create() {
+        return Net.get().createSocket();
+    };
     
-    public static final native Socket create(SocketOptions options) /*-{
-        return new net.Socket(options);
-    }-*/;
+    public static final Socket create(SocketOptions options) {
+        return Net.get().createSocket(options);
+    };
     
     protected Socket() {
     }

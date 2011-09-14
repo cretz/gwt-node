@@ -102,6 +102,14 @@ public class Buffer extends JavaScriptObject {
     public final native int length() /*-{
         return this.length;
     }-*/;
+
+    public final native void copy(Buffer targetBuffer) /*-{
+        this.copy(targetBuffer);
+    }-*/;
+    
+    public final native void copy(Buffer targetBuffer, int targetStart) /*-{
+        this.copy(targetBuffer, targetStart);
+    }-*/;
     
     public final native void copy(Buffer targetBuffer, int targetStart, int sourceStart) /*-{
         this.copy(targetBuffer, targetStart, sourceStart);
@@ -112,75 +120,239 @@ public class Buffer extends JavaScriptObject {
         this.copy(targetBuffer, targetStart, sourceStart, sourceEnd);
     }-*/;
     
+    public final native Buffer slice(int start) /*-{
+        return this.slice(start);
+    }-*/;
+
     public final native Buffer slice(int start, int end) /*-{
         return this.slice(start, end);
     }-*/;
     
     //unsigned byte
-    public final native short readUInt8(int offset, String endian) /*-{
-        return this.readUInt8(offset, endian);
+    public final native short readUInt8(int offset) /*-{
+        return this.readUInt8(offset);
+    }-*/;
+
+    public final native short readUInt8(int offset, boolean noAssert) /*-{
+        return this.readUInt8(offset, noAssert);
     }-*/;
     
     //unsigned short
-    public final native int readUInt16(int offset, String endian) /*-{
-        return this.readUInt16(offset, endian);
+    public final native int readUInt16BE(int offset) /*-{
+        return this.readUInt16BE(offset);
+    }-*/;
+
+    public final native int readUInt16BE(int offset, boolean noAssert) /*-{
+        return this.readUInt16BE(offset, noAssert);
+    }-*/;
+
+    public final native int readUInt16LE(int offset) /*-{
+        return this.readUInt16LE(offset);
+    }-*/;
+
+    public final native int readUInt16LE(int offset, boolean noAssert) /*-{
+        return this.readUInt16LE(offset, noAssert);
     }-*/;
     
     //unsigned int
-    public final native double readUInt32(int offset, String endian) /*-{
-        return this.readUInt32(offset, endian);
+    public final native double readUInt32BE(int offset) /*-{
+        return this.readUInt32BE(offset);
+    }-*/;
+
+    public final native double readUInt32BE(int offset, boolean noAssert) /*-{
+        return this.readUInt32BE(offset, noAssert);
+    }-*/;
+
+    public final native double readUInt32LE(int offset) /*-{
+        return this.readUInt32LE(offset);
+    }-*/;
+
+    public final native double readUInt32LE(int offset, boolean noAssert) /*-{
+        return this.readUInt32LE(offset, noAssert);
     }-*/;
     
-    public final native byte readInt8(int offset, String endian) /*-{
-        return this.readInt8(offset, endian);
+    public final native byte readInt8(int offset) /*-{
+        return this.readInt8(offset);
+    }-*/;
+
+    public final native byte readInt8(int offset, boolean noAssert) /*-{
+        return this.readInt8(offset, noAssert);
     }-*/;
     
-    public final native short readInt16(int offset, String endian) /*-{
-        return this.readInt16(offset, endian);
+    public final native short readInt16BE(int offset) /*-{
+        return this.readInt16BE(offset);
+    }-*/;
+
+    public final native short readInt16BE(int offset, boolean noAssert) /*-{
+        return this.readInt16BE(offset, noAssert);
     }-*/;
     
-    public final native int readInt32(int offset, String endian) /*-{
-        return this.readInt32(offset, endian);
+    public final native short readInt16LE(int offset) /*-{
+        return this.readInt16LE(offset);
+    }-*/;
+
+    public final native short readInt16LE(int offset, boolean noAssert) /*-{
+        return this.readInt16LE(offset, noAssert);
     }-*/;
     
-    public final native float readFloat(int offset, String endian) /*-{
-        return this.readFloat(offset, endian);
+    public final native int readInt32BE(int offset) /*-{
+        return this.readInt32BE(offset);
+    }-*/;
+
+    public final native int readInt32BE(int offset, boolean noAssert) /*-{
+        return this.readInt32BE(offset, noAssert);
     }-*/;
     
-    public final native double readDouble(int offset, String endian) /*-{
-        return this.readDouble(offset, endian);
+    public final native int readInt32LE(int offset) /*-{
+        return this.readInt32LE(offset);
+    }-*/;
+
+    public final native int readInt32LE(int offset, boolean noAssert) /*-{
+        return this.readInt32LE(offset, noAssert);
     }-*/;
     
-    public final native void writeUInt8(short value, int offset, String endian) /*-{
-        this.writeUInt8(value, offset, endian);
+    public final native float readFloatBE(int offset) /*-{
+        return this.readFloatBE(offset);
+    }-*/;
+
+    public final native float readFloatBE(int offset, boolean noAssert) /*-{
+        return this.readFloatBE(offset, noAssert);
     }-*/;
     
-    public final native void writeUInt16(int value, int offset, String endian) /*-{
-        this.writeUInt16(value, offset, endian);
+    public final native float readFloatLE(int offset) /*-{
+        return this.readFloatLE(offset);
+    }-*/;
+
+    public final native float readFloatLE(int offset, boolean noAssert) /*-{
+        return this.readFloatLE(offset, noAssert);
     }-*/;
     
-    public final native void writeUInt32(double value, int offset, String endian) /*-{
-        this.writeUInt32(value, offset, endian);
+    public final native double readDoubleBE(int offset) /*-{
+        return this.readDoubleBE(offset);
+    }-*/;
+
+    public final native double readDoubleBE(int offset, boolean noAssert) /*-{
+        return this.readDoubleBE(offset, noAssert);
     }-*/;
     
-    public final native void writeInt8(byte value, int offset, String endian) /*-{
-        this.writeInt8(value, offset, endian);
+    public final native double readDoubleLE(int offset) /*-{
+        return this.readDoubleLE(offset);
+    }-*/;
+
+    public final native double readDoubleLE(int offset, boolean noAssert) /*-{
+        return this.readDoubleLE(offset, noAssert);
     }-*/;
     
-    public final native void writeInt16(short value, int offset, String endian) /*-{
-        this.writeInt16(value, offset, endian);
+    public final native void writeUInt8(short value, int offset) /*-{
+        this.writeUInt8(value, offset);
+    }-*/;
+
+    public final native void writeUInt8(short value, int offset, boolean noAssert) /*-{
+        this.writeUInt8(value, offset, noAssert);
     }-*/;
     
-    public final native void writeInt32(int value, int offset, String endian) /*-{
-        this.writeInt32(value, offset, endian);
+    public final native void writeUInt16BE(int value, int offset) /*-{
+        this.writeUInt16BE(value, offset);
+    }-*/;
+
+    public final native void writeUInt16BE(int value, int offset, boolean noAssert) /*-{
+        this.writeUInt16BE(value, offset, noAssert);
     }-*/;
     
-    public final native void writeFloat(float value, int offset, String endian) /*-{
-        this.writeFloat(value, offset, endian);
+    public final native void writeUInt16LE(int value, int offset) /*-{
+        this.writeUInt16LE(value, offset);
+    }-*/;
+
+    public final native void writeUInt16LE(int value, int offset, boolean noAssert) /*-{
+        this.writeUInt16LE(value, offset, noAssert);
     }-*/;
     
-    public final native void writeDouble(double value, int offset, String endian) /*-{
-        this.writeDouble(value, offset, endian);
+    public final native void writeUInt32BE(double value, int offset) /*-{
+        this.writeUInt32BE(value, offset);
+    }-*/;
+
+    public final native void writeUInt32BE(double value, int offset, boolean noAssert) /*-{
+        this.writeUInt32BE(value, offset, noAssert);
+    }-*/;
+    
+    public final native void writeUInt32LE(double value, int offset) /*-{
+        this.writeUInt32LE(value, offset);
+    }-*/;
+
+    public final native void writeUInt32LE(double value, int offset, boolean noAssert) /*-{
+        this.writeUInt32LE(value, offset, noAssert);
+    }-*/;
+    
+    public final native void writeInt8(byte value, int offset) /*-{
+        this.writeInt8(value, offset);
+    }-*/;
+
+    public final native void writeInt8(byte value, int offset, boolean noAssert) /*-{
+        this.writeInt8(value, offset, noAssert);
+    }-*/;
+    
+    public final native void writeInt16BE(short value, int offset) /*-{
+        this.writeInt16BE(value, offset);
+    }-*/;
+
+    public final native void writeInt16BE(short value, int offset, boolean noAssert) /*-{
+        this.writeInt16BE(value, offset, noAssert);
+    }-*/;
+    
+    public final native void writeInt16LE(short value, int offset) /*-{
+        this.writeInt16LE(value, offset);
+    }-*/;
+
+    public final native void writeInt16LE(short value, int offset, boolean noAssert) /*-{
+        this.writeInt16LE(value, offset, noAssert);
+    }-*/;
+    
+    public final native void writeInt32BE(int value, int offset) /*-{
+        this.writeInt32BE(value, offset);
+    }-*/;
+
+    public final native void writeInt32BE(int value, int offset, boolean noAssert) /*-{
+        this.writeInt32BE(value, offset, noAssert);
+    }-*/;
+    
+    public final native void writeInt32LE(int value, int offset) /*-{
+        this.writeInt32LE(value, offset);
+    }-*/;
+
+    public final native void writeInt32LE(int value, int offset, boolean noAssert) /*-{
+        this.writeInt32LE(value, offset, noAssert);
+    }-*/;
+
+    public final native void writeFloatBE(float value, int offset) /*-{
+        this.writeFloatBE(value, offset);
+    }-*/;
+    
+    public final native void writeFloatBE(float value, int offset, boolean noAssert) /*-{
+        this.writeFloatBE(value, offset, noAssert);
+    }-*/;
+
+    public final native void writeFloatLE(float value, int offset) /*-{
+        this.writeFloatLE(value, offset);
+    }-*/;
+    
+    public final native void writeFloatLE(float value, int offset, boolean noAssert) /*-{
+        this.writeFloatLE(value, offset, noAssert);
+    }-*/;
+
+    public final native void writeDoubleBE(double value, int offset) /*-{
+        this.writeDoubleBE(value, offset);
+    }-*/;
+    
+    public final native void writeDoubleBE(double value, int offset, boolean noAssert) /*-{
+        this.writeDoubleBE(value, offset, noAssert);
+    }-*/;
+
+    public final native void writeDoubleLE(double value, int offset) /*-{
+        this.writeDoubleLE(value, offset);
+    }-*/;
+    
+    public final native void writeDoubleLE(double value, int offset, boolean noAssert) /*-{
+        this.writeDoubleLE(value, offset, noAssert);
     }-*/;
     
     public final native void fill(Object value) /*-{
