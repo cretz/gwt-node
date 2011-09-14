@@ -13,7 +13,11 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.gwtnode.examples.oophmproxy.client.message;
+package org.gwtnode.client.debug.oophm.message;
+
+import org.gwtnode.client.debug.oophm.OophmBufferBuilder;
+import org.gwtnode.client.debug.oophm.OophmStream;
+import org.gwtnode.client.node.buffer.Buffer;
 
 /**
  * @author Chad Retz
@@ -23,12 +27,28 @@ public class SwitchTransportMessage extends Message {
     private final String transport;
     private final String transportArgs;
     
-    public SwitchTransportMessage(MessageType type, BufferStream stream) {
-        super(type);
+    public SwitchTransportMessage(String transport, String transportArgs) {
+        super(MessageType.SWITCH_TRANSPORT);
+        this.transport = transport;
+        length += OophmStream.getStringByteLength(transport);
+        this.transportArgs = transportArgs;
+        length += OophmStream.getStringByteLength(transportArgs);
+    }
+    
+    public SwitchTransportMessage(OophmStream stream) {
+        super(MessageType.SWITCH_TRANSPORT);
         transport = stream.readString();
-        length += BufferStream.getStringByteLength(transport);
+        length += OophmStream.getStringByteLength(transport);
         transportArgs = stream.readString();
-        length += BufferStream.getStringByteLength(transportArgs);
+        length += OophmStream.getStringByteLength(transportArgs);
+    }
+    
+    public String getTransport() {
+        return transport;
+    }
+    
+    public String getTransportArgs() {
+        return transportArgs;
     }
 
     @Override
@@ -40,4 +60,11 @@ public class SwitchTransportMessage extends Message {
                 append(transportArgs).toString();
     }
 
+    @Override
+    public Buffer toBuffer() {
+        return new OophmBufferBuilder().
+                append(type).
+                append(transport).
+                append(transportArgs).toBuffer();
+    }
 }

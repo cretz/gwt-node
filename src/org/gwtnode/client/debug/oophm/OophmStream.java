@@ -13,14 +13,18 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.gwtnode.examples.oophmproxy.client.message;
+package org.gwtnode.client.debug.oophm;
 
+import org.gwtnode.client.debug.oophm.message.Value;
+import org.gwtnode.client.debug.oophm.message.ValueType;
 import org.gwtnode.client.node.buffer.Buffer;
 
 /**
+ * Stream for aggregating and reading an OOPHM stream of buffers
+ * 
  * @author Chad Retz
  */
-public class BufferStream {
+public class OophmStream {
     
     public static int getStringByteLength(String string) {
         return 4 + Buffer.byteLength(string);

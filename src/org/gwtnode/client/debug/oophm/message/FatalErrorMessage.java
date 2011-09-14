@@ -13,7 +13,11 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.gwtnode.examples.oophmproxy.client.message;
+package org.gwtnode.client.debug.oophm.message;
+
+import org.gwtnode.client.debug.oophm.OophmBufferBuilder;
+import org.gwtnode.client.debug.oophm.OophmStream;
+import org.gwtnode.client.node.buffer.Buffer;
 
 /**
  * @author Chad Retz
@@ -22,10 +26,16 @@ public class FatalErrorMessage extends Message {
 
     private final String error;
     
-    public FatalErrorMessage(MessageType type, BufferStream stream) {
-        super(type);
+    public FatalErrorMessage(String error) {
+        super(MessageType.FATAL_ERROR);
+        this.error = error;
+        length += OophmStream.getStringByteLength(error);
+    }
+    
+    public FatalErrorMessage(OophmStream stream) {
+        super(MessageType.FATAL_ERROR);
         error = stream.readString();
-        length += BufferStream.getStringByteLength(error);
+        length += OophmStream.getStringByteLength(error);
     }
 
     @Override
@@ -35,4 +45,10 @@ public class FatalErrorMessage extends Message {
                 append(error).toString();
     }
 
+    @Override
+    public Buffer toBuffer() {
+        return new OophmBufferBuilder().
+                append(type).
+                append(error).toBuffer();
+    }
 }

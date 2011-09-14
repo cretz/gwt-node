@@ -13,9 +13,13 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.gwtnode.examples.oophmproxy.client.message;
+package org.gwtnode.client.debug.oophm.message;
 
 import java.util.Arrays;
+
+import org.gwtnode.client.debug.oophm.OophmBufferBuilder;
+import org.gwtnode.client.debug.oophm.OophmStream;
+import org.gwtnode.client.node.buffer.Buffer;
 
 /**
  * @author Chad Retz
@@ -25,8 +29,19 @@ public class InvokeSpecialMessage extends Message {
     private final byte specialMethod;
     private final Value<?>[] argValues;
     
-    public InvokeSpecialMessage(MessageType type, BufferStream stream) {
-        super(type);
+    public InvokeSpecialMessage(byte specialMethod, Value<?>... argValues) {
+        super(MessageType.INVOKE_SPECIAL);
+        this.specialMethod = specialMethod;
+        length++;
+        this.argValues = argValues;
+        length += 4;
+        for (Value<?> argValue : argValues) {
+            length += argValue.getLength();
+        }
+    }
+    
+    public InvokeSpecialMessage(OophmStream stream) {
+        super(MessageType.INVOKE_SPECIAL);
         specialMethod = stream.readByte();
         length += 1;
         argValues = new Value<?>[stream.readInt()];
@@ -35,6 +50,14 @@ public class InvokeSpecialMessage extends Message {
             argValues[i] = stream.readValue();
             length += argValues[i].getLength();
         }
+    }
+    
+    public byte getSpecialMethod() {
+        return specialMethod;
+    }
+    
+    public Value<?>[] getArgValues() {
+        return argValues;
     }
 
     @Override
@@ -46,4 +69,11 @@ public class InvokeSpecialMessage extends Message {
                 append(Arrays.toString(argValues)).toString();
     }
 
+    @Override
+    public Buffer toBuffer() {
+        return new OophmBufferBuilder().
+                append(type).
+                append(specialMethod).
+                appendArray(argValues).toBuffer();
+    }
 }

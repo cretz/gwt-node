@@ -13,30 +13,33 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.gwtnode.examples.oophmproxy.client.message;
+package org.gwtnode.client.debug.oophm.message;
+
+import org.gwtnode.client.debug.oophm.OophmBufferBuilder;
+import org.gwtnode.client.debug.oophm.OophmStream;
+import org.gwtnode.client.node.buffer.Buffer;
 
 /**
  * @author Chad Retz
  */
-public class UserAgentIconMessage extends Message {
+public class RequestIconMessage extends Message {
 
-    private final byte[] iconBytes;
+    public RequestIconMessage() {
+        super(MessageType.REQUEST_ICON);
+    }
     
-    public UserAgentIconMessage(MessageType type, BufferStream stream) {
-        super(type);
-        iconBytes = new byte[stream.readInt()];
-        length += 4;
-        for (int i = 0; i < iconBytes.length; i++) {
-            iconBytes[i] = stream.readByte();
-        }
-        length += iconBytes.length;
+    public RequestIconMessage(OophmStream stream) {
+        super(MessageType.REQUEST_ICON);
     }
 
     @Override
     public String toString() {
-        return super.toString(new StringBuilder()).
-                append("iconByteLength: ").
-                append(iconBytes.length).toString();
+        return super.toString(new StringBuilder()).toString();
     }
 
+    @Override
+    public Buffer toBuffer() {
+        return new OophmBufferBuilder().
+                append(type).toBuffer();
+    }
 }

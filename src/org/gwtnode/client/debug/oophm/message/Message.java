@@ -13,20 +13,37 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.gwtnode.examples.oophmproxy.client.message;
+package org.gwtnode.client.debug.oophm.message;
+
+import org.gwtnode.client.node.buffer.Buffer;
 
 /**
  * @author Chad Retz
  */
-public class RequestIconMessage extends Message {
+public abstract class Message {
 
-    public RequestIconMessage(MessageType type, BufferStream stream) {
-        super(type);
+    protected final MessageType type;
+    protected int length = 0;
+    
+    public Message(MessageType type) {
+        this.type = type;
+        length += 1;
     }
-
-    @Override
-    public String toString() {
-        return super.toString(new StringBuilder()).toString();
+    
+    public MessageType getType() {
+        return type;
     }
-
+    
+    public int getLength() {
+        return length;
+    }
+    
+    public abstract String toString();
+    
+    public abstract Buffer toBuffer();
+    
+    protected StringBuilder toString(StringBuilder builder) {
+        return builder.append(type).append(" - ");
+    }
+    
 }

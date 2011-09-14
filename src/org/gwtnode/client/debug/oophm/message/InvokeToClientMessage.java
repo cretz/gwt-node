@@ -13,7 +13,11 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.gwtnode.examples.oophmproxy.client.message;
+package org.gwtnode.client.debug.oophm.message;
+
+import org.gwtnode.client.debug.oophm.OophmBufferBuilder;
+import org.gwtnode.client.debug.oophm.OophmStream;
+import org.gwtnode.client.node.buffer.Buffer;
 
 /**
  * @author Chad Retz
@@ -22,10 +26,17 @@ public class InvokeToClientMessage extends InvokeMessage {
 
     private final String methodName;
     
-    public InvokeToClientMessage(MessageType type, BufferStream stream) {
-        super(type);
+    public InvokeToClientMessage(String methodName, Value<?> thisValue,
+            Value<?>... argValues) {
+        super(thisValue, argValues);
+        this.methodName = methodName;
+        length += OophmStream.getStringByteLength(methodName);
+    }
+    
+    public InvokeToClientMessage(OophmStream stream) {
+        super();
         methodName = stream.readString();
-        length += BufferStream.getStringByteLength(methodName);
+        length += OophmStream.getStringByteLength(methodName);
         initThisAndArgs(stream);
     }
     
@@ -38,5 +49,12 @@ public class InvokeToClientMessage extends InvokeMessage {
         return super.toString(new StringBuilder()).
                 append(", methodName: ").
                 append(methodName).toString();
+    }
+    
+    @Override
+    public Buffer toBuffer() {
+        return toBuffer(new OophmBufferBuilder().
+                append(type).
+                append(methodName)).toBuffer();
     }
 }

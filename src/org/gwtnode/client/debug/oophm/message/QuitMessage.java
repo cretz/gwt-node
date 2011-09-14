@@ -13,33 +13,33 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.gwtnode.examples.oophmproxy.client.message;
+package org.gwtnode.client.debug.oophm.message;
+
+import org.gwtnode.client.debug.oophm.OophmBufferBuilder;
+import org.gwtnode.client.debug.oophm.OophmStream;
+import org.gwtnode.client.node.buffer.Buffer;
 
 /**
  * @author Chad Retz
  */
-public abstract class Message {
+public class QuitMessage extends Message {
 
-    private final MessageType type;
-    protected int length = 0;
-    
-    public Message(MessageType type) {
-        this.type = type;
-        length += 1;
+    public QuitMessage() {
+        super(MessageType.QUIT);
     }
     
-    public MessageType getType() {
-        return type;
+    public QuitMessage(OophmStream stream) {
+        super(MessageType.QUIT);
     }
-    
-    public int getLength() {
-        return length;
+
+    @Override
+    public String toString() {
+        return super.toString(new StringBuilder()).toString();
     }
-    
-    public abstract String toString();
-    
-    protected StringBuilder toString(StringBuilder builder) {
-        return builder.append(type).append(" - ");
+
+    @Override
+    public Buffer toBuffer() {
+        return new OophmBufferBuilder().
+                append(type).toBuffer();
     }
-    
 }

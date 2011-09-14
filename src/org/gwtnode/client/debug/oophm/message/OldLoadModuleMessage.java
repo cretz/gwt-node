@@ -13,7 +13,11 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.gwtnode.examples.oophmproxy.client.message;
+package org.gwtnode.client.debug.oophm.message;
+
+import org.gwtnode.client.debug.oophm.OophmBufferBuilder;
+import org.gwtnode.client.debug.oophm.OophmStream;
+import org.gwtnode.client.node.buffer.Buffer;
 
 /**
  * @author Chad Retz
@@ -24,14 +28,25 @@ public class OldLoadModuleMessage extends Message {
     private final String moduleName;
     private final String userAgent;
     
-    public OldLoadModuleMessage(MessageType type, BufferStream stream) {
-        super(type);
+    public OldLoadModuleMessage(int version, String moduleName,
+            String userAgent) {
+        super(MessageType.OLD_LOAD_MODULE);
+        this.version = version;
+        length += 4;
+        this.moduleName = moduleName;
+        length += OophmStream.getStringByteLength(moduleName);
+        this.userAgent = userAgent;
+        length += OophmStream.getStringByteLength(userAgent);
+    }
+    
+    public OldLoadModuleMessage(OophmStream stream) {
+        super(MessageType.OLD_LOAD_MODULE);
         version = stream.readInt();
         length += 4;
         moduleName = stream.readString();
-        length += BufferStream.getStringByteLength(moduleName);
+        length += OophmStream.getStringByteLength(moduleName);
         userAgent = stream.readString();
-        length += BufferStream.getStringByteLength(userAgent);
+        length += OophmStream.getStringByteLength(userAgent);
     }
     
     public int getVersion() {
@@ -57,4 +72,12 @@ public class OldLoadModuleMessage extends Message {
                 append(userAgent).toString();
     }
 
+    @Override
+    public Buffer toBuffer() {
+        return new OophmBufferBuilder().
+                append(type).
+                append(version).
+                append(moduleName).
+                append(userAgent).toBuffer();
+    }
 }

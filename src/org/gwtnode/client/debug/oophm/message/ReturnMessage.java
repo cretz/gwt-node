@@ -13,7 +13,11 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.gwtnode.examples.oophmproxy.client.message;
+package org.gwtnode.client.debug.oophm.message;
+
+import org.gwtnode.client.debug.oophm.OophmBufferBuilder;
+import org.gwtnode.client.debug.oophm.OophmStream;
+import org.gwtnode.client.node.buffer.Buffer;
 
 /**
  * @author Chad Retz
@@ -23,8 +27,16 @@ public class ReturnMessage extends Message {
     private final boolean exception;
     private final Value<?> returnValue;
     
-    public ReturnMessage(MessageType type, BufferStream stream) {
-        super(type);
+    public ReturnMessage(boolean exception, Value<?> returnValue) {
+        super(MessageType.RETURN);
+        this.exception = exception;
+        length++;
+        this.returnValue = returnValue;
+        length += returnValue.getLength();
+    }
+    
+    public ReturnMessage(OophmStream stream) {
+        super(MessageType.RETURN);
         exception = stream.readBoolean();
         length += 1;
         returnValue = stream.readValue();
@@ -47,4 +59,11 @@ public class ReturnMessage extends Message {
                 append(returnValue).toString();
     }
 
+    @Override
+    public Buffer toBuffer() {
+        return new OophmBufferBuilder().
+                append(type).
+                append(exception).
+                append(returnValue).toBuffer();
+    }
 }

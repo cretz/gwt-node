@@ -13,7 +13,9 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.gwtnode.examples.oophmproxy.client.message;
+package org.gwtnode.client.debug.oophm.message;
+
+import org.gwtnode.client.debug.oophm.OophmStream;
 
 /**
  * @author Chad Retz
@@ -22,100 +24,100 @@ public enum ValueType {
     NULL {
         @Override
         @SuppressWarnings("unchecked")
-        Value<Void> createValue(BufferStream stream) {
+        public Value<Void> createValue(OophmStream stream) {
             return new Value<Void>(NULL, null, 1);
         }
     },
     BOOLEAN {
         @Override
         @SuppressWarnings("unchecked")
-        Value<Boolean> createValue(BufferStream stream) {
+        public Value<Boolean> createValue(OophmStream stream) {
             return new Value<Boolean>(BOOLEAN, stream.readBoolean(), 2);
         }
     },
     BYTE {
         @Override
         @SuppressWarnings("unchecked")
-        Value<Byte> createValue(BufferStream stream) {
+        public Value<Byte> createValue(OophmStream stream) {
             return new Value<Byte>(BYTE, stream.readByte(), 2);
         }
     },
     CHAR {
         @Override
         @SuppressWarnings("unchecked")
-        Value<Character> createValue(BufferStream stream) {
+        public Value<Character> createValue(OophmStream stream) {
             return new Value<Character>(CHAR, stream.readChar(), 3);
         }
     },
     SHORT {
         @Override
         @SuppressWarnings("unchecked")
-        Value<Short> createValue(BufferStream stream) {
+        public Value<Short> createValue(OophmStream stream) {
             return new Value<Short>(SHORT, stream.readShort(), 3);
         }
     },
     INT {
         @Override
         @SuppressWarnings("unchecked")
-        Value<Integer> createValue(BufferStream stream) {
+        public Value<Integer> createValue(OophmStream stream) {
             return new Value<Integer>(INT, stream.readInt(), 5);
         }
     },
     LONG {
         @Override
         @SuppressWarnings("unchecked")
-        Value<Long> createValue(BufferStream stream) {
+        public Value<Long> createValue(OophmStream stream) {
             return new Value<Long>(LONG, stream.readLong(), 9);
         }
     },
     FLOAT {
         @Override
         @SuppressWarnings("unchecked")
-        Value<Float> createValue(BufferStream stream) {
+        public Value<Float> createValue(OophmStream stream) {
             return new Value<Float>(FLOAT, stream.readFloat(), 5);
         }
     },
     DOUBLE {
         @Override
         @SuppressWarnings("unchecked")
-        Value<Double> createValue(BufferStream stream) {
+        public Value<Double> createValue(OophmStream stream) {
             return new Value<Double>(DOUBLE, stream.readDouble(), 9);
         }
     },
     STRING {
         @Override
         @SuppressWarnings("unchecked")
-        Value<String> createValue(BufferStream stream) {
+        public Value<String> createValue(OophmStream stream) {
             String val = stream.readString();
             return new Value<String>(STRING, val, 
-                    BufferStream.getStringByteLength(val));
+                    OophmStream.getStringByteLength(val));
         }
     },
     JAVA_OBJECT {
         @Override
         @SuppressWarnings("unchecked")
-        Value<Integer> createValue(BufferStream stream) {
+        public Value<Integer> createValue(OophmStream stream) {
             return new Value<Integer>(JAVA_OBJECT, stream.readInt(), 5);
         }
     },
     JAVA_SCRIPT_OBJECT {
         @Override
         @SuppressWarnings("unchecked")
-        Value<Integer> createValue(BufferStream stream) {
+        public Value<Integer> createValue(OophmStream stream) {
             return new Value<Integer>(JAVA_SCRIPT_OBJECT, stream.readInt(), 5);
         }
     },
     UNDEFINED {
         @Override
         @SuppressWarnings("unchecked")
-        Value<Void> createValue(BufferStream stream) {
+        public Value<Void> createValue(OophmStream stream) {
             return new Value<Void>(UNDEFINED, null, 1);
         }
     };
     
-    public static ValueType getValueType(BufferStream stream) {
+    public static ValueType getValueType(OophmStream stream) {
         return ValueType.values()[(int) stream.readByte()];
     }
     
-    abstract <T> Value<T> createValue(BufferStream stream);
+    public abstract <T> Value<T> createValue(OophmStream stream);
 }

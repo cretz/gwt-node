@@ -13,7 +13,11 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.gwtnode.examples.oophmproxy.client.message;
+package org.gwtnode.client.debug.oophm.message;
+
+import org.gwtnode.client.debug.oophm.OophmBufferBuilder;
+import org.gwtnode.client.debug.oophm.OophmStream;
+import org.gwtnode.client.node.buffer.Buffer;
 
 /**
  * @author Chad Retz
@@ -22,10 +26,20 @@ public class ProtocolVersionMessage extends Message {
 
     private final int protocolVersion;
     
-    public ProtocolVersionMessage(MessageType type, BufferStream stream) {
-        super(type);
+    public ProtocolVersionMessage(int protocolVersion) {
+        super(MessageType.PROTOCOL_VERSION);
+        this.protocolVersion = protocolVersion;
+        length += 4;
+    }
+    
+    public ProtocolVersionMessage(OophmStream stream) {
+        super(MessageType.PROTOCOL_VERSION);
         protocolVersion = stream.readInt();
         length += 4;
+    }
+    
+    public int getProtocolVersion() {
+        return protocolVersion;
     }
 
     @Override
@@ -35,4 +49,10 @@ public class ProtocolVersionMessage extends Message {
                 append(protocolVersion).toString();
     }
 
+    @Override
+    public Buffer toBuffer() {
+        return new OophmBufferBuilder().
+                append(type).
+                append(protocolVersion).toBuffer();
+    }
 }

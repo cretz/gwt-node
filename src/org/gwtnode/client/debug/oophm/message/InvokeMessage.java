@@ -13,9 +13,12 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.gwtnode.examples.oophmproxy.client.message;
+package org.gwtnode.client.debug.oophm.message;
 
 import java.util.Arrays;
+
+import org.gwtnode.client.debug.oophm.OophmBufferBuilder;
+import org.gwtnode.client.debug.oophm.OophmStream;
 
 /**
  * @author Chad Retz
@@ -25,11 +28,22 @@ public abstract class InvokeMessage extends Message {
     private Value<?> thisValue;
     private Value<?>[] argValues;
     
-    public InvokeMessage(MessageType type) {
-        super(type);
+    public InvokeMessage(Value<?> thisValue, Value<?>... argValues) {
+        super(MessageType.INVOKE);
+        this.thisValue = thisValue;
+        length += thisValue.getLength();
+        this.argValues = argValues;
+        length += 4;
+        for (Value<?> argValue : argValues) {
+            length += argValue.getLength();
+        }
     }
     
-    protected void initThisAndArgs(BufferStream stream) {
+    public InvokeMessage() {
+        super(MessageType.INVOKE);
+    }
+    
+    protected void initThisAndArgs(OophmStream stream) {
         thisValue = stream.readValue();
         length += thisValue.getLength();
         int argCount = stream.readInt();
@@ -55,5 +69,9 @@ public abstract class InvokeMessage extends Message {
                 append(thisValue).
                 append(", args: ").
                 append(Arrays.toString(argValues));
+    }
+    
+    public OophmBufferBuilder toBuffer(OophmBufferBuilder builder) {
+        return builder.append(thisValue).append(argValues);
     }
 }

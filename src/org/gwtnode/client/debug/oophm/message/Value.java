@@ -13,20 +13,37 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.gwtnode.examples.oophmproxy.client.message;
+package org.gwtnode.client.debug.oophm.message;
 
 /**
  * @author Chad Retz
  */
-public class QuitMessage extends Message {
+public class Value<T> {
 
-    public QuitMessage(MessageType type, BufferStream stream) {
-        super(type);
+    private final ValueType type;
+    private final T value;
+    private final int length;
+    
+    Value(ValueType type, T value, int length) {
+        this.type = type;
+        this.value = value;
+        this.length = length;
     }
-
+    
+    public ValueType getType() {
+        return type;
+    }
+    
+    public T getValue() {
+        return value;
+    }
+    
+    public int getLength() {
+        return length;
+    }
+    
     @Override
     public String toString() {
-        return super.toString(new StringBuilder()).toString();
+        return type + "(" + value + ")";
     }
-
 }

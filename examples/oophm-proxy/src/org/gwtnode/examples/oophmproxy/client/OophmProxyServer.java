@@ -15,6 +15,10 @@
  */
 package org.gwtnode.examples.oophmproxy.client;
 
+import org.gwtnode.client.debug.oophm.OophmStream;
+import org.gwtnode.client.debug.oophm.OophmStream.StreamIndexOutOfBoundsException;
+import org.gwtnode.client.debug.oophm.message.Message;
+import org.gwtnode.client.debug.oophm.message.MessageType;
 import org.gwtnode.client.node.buffer.Buffer;
 import org.gwtnode.client.node.event.BooleanEventHandler;
 import org.gwtnode.client.node.event.StringOrBufferEventHandler;
@@ -23,10 +27,6 @@ import org.gwtnode.client.node.net.Server;
 import org.gwtnode.client.node.net.Socket;
 import org.gwtnode.client.node.net.StreamEventHandler;
 import org.gwtnode.client.node.stdio.Console;
-import org.gwtnode.examples.oophmproxy.client.message.BufferStream;
-import org.gwtnode.examples.oophmproxy.client.message.BufferStream.StreamIndexOutOfBoundsException;
-import org.gwtnode.examples.oophmproxy.client.message.Message;
-import org.gwtnode.examples.oophmproxy.client.message.MessageType;
 
 /**
  * @author Chad Retz
@@ -37,8 +37,8 @@ class OophmProxyServer {
     private final int proxyPort;
     private Socket proxySocket;
     private Socket gwtCodeSocket;
-    private final BufferStream proxyStream = new BufferStream();
-    private final BufferStream gwtCodeStream = new BufferStream();
+    private final OophmStream proxyStream = new OophmStream();
+    private final OophmStream gwtCodeStream = new OophmStream();
     
     public OophmProxyServer(int proxyPort, final String gwtCodeHost, final int gwtCodePort) {
         server = Net.get().createServer(new StreamEventHandler() {
@@ -82,12 +82,12 @@ class OophmProxyServer {
         this.proxyPort = proxyPort;
     }
     
-    private void logMessage(BufferStream stream, boolean fromClient) {
+    private void logMessage(OophmStream stream, boolean fromClient) {
         try {
             stream.beginTransaction();
             MessageType type = MessageType.getMessageType(stream);
             Message message = type.createMessage(stream, fromClient);
-            Console.get().info(message.toString());
+            Console.get().info((fromClient ? "fromJS ** " : "toJS ** ") + message.toString());
             stream.commitTransaction();
         } catch (StreamIndexOutOfBoundsException e) {
             stream.rollbackTransaction();
@@ -95,7 +95,7 @@ class OophmProxyServer {
     }
     
     public void listen() {
-        Console.get().info("Listening on port: " + proxyPort);
         server.listen(proxyPort);
+        Console.get().info("Listening on port: " + proxyPort);
     }
 }

@@ -13,7 +13,11 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.gwtnode.examples.oophmproxy.client.message;
+package org.gwtnode.client.debug.oophm.message;
+
+import org.gwtnode.client.debug.oophm.OophmBufferBuilder;
+import org.gwtnode.client.debug.oophm.OophmStream;
+import org.gwtnode.client.node.buffer.Buffer;
 
 /**
  * @author Chad Retz
@@ -22,8 +26,15 @@ public class InvokeFromClientMessage extends InvokeMessage {
 
     private final int methodDispatchId;
     
-    public InvokeFromClientMessage(MessageType type, BufferStream stream) {
-        super(type);
+    public InvokeFromClientMessage(int methodDispatchId, Value<?> thisValue,
+            Value<?>... argValues) {
+        super(thisValue, argValues);
+        this.methodDispatchId = methodDispatchId;
+        length += 4;
+    }
+    
+    public InvokeFromClientMessage(OophmStream stream) {
+        super();
         length = 0;
         methodDispatchId = stream.readInt();
         length += 4;
@@ -39,5 +50,12 @@ public class InvokeFromClientMessage extends InvokeMessage {
         return toString(new StringBuilder()).
                 append(", methodDispatchId: ").
                 append(methodDispatchId).toString();
+    }
+    
+    @Override
+    public Buffer toBuffer() {
+        return toBuffer(new OophmBufferBuilder().
+                append(type).
+                append(methodDispatchId)).toBuffer();
     }
 }

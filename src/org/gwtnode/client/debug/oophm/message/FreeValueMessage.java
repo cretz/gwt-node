@@ -13,25 +13,39 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.gwtnode.examples.oophmproxy.client.message;
+package org.gwtnode.client.debug.oophm.message;
 
 import java.util.Arrays;
+
+import org.gwtnode.client.debug.oophm.OophmBufferBuilder;
+import org.gwtnode.client.debug.oophm.OophmStream;
+import org.gwtnode.client.node.buffer.Buffer;
 
 /**
  * @author Chad Retz
  */
 public class FreeValueMessage extends Message {
 
-    private final int[] refIds;
+    private final Integer[] refIds;
     
-    public FreeValueMessage(MessageType type, BufferStream stream) {
-        super(type);
-        refIds = new int[stream.readInt()];
+    public FreeValueMessage(Integer... refIds) {
+        super(MessageType.FREE_VALUE);
+        this.refIds = refIds;
+        length += 4 + (4 * refIds.length);
+    }
+    
+    public FreeValueMessage(OophmStream stream) {
+        super(MessageType.FREE_VALUE);
+        refIds = new Integer[stream.readInt()];
         length += 4;
         for (int i = 0; i < refIds.length; i++) {
             refIds[i] = stream.readInt();
             length += 4;
         }
+    }
+    
+    public Integer[] getRefIds() {
+        return refIds;
     }
 
     @Override
@@ -41,4 +55,10 @@ public class FreeValueMessage extends Message {
                 append(Arrays.toString(refIds)).toString();
     }
 
+    @Override
+    public Buffer toBuffer() {
+        return new OophmBufferBuilder().
+                append(type).
+                appendArray(refIds).toBuffer();
+    }
 }

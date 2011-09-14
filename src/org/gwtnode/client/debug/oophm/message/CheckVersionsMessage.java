@@ -13,7 +13,11 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.gwtnode.examples.oophmproxy.client.message;
+package org.gwtnode.client.debug.oophm.message;
+
+import org.gwtnode.client.debug.oophm.OophmBufferBuilder;
+import org.gwtnode.client.debug.oophm.OophmStream;
+import org.gwtnode.client.node.buffer.Buffer;
 
 /**
  * @author Chad Retz
@@ -24,14 +28,35 @@ public class CheckVersionsMessage extends Message {
     private final int maxVersion;
     private final String hostedHtmlVersion;
     
-    public CheckVersionsMessage(MessageType type, BufferStream stream) {
-        super(type);
+    public CheckVersionsMessage(int minVersion, int maxVersion, 
+            String hostedHtmlVersion) {
+        super(MessageType.CHECK_VERSIONS);
+        this.minVersion = minVersion;
+        this.maxVersion = maxVersion;
+        this.hostedHtmlVersion = hostedHtmlVersion;
+        length = 8 + OophmStream.getStringByteLength(hostedHtmlVersion);
+    }
+    
+    public CheckVersionsMessage(OophmStream stream) {
+        super(MessageType.CHECK_VERSIONS);
         minVersion = stream.readInt();
         length += 4;
         maxVersion = stream.readInt();
         length += 4;
         hostedHtmlVersion = stream.readString();
-        length += BufferStream.getStringByteLength(hostedHtmlVersion);
+        length += OophmStream.getStringByteLength(hostedHtmlVersion);
+    }
+    
+    public int getMinVersion() {
+        return minVersion;
+    }
+    
+    public int getMaxVersion() {
+        return maxVersion;
+    }
+    
+    public String getHostedHtmlVersion() {
+        return hostedHtmlVersion;
     }
 
     @Override
@@ -45,4 +70,11 @@ public class CheckVersionsMessage extends Message {
                 append(hostedHtmlVersion).toString();
     }
 
+    public Buffer toBuffer() {
+        return new OophmBufferBuilder().
+                append(type).
+                append(minVersion).
+                append(maxVersion).
+                append(hostedHtmlVersion).toBuffer();
+    }
 }

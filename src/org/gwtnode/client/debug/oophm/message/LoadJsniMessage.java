@@ -13,7 +13,11 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.gwtnode.examples.oophmproxy.client.message;
+package org.gwtnode.client.debug.oophm.message;
+
+import org.gwtnode.client.debug.oophm.OophmBufferBuilder;
+import org.gwtnode.client.debug.oophm.OophmStream;
+import org.gwtnode.client.node.buffer.Buffer;
 
 /**
  * @author Chad Retz
@@ -22,10 +26,20 @@ public class LoadJsniMessage extends Message {
 
     private final String jsCode;
     
-    public LoadJsniMessage(MessageType type, BufferStream stream) {
-        super(type);
+    public LoadJsniMessage(String jsCode) {
+        super(MessageType.LOAD_JSNI);
+        this.jsCode = jsCode;
+        length += OophmStream.getStringByteLength(jsCode);
+    }
+    
+    public LoadJsniMessage(OophmStream stream) {
+        super(MessageType.LOAD_JSNI);
         jsCode = stream.readString();
-        length += BufferStream.getStringByteLength(jsCode);
+        length += OophmStream.getStringByteLength(jsCode);
+    }
+    
+    public String getJsCode() {
+        return jsCode;
     }
 
     @Override
@@ -35,4 +49,10 @@ public class LoadJsniMessage extends Message {
                 append(jsCode.length()).toString();
     }
 
+    @Override
+    public Buffer toBuffer() {
+        return new OophmBufferBuilder().
+                append(type).
+                append(jsCode).toBuffer();
+    }
 }
