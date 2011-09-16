@@ -17,7 +17,7 @@ package org.gwtnode.client.node.childprocess;
 
 import org.gwtnode.client.node.event.EventEmitter;
 import org.gwtnode.client.node.stream.ReadableStream;
-import org.gwtnode.client.node.stream.WriteableStream;
+import org.gwtnode.client.node.stream.WritableStream;
 
 /**
  * A node.js child process that comes from exec or spawn on
@@ -34,7 +34,7 @@ public class Child extends EventEmitter {
         on("exit", handler);
     }
     
-    public final native WriteableStream stdin() /*-{
+    public final native WritableStream stdin() /*-{
         return this.stdin;
     }-*/;
     

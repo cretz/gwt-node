@@ -61,7 +61,7 @@ public class OophmBufferBuilder {
             if (((Value<?>) object).getValue() != null) {
                 return append(((Value<?>) object).getValue());
             }
-        } else if (object.getClass().isEnum()) {
+        } else if (object instanceof Enum) {
             length++;
         } else {
             throw new IllegalArgumentException("Unknown object type: " + object.getClass());
@@ -96,9 +96,10 @@ public class OophmBufferBuilder {
                 buffer.writeDoubleBE((Double) object, offset);
                 offset += 8;
             } else if (object.getClass() == String.class) {
-                buffer.write((String) object, offset);
+                buffer.writeInt32BE(Buffer.byteLength((String) object), offset);
+                buffer.write((String) object, offset + 4);
                 offset += OophmStream.getStringByteLength((String) object);
-            } else if (object.getClass().isEnum()) {
+            } else if (object instanceof Enum) {
                 buffer.set(offset, (byte) ((Enum<?>) object).ordinal());
                 offset++;
             } else {

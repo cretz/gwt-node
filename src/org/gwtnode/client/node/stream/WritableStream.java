@@ -20,13 +20,13 @@ import org.gwtnode.client.node.event.ParameterlessEventHandler;
 
 /**
  * A node.js
- * <a href="http://nodejs.org/docs/v0.5.0/api/streams.html#writeable_Stream">WriteableStream</a>
+ * <a href="http://nodejs.org/docs/v0.5.0/api/streams.html#writable_Stream">WritableStream</a>
  * 
  * @author Chad Retz
  */
-public class WriteableStream extends Stream {
+public class WritableStream extends Stream {
     
-    protected WriteableStream() {
+    protected WritableStream() {
     }
     
     public final void onDrain(ParameterlessEventHandler handler) {
@@ -37,8 +37,8 @@ public class WriteableStream extends Stream {
         on("pipe", handler);
     }
     
-    public final native boolean writeable() /*-{
-        return this.writeable;
+    public final native boolean writable() /*-{
+        return this.writable;
     }-*/;
     
     public final native boolean write(String string) /*-{

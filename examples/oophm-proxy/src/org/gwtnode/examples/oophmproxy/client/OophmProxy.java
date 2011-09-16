@@ -66,7 +66,8 @@ public class OophmProxy extends GwtNodeBootstrap {
         if (gwtCodeHost == null) {
             gwtCodeHost = "127.0.0.1";
         }
-        new OophmProxyServer(proxyPort, gwtCodeHost, gwtCodePort).listen();
+        String logFile = getArg(argList, "-logFile");
+        new OophmProxyServer(proxyPort, gwtCodeHost, gwtCodePort, logFile).listen();
         return null;
     }
 

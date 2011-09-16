@@ -15,9 +15,9 @@
  */
 package org.gwtnode.client.node.http;
 
-import org.gwtnode.client.node.stream.WriteableStream;
+import org.gwtnode.client.node.stream.WritableStream;
 
-public class ClientRequest extends WriteableStream {
+public class ClientRequest extends WritableStream {
 
     protected ClientRequest() {
     }

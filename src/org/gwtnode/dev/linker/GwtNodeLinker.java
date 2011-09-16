@@ -55,27 +55,33 @@ public class GwtNodeLinker extends AbstractLinker {
         // grab compilation result
         Set<CompilationResult> results = artifacts
                 .find(CompilationResult.class);
-        if (results.size() != 1) {
+        CompilationResult result = null;
+        if (results.size() > 1) {
             logger.log(TreeLogger.ERROR,
                     "The module must have exactly one distinct"
                             + " permutation when using the " + getDescription()
                             + " Linker.", null);
             throw new UnableToCompleteException();
+        } else if (!results.isEmpty()) {
+            result = results.iterator().next();
+            // dump JS
+            String[] js = result.getJavaScript();
+            if (js.length != 1) {
+                logger.log(TreeLogger.ERROR,
+                        "The module must not have multiple fragments when using the "
+                                + getDescription() + " Linker.", null);
+                throw new UnableToCompleteException();
+            }
+            out.print(js[0]);
+            out.newline();
         }
-        CompilationResult result = results.iterator().next();
-        // dump JS
-        String[] js = result.getJavaScript();
-        if (js.length != 1) {
-            logger.log(TreeLogger.ERROR,
-                    "The module must not have multiple fragments when using the "
-                            + getDescription() + " Linker.", null);
-            throw new UnableToCompleteException();
-        }
-        out.print(js[0]);
-        out.newline();
         out.print("var $stats = function() { };");
         out.newline();
         out.print("var $sessionId = function() { };");
+        out.newline();
+        //global window
+        //TODO: check this against jsdom
+        out.print("var window = { };");
         out.newline();
         //preload code
         addPreloadCode(logger, context, artifacts, result, out);

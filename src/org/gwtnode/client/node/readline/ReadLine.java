@@ -23,7 +23,7 @@ import org.gwtnode.client.node.event.EventEmitter;
 import org.gwtnode.client.node.event.ParameterlessEventHandler;
 import org.gwtnode.client.node.event.StringEventHandler;
 import org.gwtnode.client.node.stream.ReadableStream;
-import org.gwtnode.client.node.stream.WriteableStream;
+import org.gwtnode.client.node.stream.WritableStream;
 
 import com.google.gwt.core.client.JsArrayString;
 
@@ -56,16 +56,16 @@ public class ReadLine extends EventEmitter implements NodeJsModule {
         on("close", handler);
     }
 
-    public final native Interface createInterface(ReadableStream input, WriteableStream output) /*-{
+    public final native Interface createInterface(ReadableStream input, WritableStream output) /*-{
         return this.createInterface(input, output);
     }-*/;
     
-    public final Interface createInterface(ReadableStream input, WriteableStream output,
+    public final Interface createInterface(ReadableStream input, WritableStream output,
             Completer completer) {
         return createInterface(input, output, completer.getNativeFunction());
     }
 
-    public final native Interface createInterface(ReadableStream input, WriteableStream output,
+    public final native Interface createInterface(ReadableStream input, WritableStream output,
             JavaScriptReturningFunction<JsArrayString> completer) /*-{
         return this.createInterface(input, output, completer);
     }-*/;

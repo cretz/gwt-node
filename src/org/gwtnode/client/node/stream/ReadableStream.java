@@ -61,19 +61,19 @@ public class ReadableStream extends Stream {
         this.resume();
     }-*/;
 
-    public final native void pipe(WriteableStream destination) /*-{
+    public final native void pipe(WritableStream destination) /*-{
         this.pipe(destination);
     }-*/;
     
-    public final native void pipe(WriteableStream destination, boolean end) /*-{
+    public final native void pipe(WritableStream destination, boolean end) /*-{
         this.pipe(destination, {'end' : end });
     }-*/;
     
-    public final void pipe(WriteableStream destination, JsonStringObjectMap<?> map) {
+    public final void pipe(WritableStream destination, JsonStringObjectMap<?> map) {
         pipe(destination, map.getNativeObject());
     }
     
-    public final native void pipe(WriteableStream destination, JavaScriptObject options) /*-{
+    public final native void pipe(WritableStream destination, JavaScriptObject options) /*-{
         this.pipe(destination, options);
     }-*/;
 }

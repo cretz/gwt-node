@@ -17,12 +17,12 @@ package org.gwtnode.client.node.http;
 
 import org.gwtnode.client.JavaScriptUtils;
 import org.gwtnode.client.JsonStringObjectMap;
-import org.gwtnode.client.node.stream.WriteableStream;
+import org.gwtnode.client.node.stream.WritableStream;
 
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArrayString;
 
-public class ServerResponse extends WriteableStream {
+public class ServerResponse extends WritableStream {
 
     protected ServerResponse() {
     }

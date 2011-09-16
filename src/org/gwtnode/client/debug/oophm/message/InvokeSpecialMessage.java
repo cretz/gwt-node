@@ -26,10 +26,10 @@ import org.gwtnode.client.node.buffer.Buffer;
  */
 public class InvokeSpecialMessage extends Message {
 
-    private final byte specialMethod;
+    private final SpecialMethod specialMethod;
     private final Value<?>[] argValues;
     
-    public InvokeSpecialMessage(byte specialMethod, Value<?>... argValues) {
+    public InvokeSpecialMessage(SpecialMethod specialMethod, Value<?>... argValues) {
         super(MessageType.INVOKE_SPECIAL);
         this.specialMethod = specialMethod;
         length++;
@@ -42,7 +42,7 @@ public class InvokeSpecialMessage extends Message {
     
     public InvokeSpecialMessage(OophmStream stream) {
         super(MessageType.INVOKE_SPECIAL);
-        specialMethod = stream.readByte();
+        specialMethod = SpecialMethod.values()[(int) stream.readByte()];
         length += 1;
         argValues = new Value<?>[stream.readInt()];
         length += 4;
@@ -52,7 +52,7 @@ public class InvokeSpecialMessage extends Message {
         }
     }
     
-    public byte getSpecialMethod() {
+    public SpecialMethod getSpecialMethod() {
         return specialMethod;
     }
     

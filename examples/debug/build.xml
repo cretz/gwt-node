@@ -19,7 +19,6 @@
     <import file="../../build.xml" />
 	
 	<target name="compile">
-		<fail message="NOT YET FINISHED" />
 		<ant antfile="../../build.xml" inheritall="false" target="build" />
 		<delete dir="build" includeemptydirs="true" /> 
 		<mkdir dir="build" />

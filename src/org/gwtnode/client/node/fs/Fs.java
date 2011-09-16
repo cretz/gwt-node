@@ -21,7 +21,7 @@ import org.gwtnode.client.node.Global;
 import org.gwtnode.client.node.NodeJsModule;
 import org.gwtnode.client.node.buffer.Buffer;
 import org.gwtnode.client.node.stream.ReadableStream;
-import org.gwtnode.client.node.stream.WriteableStream;
+import org.gwtnode.client.node.stream.WritableStream;
 
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArrayString;
@@ -805,11 +805,11 @@ public class Fs extends JavaScriptObject implements NodeJsModule {
     
     //TODO: open event on the stream
 
-    public final native WriteableStream createWriteStream(String path) /*-{
+    public final native WritableStream createWriteStream(String path) /*-{
         return this.createWriteStream(path);
     }-*/;
     
-    public final native WriteableStream createWriteStream(String path, WriteStreamOptions options) /*-{
+    public final native WritableStream createWriteStream(String path, WriteStreamOptions options) /*-{
         return this.createReadStream(path, options);
     }-*/;
 }

@@ -15,21 +15,51 @@
  */
 package org.gwtnode.examples.debug.client;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.gwtnode.client.GwtNodeBootstrap;
-import org.gwtnode.client.node.process.Process;
+import org.gwtnode.client.debug.oophm.OophmServer;
+import org.gwtnode.client.node.util.Util;
 
 /**
- * Hello world example in the debugger. 
+ * An OOPHM debugger
  * 
- * @deprecated This example is NOT YET FINISHED
  * @author Chad Retz
  */
-@Deprecated
 public class Debug extends GwtNodeBootstrap {
 
+    private static String getArg(List<String> argList, String argName) {
+        int index = argList.indexOf(argName);
+        if (index != -1 && index < argList.size() - 1) {
+            return argList.get(index + 1);
+        }
+        return null;
+    }
+    
     @Override
     public Integer main(String... args) {
-        Process.get().stdout().write("Hello world\n");
+        //grab params
+        List<String> argList = Arrays.asList(args);
+        int port;
+        try {
+            port = Integer.parseInt(getArg(argList, "-port"));
+        } catch (Exception e) {
+            Util.get().log("Unable to obtain integer-based -port parameter");
+            return 1;
+        }
+        String host = getArg(argList, "-host");
+        if (host == null) {
+            host = "127.0.0.1";
+        }
+        String module = getArg(argList, "-module");
+        if (module == null) {
+            Util.get().log("Unable to obtain module name");
+            return 1;
+        }
+        String logFile = getArg(argList, "-logFile");
+        //start server
+        new OophmServer(module, host, port, logFile).start();
         return null;
     }
 

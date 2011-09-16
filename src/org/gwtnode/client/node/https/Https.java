@@ -48,16 +48,20 @@ public class Https extends JavaScriptObject implements NodeJsModule {
     protected Https() {
     }
     
-    public final Server createServer(JavaScriptFunctionWrapper requestListener) {
-        return createServer(requestListener.getNativeFunction());
+    public final native Server createServer(CreateServerOptions options) /*-{
+        return this.createServer(options);
+    }-*/;
+    
+    public final Server createServer(CreateServerOptions options, JavaScriptFunctionWrapper requestListener) {
+        return createServer(options, requestListener.getNativeFunction());
     }
     
-    public final Server createServer(ServerRequestEventHandler requestListener) {
-        return createServer(requestListener.getNativeFunction());
+    public final Server createServer(CreateServerOptions options, ServerRequestEventHandler requestListener) {
+        return createServer(options, requestListener.getNativeFunction());
     }
     
-    public final native Server createServer(JavaScriptFunction requestListener) /*-{
-        return this.createServer(requestListener);
+    public final native Server createServer(CreateServerOptions options, JavaScriptFunction requestListener) /*-{
+        return this.createServer(options, requestListener);
     }-*/;
 
     public final ClientRequest request(HttpRequestOptions options, 

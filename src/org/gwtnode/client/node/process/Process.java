@@ -21,7 +21,7 @@ import org.gwtnode.client.node.event.ErrorEventHandler;
 import org.gwtnode.client.node.event.EventEmitter;
 import org.gwtnode.client.node.event.ParameterlessEventHandler;
 import org.gwtnode.client.node.stream.ReadableStream;
-import org.gwtnode.client.node.stream.WriteableStream;
+import org.gwtnode.client.node.stream.WritableStream;
 
 import com.google.gwt.core.client.JsArrayString;
 
@@ -53,11 +53,11 @@ public class Process extends EventEmitter {
         on(signal, handler);
     }
     
-    public final native WriteableStream stdout() /*-{
+    public final native WritableStream stdout() /*-{
         return this.stdout;
     }-*/;
     
-    public final native WriteableStream stderr() /*-{
+    public final native WritableStream stderr() /*-{
         return this.stderr;
     }-*/;
     
@@ -82,7 +82,7 @@ public class Process extends EventEmitter {
     }-*/;
     
     public final native JsArrayString env() /*-{
-        return this.env();
+        return this.env;
     }-*/;
     
     public final native void exit() /*-{

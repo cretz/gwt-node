@@ -22,11 +22,13 @@ import org.gwtnode.client.debug.oophm.message.MessageType;
 import org.gwtnode.client.node.buffer.Buffer;
 import org.gwtnode.client.node.event.BooleanEventHandler;
 import org.gwtnode.client.node.event.StringOrBufferEventHandler;
+import org.gwtnode.client.node.fs.Fs;
 import org.gwtnode.client.node.net.Net;
 import org.gwtnode.client.node.net.Server;
 import org.gwtnode.client.node.net.Socket;
 import org.gwtnode.client.node.net.StreamEventHandler;
 import org.gwtnode.client.node.stdio.Console;
+import org.gwtnode.client.node.stream.WritableStream;
 
 /**
  * @author Chad Retz
@@ -39,11 +41,16 @@ class OophmProxyServer {
     private Socket gwtCodeSocket;
     private final OophmStream proxyStream = new OophmStream();
     private final OophmStream gwtCodeStream = new OophmStream();
+    private WritableStream logFile;
     
-    public OophmProxyServer(int proxyPort, final String gwtCodeHost, final int gwtCodePort) {
+    public OophmProxyServer(int proxyPort, final String gwtCodeHost, final int gwtCodePort, 
+            final String logFilename) {
         server = Net.get().createServer(new StreamEventHandler() {
             @Override
             protected void onEvent(Socket stream) {
+                if (logFilename != null) {
+                    logFile = Fs.get().createWriteStream(logFilename);
+                }
                 proxySocket = stream;
                 gwtCodeSocket = Socket.create();
                 gwtCodeSocket.connect(gwtCodePort, gwtCodeHost);
@@ -69,12 +76,20 @@ class OophmProxyServer {
                     @Override
                     protected void onEvent(boolean value) {
                         gwtCodeSocket.end();
+                        if (logFile != null) {
+                            logFile.end();
+                            logFile = null;
+                        }
                     }
                 });
                 gwtCodeSocket.onClose(new BooleanEventHandler() {
                     @Override
                     protected void onEvent(boolean value) {
                         proxySocket.end();
+                        if (logFile != null) {
+                            logFile.end();
+                            logFile = null;
+                        }
                     }
                 });
             }
@@ -87,7 +102,11 @@ class OophmProxyServer {
             stream.beginTransaction();
             MessageType type = MessageType.getMessageType(stream);
             Message message = type.createMessage(stream, fromClient);
-            Console.get().info((fromClient ? "fromJS ** " : "toJS ** ") + message.toString());
+            if (logFile != null) {
+                logFile.write((fromClient ? "fromJS ** " : "toJS ** ") + message.toString() + "\n");
+            } else {
+                Console.get().info((fromClient ? "fromJS ** " : "toJS ** ") + message.toString());
+            }
             stream.commitTransaction();
         } catch (StreamIndexOutOfBoundsException e) {
             stream.rollbackTransaction();

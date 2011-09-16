@@ -45,8 +45,8 @@ public class LoadJsniMessage extends Message {
     @Override
     public String toString() {
         return super.toString(new StringBuilder()).
-                append("jsCodeLength: ").
-                append(jsCode.length()).toString();
+                append("jsCode: ").
+                append(jsCode).toString();
     }
 
     @Override

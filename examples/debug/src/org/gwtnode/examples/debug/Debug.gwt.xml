@@ -17,16 +17,10 @@
 
 <module rename-to="Debug">
 
-    <!--     
-    <inherits name="org.gwtnode.dev.debug.GwtNodeDebug" />
-    -->
     <inherits name="org.gwtnode.GwtNode" />
 
 	<entry-point class="org.gwtnode.examples.debug.client.Debug" />
 
 	<source path="client" />
-	
-    <define-linker name="node" class="org.gwtnode.dev.linker.GwtNodeSymbolStoreLinker" />
-    <add-linker name="node" />
 	
 </module>

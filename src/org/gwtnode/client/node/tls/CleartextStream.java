@@ -22,7 +22,7 @@ import org.gwtnode.client.node.event.ParameterlessEventHandler;
 import org.gwtnode.client.node.event.StringOrBufferEventHandler;
 import org.gwtnode.client.node.stream.PipeEventHandler;
 import org.gwtnode.client.node.stream.Stream;
-import org.gwtnode.client.node.stream.WriteableStream;
+import org.gwtnode.client.node.stream.WritableStream;
 
 import com.google.gwt.core.client.JavaScriptObject;
 
@@ -32,7 +32,7 @@ import com.google.gwt.core.client.JavaScriptObject;
 public class CleartextStream extends Stream {
 
     //TODO: test each function here to make sure it is implemented
-    //TODO: make ReadableStream and WriteableStream interfaces instead
+    //TODO: make ReadableStream and WritableStream interfaces instead
     //  of concrete classes so this can implement both
     
     protected CleartextStream() {
@@ -66,19 +66,19 @@ public class CleartextStream extends Stream {
         this.resume();
     }-*/;
 
-    public final native void pipe(WriteableStream destination) /*-{
+    public final native void pipe(WritableStream destination) /*-{
         this.pipe(destination);
     }-*/;
     
-    public final native void pipe(WriteableStream destination, boolean end) /*-{
+    public final native void pipe(WritableStream destination, boolean end) /*-{
         this.pipe(destination, {'end' : end });
     }-*/;
     
-    public final void pipe(WriteableStream destination, JsonStringObjectMap<?> map) {
+    public final void pipe(WritableStream destination, JsonStringObjectMap<?> map) {
         pipe(destination, map.getNativeObject());
     }
     
-    public final native void pipe(WriteableStream destination, JavaScriptObject options) /*-{
+    public final native void pipe(WritableStream destination, JavaScriptObject options) /*-{
         this.pipe(destination, options);
     }-*/;
     
@@ -90,8 +90,8 @@ public class CleartextStream extends Stream {
         on("pipe", handler);
     }
     
-    public final native boolean writeable() /*-{
-        return this.writeable;
+    public final native boolean writable() /*-{
+        return this.writable;
     }-*/;
     
     public final native boolean write(String string) /*-{

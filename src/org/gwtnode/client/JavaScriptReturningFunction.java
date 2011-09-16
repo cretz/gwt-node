@@ -27,7 +27,6 @@ public class JavaScriptReturningFunction<T> extends JavaScriptObject {
 
     protected JavaScriptReturningFunction() {
     }
-    
 
     public final T apply(Object... arguments) {
         return apply(JavaScriptUtils.toMixedArray(arguments));

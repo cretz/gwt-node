@@ -15,6 +15,9 @@
  */
 package org.gwtnode.client;
 
+import org.gwtnode.client.node.util.Util;
+
+import com.google.gwt.core.client.JavaScriptException;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArrayInteger;
 import com.google.gwt.core.client.JsArrayMixed;
@@ -75,6 +78,39 @@ public class JavaScriptUtils {
             addToArray(ret, value);
         }
         return ret;
+    }
+
+    public static StringBuilder appendException(Throwable throwable, StringBuilder builder) {
+        return appendException(throwable, true, builder);
+    }
+    
+    private static StringBuilder appendException(Throwable throwable, 
+            boolean topLevel, StringBuilder builder) {
+        if (topLevel) {
+            builder.append("Exception: ").append(throwable).append('\n');
+        } else {
+            builder.append("Caused by: ").append(throwable).append('\n');
+        }
+        if (throwable instanceof JavaScriptException) {
+            if (throwable.getStackTrace().length == 0) {
+                throwable.fillInStackTrace();
+            }
+            builder.append("    JS Error: ").append(Util.get().inspect(
+                    ((JavaScriptException) throwable).getException())).append('\n');
+        }
+        StackTraceElement[] stackTraceElements = throwable.getStackTrace();
+        if (stackTraceElements != null && stackTraceElements.length > 0) {
+            for (StackTraceElement stackTraceElement : stackTraceElements) {
+                builder.append("    ").append(stackTraceElement).append('\n');
+            }
+        } else {
+            builder.append("[no stacktrace]\n");
+        }
+        if (throwable.getCause() != null && throwable.getCause() != throwable) {
+            return appendException(throwable.getCause(), false, builder);
+        } else {
+            return builder;
+        }
     }
 
     private JavaScriptUtils() {

@@ -13,37 +13,12 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.gwtnode.client.debug.oophm.message;
+package org.gwtnode.modules.express.client;
 
 /**
  * @author Chad Retz
  */
-public class Value<T> {
+public class Response {
 
-    private final ValueType type;
-    private final T value;
-    private final int length;
-    
-    public Value(ValueType type, T value, int length) {
-        this.type = type;
-        this.value = value;
-        this.length = length;
-    }
-    
-    public ValueType getType() {
-        return type;
-    }
-    
-    public T getValue() {
-        return value;
-    }
-    
-    public int getLength() {
-        return length;
-    }
-    
-    @Override
-    public String toString() {
-        return type + "(" + value + ")";
-    }
+    //TODO
 }

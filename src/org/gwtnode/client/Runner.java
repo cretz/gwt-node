@@ -15,6 +15,9 @@
  */
 package org.gwtnode.client;
 
+/**
+ * @author Chad Retz
+ */
 public interface Runner {
 
     void run(GwtNodeBootstrap bootstrap, Closure<Integer> callback, String... args);

@@ -13,17 +13,12 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.gwtnode.examples.debug.client;
+package org.gwtnode.modules.express.client;
 
-import org.gwtnode.client.node.util.Util;
+/**
+ * @author Chad Retz
+ */
+public class Request {
 
-public class SampleObject {
-
-    public void write() {
-        write("Reflected method call!");
-    }
-
-    public void write(String value) {
-        Util.get().log(value);
-    }
+    //TODO
 }

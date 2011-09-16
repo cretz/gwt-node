@@ -22,7 +22,7 @@ import org.gwtnode.client.node.Global;
 import org.gwtnode.client.node.NodeJsModule;
 import org.gwtnode.client.node.event.ErrorEventHandler;
 import org.gwtnode.client.node.stream.ReadableStream;
-import org.gwtnode.client.node.stream.WriteableStream;
+import org.gwtnode.client.node.stream.WritableStream;
 
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArrayMixed;
@@ -76,23 +76,23 @@ public class Util extends JavaScriptObject implements NodeJsModule {
         return this.inspect(object, showHidden, depth);
     }-*/;
     
-    public final native void pump(ReadableStream readableStream, WriteableStream writeableStream) /*-{
-        this.pump(readableStream, writeableStream);
+    public final native void pump(ReadableStream readableStream, WritableStream writableStream) /*-{
+        this.pump(readableStream, writableStream);
     }-*/;
     
-    public final void pump(ReadableStream readableStream, WriteableStream writeableStream,
+    public final void pump(ReadableStream readableStream, WritableStream writableStream,
             ErrorEventHandler handler) {
-        pump(readableStream, writeableStream, handler.getNativeFunction());
+        pump(readableStream, writableStream, handler.getNativeFunction());
     }
     
-    public final void pump(ReadableStream readableStream, WriteableStream writeableStream,
+    public final void pump(ReadableStream readableStream, WritableStream writableStream,
             JavaScriptFunctionWrapper wrapper) {
-        pump(readableStream, writeableStream, wrapper.getNativeFunction());
+        pump(readableStream, writableStream, wrapper.getNativeFunction());
     }
     
-    public final native void pump(ReadableStream readableStream, WriteableStream writeableStream,
+    public final native void pump(ReadableStream readableStream, WritableStream writableStream,
             JavaScriptFunction func) /*-{
-        this.pump(readableStream, writeableStream, func);
+        this.pump(readableStream, writableStream, func);
     }-*/;
     
     public final native void inherits(JavaScriptFunction constructor, 
