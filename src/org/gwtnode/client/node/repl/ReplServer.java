@@ -31,4 +31,8 @@ public class ReplServer extends JavaScriptObject {
     public final native JavaScriptObject context() /*-{
         return this.context;
     }-*/;
+    
+    public final native void context(JavaScriptObject ctx) /*-{
+        return this.context = ctx;
+    }-*/;
 }

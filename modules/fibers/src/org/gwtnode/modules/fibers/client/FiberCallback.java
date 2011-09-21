@@ -13,25 +13,26 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.gwtnode.client.node;
+package org.gwtnode.modules.fibers.client;
 
-import com.google.gwt.core.client.JavaScriptObject;
+import org.gwtnode.client.JavaScriptFunctionArguments;
+import org.gwtnode.client.JavaScriptFunctionWrapper;
 
 /**
- * Error object used in node.js
+ * Creation callback for a fiber that doesn't return.
  * 
  * @author Chad Retz
  */
-public class NodeJsError extends JavaScriptObject {
+public abstract class FiberCallback extends JavaScriptFunctionWrapper {
 
-    public static native NodeJsError create() /*-{
-        return new Error();
-    }-*/;
-    
-    public static native NodeJsError create(String description) /*-{
-        return new Error(description);
-    }-*/;
-    
-    protected NodeJsError() {
+    @Override
+    public final void call(JavaScriptFunctionArguments args) {
+        if (args.length() > 0) {
+            onCreate(args.get(0));
+        } else {
+            onCreate(null);
+        }
     }
+
+    public abstract void onCreate(Object param);
 }

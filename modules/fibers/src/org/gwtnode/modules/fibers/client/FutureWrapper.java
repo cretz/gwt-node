@@ -13,25 +13,26 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.gwtnode.client.node;
+package org.gwtnode.modules.fibers.client;
 
-import com.google.gwt.core.client.JavaScriptObject;
+import org.gwtnode.client.JavaScriptFunction;
+import org.gwtnode.client.JavaScriptFunctionArguments;
 
 /**
- * Error object used in node.js
+ * The result of Future.wrap()
  * 
  * @author Chad Retz
  */
-public class NodeJsError extends JavaScriptObject {
+public class FutureWrapper<T> {
 
-    public static native NodeJsError create() /*-{
-        return new Error();
-    }-*/;
+    private final JavaScriptFunction func;
     
-    public static native NodeJsError create(String description) /*-{
-        return new Error(description);
-    }-*/;
-    
-    protected NodeJsError() {
+    FutureWrapper(JavaScriptFunction func) {
+        this.func = func;
     }
+    
+    public final native T callAndWait(JavaScriptFunctionArguments args) /*-{
+        var func = this.@org.gwtnode.modules.fibers.client.FutureWrapper::func;
+        return func(args).wait();
+    }-*/;
 }

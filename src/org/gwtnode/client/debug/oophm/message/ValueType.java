@@ -17,6 +17,8 @@ package org.gwtnode.client.debug.oophm.message;
 
 import org.gwtnode.client.debug.oophm.OophmStream;
 
+import com.google.gwt.core.client.JavaScriptObject;
+
 /**
  * @author Chad Retz
  */
@@ -162,7 +164,11 @@ public enum ValueType {
         @Override
         @SuppressWarnings("unchecked")
         public Value<Integer> createValueFromObject(Object object) {
-            return new Value<Integer>(JAVA_OBJECT, (Integer) object, 5);
+            if (object instanceof JavaScriptObject) {
+                return new Value<Integer>(JAVA_OBJECT, Integer.parseInt(object.toString()), 5);
+            } else {
+                return new Value<Integer>(JAVA_OBJECT, (Integer) object, 5);
+            }
         }
     },
     JAVA_SCRIPT_OBJECT {
@@ -175,7 +181,11 @@ public enum ValueType {
         @Override
         @SuppressWarnings("unchecked")
         public Value<Integer> createValueFromObject(Object object) {
-            return new Value<Integer>(JAVA_SCRIPT_OBJECT, (Integer) object, 5);
+            if (object instanceof JavaScriptObject) {
+                return new Value<Integer>(JAVA_SCRIPT_OBJECT, Integer.parseInt(object.toString()), 5);
+            } else {
+                return new Value<Integer>(JAVA_SCRIPT_OBJECT, (Integer) object, 5);
+            }
         }
     },
     UNDEFINED {

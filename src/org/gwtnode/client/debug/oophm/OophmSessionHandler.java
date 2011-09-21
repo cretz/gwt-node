@@ -24,7 +24,6 @@ import org.gwtnode.client.debug.oophm.message.FreeValueMessage;
 import org.gwtnode.client.debug.oophm.message.SpecialMethod;
 import org.gwtnode.client.debug.oophm.message.Value;
 import org.gwtnode.client.debug.oophm.message.ValueType;
-import org.gwtnode.client.node.vm.Context;
 import org.gwtnode.client.node.vm.Vm;
 
 import com.google.gwt.core.client.JavaScriptObject;
@@ -41,12 +40,12 @@ public class OophmSessionHandler {
     private final Set<Integer> javaObjectsToFree = new HashSet<Integer>();
     private final OophmChannel channel;
     private final OophmLog log;
-    private final Context context;
     
     public OophmSessionHandler(OophmChannel channel, OophmLog log) {
         this.channel = channel;
         this.log = log;
-        this.context = vm.createContext();
+        //could start a REPL here too...
+        //Repl.get().start();
         initContext();
     }
     
@@ -56,10 +55,8 @@ public class OophmSessionHandler {
     
     @SuppressWarnings("unchecked")
     private <T extends JavaScriptObject> T runInContext(String code) {
-        if (log.isDebugEnabled()) {
-            log.debug("Executing code in context:\n%s", code);
-        }
-        return (T) vm.runInContext(code, context);
+        log.debug("Executing code in context:\n%s", code);
+        return (T) vm.runInThisContext(code);
     }
     
     private void initContext() {
@@ -173,10 +170,12 @@ public class OophmSessionHandler {
                 }
             }
             code.append("  _ret.value = ");
-            if (thisObj.getValue() != null) {
-                appendValue(thisObj, code).append('.');
+            if (thisObj.getValue() == null) {
+                code.append("window");
+            } else {
+                appendValue(thisObj, code);
             }
-            code.append(methodName).append('(');
+            code.append('[').append(JavaScriptUtils.unescapeJavaScriptString(methodName)).append("](");
             for (int i = 0; i < args.length; i++) {
                 if (i > 0) {
                     code.append(", ");
@@ -208,11 +207,11 @@ public class OophmSessionHandler {
                  append("    _ret.type = ").append(ValueType.JAVA_OBJECT.ordinal()).append(";\n").
                  append("  } else {\n").
                  append("    _ret.type = ").append(ValueType.JAVA_SCRIPT_OBJECT.ordinal()).append(";\n").
-                 append("    _id = __gwt_node_jsIdsByObject[ret.value];\n").
+                 append("    _id = __gwt_node_jsIdsByObject[_ret.value];\n").
                  append("    if (!_id) {\n").
                  append("      _id = ++__gwt_node_jsObjectCounter;\n").
                  append("      __gwt_node_jsObjectsById[_id] = _ret.value;\n").
-                 append("      __gwt_node_jsIdsByObject[ret.value] = _id;\n").
+                 append("      __gwt_node_jsIdsByObject[_ret.value] = _id;\n").
                  append("    }\n").
                  append("  }\n").
                  append("  _ret.value = _id;\n").
@@ -220,18 +219,19 @@ public class OophmSessionHandler {
                  append("  _ret.value = new Error('Unrecognized type: ' + typeof(_ret.value));\n").
                  append("  _id = ++__gwt_node_jsObjectCounter;\n").
                  append("  __gwt_node_jsObjectsById[_id] = _ret.value;\n").
-                 append("  __gwt_node_jsIdsByObject[ret.value] = _id;\n").
+                 append("  __gwt_node_jsIdsByObject[_ret.value] = _id;\n").
                  append("  _ret.type = ").append(ValueType.JAVA_SCRIPT_OBJECT.ordinal()).append(";\n").
                  append("  _ret.exception = true;\n").
+                 append("  _ret.value = _id;\n").
                  append("}\n").
                  append("return _ret;\n").
                  append("})();");
             InvokeResultNative result = runInContext(code.toString()).cast();
-            if (log.isDebugEnabled()) {
-                log.debug("Result of invocation:\n%j", result);
-            }
+            log.debug("Result of invocation:\n%j", result);
             return new InvokeResult(result);
         } catch (Exception e) {
+            log.error("Exception invoking method: " +
+                    JavaScriptUtils.appendException(e, new StringBuilder()));
             throw new OophmRuntimeException("Error invoking method: " + methodName, e);
         }
     }

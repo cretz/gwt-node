@@ -20,6 +20,7 @@ import org.gwtnode.client.debug.oophm.OophmStream.StreamIndexOutOfBoundsExceptio
 import org.gwtnode.client.debug.oophm.message.CheckVersionsMessage;
 import org.gwtnode.client.debug.oophm.message.FatalErrorMessage;
 import org.gwtnode.client.debug.oophm.message.FreeValueMessage;
+import org.gwtnode.client.debug.oophm.message.InvokeFromClientMessage;
 import org.gwtnode.client.debug.oophm.message.InvokeToClientMessage;
 import org.gwtnode.client.debug.oophm.message.LoadJsniMessage;
 import org.gwtnode.client.debug.oophm.message.LoadModuleMessage;
@@ -51,6 +52,7 @@ public class OophmChannel {
     private final OophmStream stream = new OophmStream();
     private OophmSessionHandler session;
     private MessageCallback nextMessageCallback;
+    private ReturnMessageCallback returnMessageCallback;
     
     public OophmChannel(String moduleName, String host, int port) {
         this.moduleName = moduleName;
@@ -130,10 +132,20 @@ public class OophmChannel {
                 session.freeValues(((FreeValueMessage) message).getRefIds());
                 break;
             case INVOKE:
-                InvokeToClientMessage msg = (InvokeToClientMessage) message;
+                InvokeToClientMessage invokeMessage = (InvokeToClientMessage) message;
                 InvokeResult result = session.invoke(
-                        msg.getMethodName(), msg.getThisValue(), msg.getArgValues());
+                        invokeMessage.getMethodName(), invokeMessage.getThisValue(), invokeMessage.getArgValues());
                 sendMessage(new ReturnMessage(result.isException(), result.getValue()));
+                break;
+            case RETURN:
+                ReturnMessage returnMessage = (ReturnMessage) message;
+                if (returnMessageCallback == null) {
+                    session.getLog().error("Unexpected return message");
+                } else {
+                    ReturnMessageCallback callback = returnMessageCallback;
+                    returnMessageCallback = null;
+                    callback.onMessage(returnMessage);
+                }
                 break;
             case FATAL_ERROR:
                 session.fatalError(((FatalErrorMessage) message).getError());
@@ -179,6 +191,15 @@ public class OophmChannel {
         nextMessageCallback = callback;
     }
     
+    public void sendMessage(InvokeFromClientMessage message, ReturnMessageCallback callback) {
+        if (session.getLog().isDebugEnabled()) {
+            session.getLog().debug("Sending message: %s", message.toString());
+        }
+        Buffer buffer = message.toBuffer();
+        socket.write(buffer);
+        returnMessageCallback = callback;
+    }
+    
     private Message getNextMessage() {
         try {
             stream.beginTransaction();
@@ -192,7 +213,11 @@ public class OophmChannel {
         }
     }
     
-    private static interface MessageCallback {
+    public static interface MessageCallback {
         void onMessage(Message message);
+    }
+    
+    public static interface ReturnMessageCallback {
+        void onMessage(ReturnMessage message);
     }
 }

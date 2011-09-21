@@ -13,25 +13,34 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.gwtnode.client.node;
+package org.gwtnode.modules.fibers.client;
+
+import org.gwtnode.client.JavaScriptFunction;
+import org.gwtnode.client.node.Global;
+import org.gwtnode.client.node.NodeJsModule;
 
 import com.google.gwt.core.client.JavaScriptObject;
 
 /**
- * Error object used in node.js
+ * A fiber future
  * 
  * @author Chad Retz
  */
-public class NodeJsError extends JavaScriptObject {
+public class Future extends JavaScriptObject implements NodeJsModule {
 
-    public static native NodeJsError create() /*-{
-        return new Error();
-    }-*/;
+    private static Future instance;
     
-    public static native NodeJsError create(String description) /*-{
-        return new Error(description);
-    }-*/;
-    
-    protected NodeJsError() {
+    public static Future get() {
+        if (instance == null) {
+            instance = Global.get().require("fibers/future");
+        }
+        return instance;
     }
+    
+    protected Future() {
+    }
+    
+    public final native <T> FutureWrapper<T> wrap(JavaScriptFunction func) /*-{
+        return this.wrap(func);
+    }-*/;
 }
