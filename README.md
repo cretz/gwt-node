@@ -51,14 +51,14 @@ the main entry point needs to be defined. So, assuming we choose to use the pack
 `examples` for our module, and `examples.helloworld` for our code, the examples/HelloWorld.gwt.xml 
 file within may look like this:
 
-    ```xml
-    <?xml version="1.0" encoding="UTF-8"?>
-    <module rename-to="HelloWorld">
-        <inherits name="org.gwtnode.Core" />
-        <entry-point class="examples.helloworld.HelloWorld" />
-        <source path="helloworld" />
-    </module>
-    ```
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<module rename-to="HelloWorld">
+    <inherits name="org.gwtnode.Core" />
+    <entry-point class="examples.helloworld.HelloWorld" />
+    <source path="helloworld" />
+</module>
+```
     
 All features of [Module XML] files are supported with the exception of CSS and
 script inclusion.
@@ -71,22 +71,22 @@ make command line arguments available to you and give you the ability to provide
 exit code. Using the GwtNodeBootstrap is not required, but recommended. So the simple 
 HelloWorld.java class in the `examples.helloworld` package will look like:
 
-    ```java
-    public class HelloWorld extends GwtNodeBootstrap {
-        @Override
-        public Integer main(String... args) {
-            Process.get().stdout().write("Hello world\n");
-            return 0;
-        }
+```java
+public class HelloWorld extends GwtNodeBootstrap {
+    @Override
+    public Integer main(String... args) {
+        Process.get().stdout().write("Hello world\n");
+        return 0;
     }
-    ```
+}
+```
     
 ## Compiling Hello World
 
 The compiler present with gwt-node is essentially just a wrapper around the
 [GWT Compiler]. The usage (following the java invocation and classpath) is as follows:
 
->  `org.gwtnode.dev.Compiler \[supported GWT compiler args\] \[-out dir\] module\[s\]`
+>  `org.gwtnode.dev.Compiler [supported GWT compiler args] [-out dir] module[s]`
 
 The [GWT Compiler Options] that are not supported are -gen, -localWorkers, -war, -deploy, 
 and -extra. The -out option is the directory in which to output the compilation result. The
