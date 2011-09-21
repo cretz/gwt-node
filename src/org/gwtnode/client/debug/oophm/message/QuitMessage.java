@@ -42,4 +42,6 @@ public class QuitMessage extends Message {
         return new OophmBufferBuilder().
                 append(type).toBuffer();
     }
+    
+    
 }

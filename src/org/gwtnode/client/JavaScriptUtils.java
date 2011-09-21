@@ -96,7 +96,7 @@ public class JavaScriptUtils {
                 throwable.fillInStackTrace();
             }
             builder.append("    JS Error: ").append(Util.get().inspect(
-                    ((JavaScriptException) throwable).getException())).append('\n');
+                    ((JavaScriptException) throwable).getException(), true)).append('\n');
         }
         StackTraceElement[] stackTraceElements = throwable.getStackTrace();
         if (stackTraceElements != null && stackTraceElements.length > 0) {
@@ -111,6 +111,46 @@ public class JavaScriptUtils {
         } else {
             return builder;
         }
+    }
+    
+    /**
+     * Unescape JS strings and return them, surrounded by single quotes
+     * 
+     * @param string
+     * @return
+     */
+    public static String unescapeJavaScriptString(String string) {
+        StringBuilder ret = new StringBuilder(string.length()).append('\'');
+        for (int i = 0; i < string.length(); i++) {
+            char chr = string.charAt(i);
+            switch (chr) {
+            case '\b':
+                ret.append("\\b");
+                break;
+            case '\f':
+                ret.append("\\f");
+                break;
+            case '\n':
+                ret.append("\\n");
+                break;
+            case '\0':
+                //TODO: does this even work?
+                ret.append("\\0");
+                break;
+            case '\r':
+                ret.append("\\r");
+                break;
+            case '\t':
+                ret.append("\\t");
+                break;
+            case '\'':
+                ret.append("\\'");
+                break;
+            default:
+                ret.append(chr);
+            }
+        }
+        return ret.append('\'').toString();
     }
 
     private JavaScriptUtils() {

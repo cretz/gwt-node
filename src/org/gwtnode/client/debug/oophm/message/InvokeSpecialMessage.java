@@ -76,4 +76,35 @@ public class InvokeSpecialMessage extends Message {
                 append(specialMethod).
                 appendArray(argValues).toBuffer();
     }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = super.hashCode();
+        result = prime * result + Arrays.hashCode(argValues);
+        result = prime * result
+                + ((specialMethod == null) ? 0 : specialMethod.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        InvokeSpecialMessage other = (InvokeSpecialMessage) obj;
+        if (!Arrays.equals(argValues, other.argValues)) {
+            return false;
+        }
+        if (specialMethod != other.specialMethod) {
+            return false;
+        }
+        return true;
+    }
 }

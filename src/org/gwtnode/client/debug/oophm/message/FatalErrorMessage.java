@@ -37,6 +37,10 @@ public class FatalErrorMessage extends Message {
         error = stream.readString();
         length += OophmStream.getStringByteLength(error);
     }
+    
+    public String getError() {
+        return error;
+    }
 
     @Override
     public String toString() {
@@ -50,5 +54,35 @@ public class FatalErrorMessage extends Message {
         return new OophmBufferBuilder().
                 append(type).
                 append(error).toBuffer();
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = super.hashCode();
+        result = prime * result + ((error == null) ? 0 : error.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        FatalErrorMessage other = (FatalErrorMessage) obj;
+        if (error == null) {
+            if (other.error != null) {
+                return false;
+            }
+        } else if (!error.equals(other.error)) {
+            return false;
+        }
+        return true;
     }
 }

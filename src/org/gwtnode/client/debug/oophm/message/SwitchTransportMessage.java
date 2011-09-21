@@ -67,4 +67,44 @@ public class SwitchTransportMessage extends Message {
                 append(transport).
                 append(transportArgs).toBuffer();
     }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = super.hashCode();
+        result = prime * result
+                + ((transport == null) ? 0 : transport.hashCode());
+        result = prime * result
+                + ((transportArgs == null) ? 0 : transportArgs.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        SwitchTransportMessage other = (SwitchTransportMessage) obj;
+        if (transport == null) {
+            if (other.transport != null) {
+                return false;
+            }
+        } else if (!transport.equals(other.transport)) {
+            return false;
+        }
+        if (transportArgs == null) {
+            if (other.transportArgs != null) {
+                return false;
+            }
+        } else if (!transportArgs.equals(other.transportArgs)) {
+            return false;
+        }
+        return true;
+    }
 }

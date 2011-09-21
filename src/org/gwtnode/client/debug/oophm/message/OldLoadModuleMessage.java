@@ -80,4 +80,48 @@ public class OldLoadModuleMessage extends Message {
                 append(moduleName).
                 append(userAgent).toBuffer();
     }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = super.hashCode();
+        result = prime * result
+                + ((moduleName == null) ? 0 : moduleName.hashCode());
+        result = prime * result
+                + ((userAgent == null) ? 0 : userAgent.hashCode());
+        result = prime * result + version;
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        OldLoadModuleMessage other = (OldLoadModuleMessage) obj;
+        if (moduleName == null) {
+            if (other.moduleName != null) {
+                return false;
+            }
+        } else if (!moduleName.equals(other.moduleName)) {
+            return false;
+        }
+        if (userAgent == null) {
+            if (other.userAgent != null) {
+                return false;
+            }
+        } else if (!userAgent.equals(other.userAgent)) {
+            return false;
+        }
+        if (version != other.version) {
+            return false;
+        }
+        return true;
+    }
 }

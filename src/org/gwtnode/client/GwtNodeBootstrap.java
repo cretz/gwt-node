@@ -43,7 +43,7 @@ public abstract class GwtNodeBootstrap implements EntryPoint {
         GWT.setUncaughtExceptionHandler(new UncaughtExceptionHandler() {
             @Override
             public void onUncaughtException(Throwable e) {
-                onUncaughtException(e);
+                GwtNodeBootstrap.this.onUncaughtException(e);
             }
         });
         Process.get().onUncaughtException(new ErrorEventHandler() {
@@ -102,6 +102,7 @@ public abstract class GwtNodeBootstrap implements EntryPoint {
     
     protected void onUncaughtException(Throwable e) {
         Console.get().log(JavaScriptUtils.appendException(e, new StringBuilder()).toString());
+        Console.get().trace();
         //we have to exit hard...
         Process.get().exit(1);
     }

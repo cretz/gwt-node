@@ -61,4 +61,30 @@ public class FreeValueMessage extends Message {
                 append(type).
                 appendArray(refIds).toBuffer();
     }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = super.hashCode();
+        result = prime * result + Arrays.hashCode(refIds);
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        FreeValueMessage other = (FreeValueMessage) obj;
+        if (!Arrays.equals(refIds, other.refIds)) {
+            return false;
+        }
+        return true;
+    }
 }

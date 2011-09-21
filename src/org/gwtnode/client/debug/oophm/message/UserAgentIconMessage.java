@@ -15,6 +15,8 @@
  */
 package org.gwtnode.client.debug.oophm.message;
 
+import java.util.Arrays;
+
 import org.gwtnode.client.debug.oophm.OophmBufferBuilder;
 import org.gwtnode.client.debug.oophm.OophmStream;
 import org.gwtnode.client.node.buffer.Buffer;
@@ -58,5 +60,31 @@ public class UserAgentIconMessage extends Message {
         return new OophmBufferBuilder().
                 append(type).
                 append(iconBytes).toBuffer();
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = super.hashCode();
+        result = prime * result + Arrays.hashCode(iconBytes);
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        UserAgentIconMessage other = (UserAgentIconMessage) obj;
+        if (!Arrays.equals(iconBytes, other.iconBytes)) {
+            return false;
+        }
+        return true;
     }
 }

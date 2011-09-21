@@ -19,7 +19,12 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.gwtnode.client.GwtNodeBootstrap;
-import org.gwtnode.client.debug.oophm.OophmServer;
+import org.gwtnode.client.debug.oophm.OophmChannel;
+import org.gwtnode.client.debug.oophm.OophmLog;
+import org.gwtnode.client.debug.oophm.OophmSessionHandler;
+import org.gwtnode.client.debug.oophm.OophmLog.Level;
+import org.gwtnode.client.node.fs.Fs;
+import org.gwtnode.client.node.process.Process;
 import org.gwtnode.client.node.util.Util;
 
 /**
@@ -58,8 +63,17 @@ public class Debug extends GwtNodeBootstrap {
             return 1;
         }
         String logFile = getArg(argList, "-logFile");
-        //start server
-        new OophmServer(module, host, port, logFile).start();
+        String logLevel = getArg(argList, "-logLevel");
+        //create log
+        OophmLog log = new OophmLog(
+                logFile == null ? Process.get().stdout() : Fs.get().createWriteStream(logFile),
+                logLevel == null ? Level.INFO : Level.valueOf(logLevel));
+        //create the channel
+        OophmChannel channel = new OophmChannel(module, host, port);
+        //create session handler
+        OophmSessionHandler session = new OophmSessionHandler(channel, log);
+        //start the channel
+        channel.start(session);
         return null;
     }
 

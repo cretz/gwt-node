@@ -40,6 +40,7 @@ public class ReturnMessage extends Message {
         exception = stream.readBoolean();
         length += 1;
         returnValue = stream.readValue();
+        length += returnValue.getLength();
     }
     
     public boolean isException() {
@@ -65,5 +66,40 @@ public class ReturnMessage extends Message {
                 append(type).
                 append(exception).
                 append(returnValue).toBuffer();
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = super.hashCode();
+        result = prime * result + (exception ? 1231 : 1237);
+        result = prime * result
+                + ((returnValue == null) ? 0 : returnValue.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        ReturnMessage other = (ReturnMessage) obj;
+        if (exception != other.exception) {
+            return false;
+        }
+        if (returnValue == null) {
+            if (other.returnValue != null) {
+                return false;
+            }
+        } else if (!returnValue.equals(other.returnValue)) {
+            return false;
+        }
+        return true;
     }
 }

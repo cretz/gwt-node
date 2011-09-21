@@ -25,6 +25,12 @@ public enum ValueType {
         @Override
         @SuppressWarnings("unchecked")
         public Value<Void> createValue(OophmStream stream) {
+            return createValueFromObject(null);
+        }
+
+        @Override
+        @SuppressWarnings("unchecked")
+        public Value<Void> createValueFromObject(Object object) {
             return new Value<Void>(NULL, null, 1);
         }
     },
@@ -32,85 +38,156 @@ public enum ValueType {
         @Override
         @SuppressWarnings("unchecked")
         public Value<Boolean> createValue(OophmStream stream) {
-            return new Value<Boolean>(BOOLEAN, stream.readBoolean(), 2);
+            return createValueFromObject(stream.readBoolean());
+        }
+
+        @Override
+        @SuppressWarnings("unchecked")
+        public Value<Boolean> createValueFromObject(Object object) {
+            return new Value<Boolean>(BOOLEAN, (Boolean) object, 2);
         }
     },
     BYTE {
         @Override
         @SuppressWarnings("unchecked")
         public Value<Byte> createValue(OophmStream stream) {
-            return new Value<Byte>(BYTE, stream.readByte(), 2);
+            return createValueFromObject(stream.readByte());
+        }
+
+        @Override
+        @SuppressWarnings("unchecked")
+        public Value<Byte> createValueFromObject(Object object) {
+            return new Value<Byte>(BYTE, (Byte) object, 2);
         }
     },
     CHAR {
         @Override
         @SuppressWarnings("unchecked")
         public Value<Character> createValue(OophmStream stream) {
-            return new Value<Character>(CHAR, stream.readChar(), 3);
+            return createValueFromObject(stream.readChar());
+        }
+
+        @Override
+        @SuppressWarnings("unchecked")
+        public Value<Character> createValueFromObject(Object object) {
+            return new Value<Character>(CHAR, (Character) object, 3);
         }
     },
     SHORT {
         @Override
         @SuppressWarnings("unchecked")
         public Value<Short> createValue(OophmStream stream) {
-            return new Value<Short>(SHORT, stream.readShort(), 3);
+            return createValueFromObject(stream.readChar());
+        }
+
+        @Override
+        @SuppressWarnings("unchecked")
+        public Value<Short> createValueFromObject(Object object) {
+            return new Value<Short>(SHORT, (Short) object, 3);
         }
     },
     INT {
         @Override
         @SuppressWarnings("unchecked")
         public Value<Integer> createValue(OophmStream stream) {
-            return new Value<Integer>(INT, stream.readInt(), 5);
+            return createValueFromObject(stream.readInt());
+        }
+
+        @Override
+        @SuppressWarnings("unchecked")
+        public Value<Integer> createValueFromObject(Object object) {
+            return new Value<Integer>(INT, (Integer) object, 5);
         }
     },
     LONG {
         @Override
         @SuppressWarnings("unchecked")
         public Value<Long> createValue(OophmStream stream) {
-            return new Value<Long>(LONG, stream.readLong(), 9);
+            return createValueFromObject(stream.readLong());
+        }
+
+        @Override
+        @SuppressWarnings("unchecked")
+        public Value<Long> createValueFromObject(Object object) {
+            return new Value<Long>(LONG, (Long) object, 9);
         }
     },
     FLOAT {
         @Override
         @SuppressWarnings("unchecked")
         public Value<Float> createValue(OophmStream stream) {
-            return new Value<Float>(FLOAT, stream.readFloat(), 5);
+            return createValueFromObject(stream.readFloat());
+        }
+
+        @Override
+        @SuppressWarnings("unchecked")
+        public Value<Float> createValueFromObject(Object object) {
+            return new Value<Float>(FLOAT, (Float) object, 5);
         }
     },
     DOUBLE {
         @Override
         @SuppressWarnings("unchecked")
         public Value<Double> createValue(OophmStream stream) {
-            return new Value<Double>(DOUBLE, stream.readDouble(), 9);
+            return createValueFromObject(stream.readDouble());
+        }
+
+        @Override
+        @SuppressWarnings("unchecked")
+        public Value<Double> createValueFromObject(Object object) {
+            return new Value<Double>(DOUBLE, (Double) object, 9);
         }
     },
     STRING {
         @Override
         @SuppressWarnings("unchecked")
         public Value<String> createValue(OophmStream stream) {
-            String val = stream.readString();
-            return new Value<String>(STRING, val, 
-                    OophmStream.getStringByteLength(val));
+            return createValueFromObject(stream.readString());
+        }
+
+        @Override
+        @SuppressWarnings("unchecked")
+        public Value<String> createValueFromObject(Object object) {
+            return new Value<String>(STRING, (String) object, 
+                    OophmStream.getStringByteLength((String) object) + 1);
         }
     },
     JAVA_OBJECT {
         @Override
         @SuppressWarnings("unchecked")
         public Value<Integer> createValue(OophmStream stream) {
-            return new Value<Integer>(JAVA_OBJECT, stream.readInt(), 5);
+            return createValueFromObject(stream.readInt());
+        }
+
+        @Override
+        @SuppressWarnings("unchecked")
+        public Value<Integer> createValueFromObject(Object object) {
+            return new Value<Integer>(JAVA_OBJECT, (Integer) object, 5);
         }
     },
     JAVA_SCRIPT_OBJECT {
         @Override
         @SuppressWarnings("unchecked")
         public Value<Integer> createValue(OophmStream stream) {
-            return new Value<Integer>(JAVA_SCRIPT_OBJECT, stream.readInt(), 5);
+            return createValueFromObject(stream.readInt());
+        }
+
+        @Override
+        @SuppressWarnings("unchecked")
+        public Value<Integer> createValueFromObject(Object object) {
+            return new Value<Integer>(JAVA_SCRIPT_OBJECT, (Integer) object, 5);
         }
     },
     UNDEFINED {
         @Override
         @SuppressWarnings("unchecked")
         public Value<Void> createValue(OophmStream stream) {
+            return createValueFromObject(null);
+        }
+
+        @Override
+        @SuppressWarnings("unchecked")
+        public Value<Void> createValueFromObject(Object object) {
             return new Value<Void>(UNDEFINED, null, 1);
         }
     };
@@ -120,4 +197,6 @@ public enum ValueType {
     }
     
     public abstract <T> Value<T> createValue(OophmStream stream);
+    
+    public abstract <T> Value<T> createValueFromObject(Object object);
 }

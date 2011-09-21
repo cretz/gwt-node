@@ -15,6 +15,7 @@
  */
 package org.gwtnode.examples.oophmproxy.client;
 
+import org.gwtnode.client.JavaScriptUtils;
 import org.gwtnode.client.debug.oophm.OophmStream;
 import org.gwtnode.client.debug.oophm.OophmStream.StreamIndexOutOfBoundsException;
 import org.gwtnode.client.debug.oophm.message.Message;
@@ -59,8 +60,14 @@ class OophmProxyServer {
                     protected void onEvent() {
                         Buffer buffer = getBuffer();
                         proxyStream.append(buffer);
-                        logMessage(proxyStream, true);
-                        gwtCodeSocket.write(buffer);
+                        Message message;
+                        do {
+                            message = logMessage(proxyStream, true);
+                            if (message != null) {
+                                gwtCodeSocket.write(message.toBuffer());
+                            }
+                        } while (message != null);
+                        //gwtCodeSocket.write(buffer);
                     }
                 });
                 gwtCodeSocket.onData(new StringOrBufferEventHandler() {
@@ -68,8 +75,14 @@ class OophmProxyServer {
                     protected void onEvent() {
                         Buffer buffer = getBuffer();
                         gwtCodeStream.append(buffer);
-                        logMessage(gwtCodeStream, false);
-                        proxySocket.write(buffer);
+                        Message message;
+                        do {
+                            message = logMessage(gwtCodeStream, false);
+                            if (message != null) {
+                                proxySocket.write(message.toBuffer());
+                            }
+                        } while (message != null);
+                        //proxySocket.write(buffer);
                     }
                 });
                 proxySocket.onClose(new BooleanEventHandler() {
@@ -97,7 +110,7 @@ class OophmProxyServer {
         this.proxyPort = proxyPort;
     }
     
-    private void logMessage(OophmStream stream, boolean fromClient) {
+    private Message logMessage(OophmStream stream, boolean fromClient) {
         try {
             stream.beginTransaction();
             MessageType type = MessageType.getMessageType(stream);
@@ -108,8 +121,14 @@ class OophmProxyServer {
                 Console.get().info((fromClient ? "fromJS ** " : "toJS ** ") + message.toString());
             }
             stream.commitTransaction();
+            return message;
         } catch (StreamIndexOutOfBoundsException e) {
             stream.rollbackTransaction();
+            return null;
+        } catch (Exception e) {
+            logFile.write("Error: " + JavaScriptUtils.appendException(e, new StringBuilder()) + "\n");
+            stream.rollbackTransaction();
+            return null;
         }
     }
     

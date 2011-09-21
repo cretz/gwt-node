@@ -72,6 +72,43 @@ public abstract class InvokeMessage extends Message {
     }
     
     public OophmBufferBuilder toBuffer(OophmBufferBuilder builder) {
-        return builder.append(thisValue).append(argValues);
+        return builder.
+                append(thisValue).
+                appendArray(argValues);
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = super.hashCode();
+        result = prime * result + Arrays.hashCode(argValues);
+        result = prime * result
+                + ((thisValue == null) ? 0 : thisValue.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        InvokeMessage other = (InvokeMessage) obj;
+        if (!Arrays.equals(argValues, other.argValues)) {
+            return false;
+        }
+        if (thisValue == null) {
+            if (other.thisValue != null) {
+                return false;
+            }
+        } else if (!thisValue.equals(other.thisValue)) {
+            return false;
+        }
+        return true;
     }
 }

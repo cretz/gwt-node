@@ -77,4 +77,45 @@ public class CheckVersionsMessage extends Message {
                 append(maxVersion).
                 append(hostedHtmlVersion).toBuffer();
     }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = super.hashCode();
+        result = prime
+                * result
+                + ((hostedHtmlVersion == null) ? 0 : hostedHtmlVersion
+                        .hashCode());
+        result = prime * result + maxVersion;
+        result = prime * result + minVersion;
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        CheckVersionsMessage other = (CheckVersionsMessage) obj;
+        if (hostedHtmlVersion == null) {
+            if (other.hostedHtmlVersion != null) {
+                return false;
+            }
+        } else if (!hostedHtmlVersion.equals(other.hostedHtmlVersion)) {
+            return false;
+        }
+        if (maxVersion != other.maxVersion) {
+            return false;
+        }
+        if (minVersion != other.minVersion) {
+            return false;
+        }
+        return true;
+    }
 }

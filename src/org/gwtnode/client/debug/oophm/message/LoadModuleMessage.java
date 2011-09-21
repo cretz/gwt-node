@@ -104,4 +104,69 @@ public class LoadModuleMessage extends Message {
                 append(moduleName).
                 append(userAgent).toBuffer();
     }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = super.hashCode();
+        result = prime * result
+                + ((moduleName == null) ? 0 : moduleName.hashCode());
+        result = prime * result
+                + ((sessionKey == null) ? 0 : sessionKey.hashCode());
+        result = prime * result + ((tabKey == null) ? 0 : tabKey.hashCode());
+        result = prime * result + ((url == null) ? 0 : url.hashCode());
+        result = prime * result
+                + ((userAgent == null) ? 0 : userAgent.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        LoadModuleMessage other = (LoadModuleMessage) obj;
+        if (moduleName == null) {
+            if (other.moduleName != null) {
+                return false;
+            }
+        } else if (!moduleName.equals(other.moduleName)) {
+            return false;
+        }
+        if (sessionKey == null) {
+            if (other.sessionKey != null) {
+                return false;
+            }
+        } else if (!sessionKey.equals(other.sessionKey)) {
+            return false;
+        }
+        if (tabKey == null) {
+            if (other.tabKey != null) {
+                return false;
+            }
+        } else if (!tabKey.equals(other.tabKey)) {
+            return false;
+        }
+        if (url == null) {
+            if (other.url != null) {
+                return false;
+            }
+        } else if (!url.equals(other.url)) {
+            return false;
+        }
+        if (userAgent == null) {
+            if (other.userAgent != null) {
+                return false;
+            }
+        } else if (!userAgent.equals(other.userAgent)) {
+            return false;
+        }
+        return true;
+    }
 }

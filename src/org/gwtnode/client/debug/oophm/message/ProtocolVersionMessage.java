@@ -55,4 +55,30 @@ public class ProtocolVersionMessage extends Message {
                 append(type).
                 append(protocolVersion).toBuffer();
     }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = super.hashCode();
+        result = prime * result + protocolVersion;
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        ProtocolVersionMessage other = (ProtocolVersionMessage) obj;
+        if (protocolVersion != other.protocolVersion) {
+            return false;
+        }
+        return true;
+    }
 }

@@ -40,7 +40,9 @@ public class OophmBufferBuilder {
     }
     
     public OophmBufferBuilder append(Object object) {
-        if (object.getClass() == Boolean.class || "boolean".equals(object.getClass().getName())) {
+        if (object == null) {
+            return this;
+        } else if (object.getClass() == Boolean.class || "boolean".equals(object.getClass().getName())) {
             length++;
         } else if (object.getClass() == Byte.class || "byte".equals(object.getClass().getName())) {
             length++;
@@ -60,6 +62,8 @@ public class OophmBufferBuilder {
             append(((Value<?>) object).getType());
             if (((Value<?>) object).getValue() != null) {
                 return append(((Value<?>) object).getValue());
+            } else {
+                return this;
             }
         } else if (object instanceof Enum) {
             length++;

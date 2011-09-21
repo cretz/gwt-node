@@ -35,7 +35,6 @@ public class InvokeFromClientMessage extends InvokeMessage {
     
     public InvokeFromClientMessage(OophmStream stream) {
         super();
-        length = 0;
         methodDispatchId = stream.readInt();
         length += 4;
         initThisAndArgs(stream);
@@ -54,8 +53,34 @@ public class InvokeFromClientMessage extends InvokeMessage {
     
     @Override
     public Buffer toBuffer() {
-        return toBuffer(new OophmBufferBuilder().
+        return super.toBuffer(new OophmBufferBuilder().
                 append(type).
                 append(methodDispatchId)).toBuffer();
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = super.hashCode();
+        result = prime * result + methodDispatchId;
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        InvokeFromClientMessage other = (InvokeFromClientMessage) obj;
+        if (methodDispatchId != other.methodDispatchId) {
+            return false;
+        }
+        return true;
     }
 }

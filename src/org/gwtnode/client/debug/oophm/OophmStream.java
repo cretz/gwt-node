@@ -45,13 +45,17 @@ public class OophmStream {
         }
     }
     
+    public Buffer getBuffer() {
+        return buffer;
+    }
+    
     public void beginTransaction() {
         offsetStart = offset;
     }
     
     public void commitTransaction() {
         offsetStart = null;
-        buffer = this.buffer.slice(offset, this.buffer.length());
+        buffer = buffer.slice(offset);
         offset = 0;
     }
     
