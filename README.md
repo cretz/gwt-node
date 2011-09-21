@@ -51,14 +51,14 @@ the main entry point needs to be defined. So, assuming we choose to use the pack
 `examples` for our module, and `examples.helloworld` for our code, the examples/HelloWorld.gwt.xml 
 file within may look like this:
 
-    ```xml
-    <?xml version="1.0" encoding="UTF-8"?>
-    <module rename-to="HelloWorld">
-        <inherits name="org.gwtnode.Core" />
-        <entry-point class="examples.helloworld.HelloWorld" />
-        <source path="helloworld" />
-    </module>
-    ```
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<module rename-to="HelloWorld">
+    <inherits name="org.gwtnode.Core" />
+    <entry-point class="examples.helloworld.HelloWorld" />
+    <source path="helloworld" />
+</module>
+```
     
 All features of [Module XML] files are supported with the exception of CSS and
 script inclusion.
@@ -71,22 +71,22 @@ make command line arguments available to you and give you the ability to provide
 exit code. Using the GwtNodeBootstrap is not required, but recommended. So the simple 
 HelloWorld.java class in the `examples.helloworld` package will look like:
 
-    ```java
-    public class HelloWorld extends GwtNodeBootstrap {
-        @Override
-        public Integer main(String... args) {
-            Process.get().stdout().write("Hello world\n");
-            return 0;
-        }
+```java
+public class HelloWorld extends GwtNodeBootstrap {
+    @Override
+    public Integer main(String... args) {
+        Process.get().stdout().write("Hello world\n");
+        return 0;
     }
-    ```
+}
+```
     
 ## Compiling Hello World
 
 The compiler present with gwt-node is essentially just a wrapper around the
 [GWT Compiler]. The usage (following the java invocation and classpath) is as follows:
 
->  `org.gwtnode.dev.Compiler \[supported GWT compiler args\] \[-out dir\] module\[s\]`
+>  `org.gwtnode.dev.Compiler [supported GWT compiler args] [-out dir] module[s]`
 
 The [GWT Compiler Options] that are not supported are -gen, -localWorkers, -war, -deploy, 
 and -extra. The -out option is the directory in which to output the compilation result. The
@@ -100,23 +100,23 @@ Now we can compile our Hello World application. Below is a sample ANT target tha
 it and place it in the build folder. This assumes gwt-node.jar, gwt-user.jar, and gwt-dev.jar
 are in the lib folder. It also assumes the source is in the src folder.
 
-    ```xml
-    <target name="compile">
-        <!-- remove existing -->
-        <delete dir="build" /> 
-        <mkdir dir="build" />
-        <!-- compile -->
-        <java classname="org.gwtnode.dev.Compiler" fork="true">
-            <arg value="-out" />
-            <arg value="build" />
-            <arg value="examples.HelloWorld" />
-            <classpath>
-                <fileset dir="lib" includes="*.jar" />
-                <pathelement path="src" />
-            </classpath>
-        </java>
-    </target>
-    ```
+```xml
+<target name="compile">
+    <!-- remove existing -->
+    <delete dir="build" /> 
+    <mkdir dir="build" />
+    <!-- compile -->
+    <java classname="org.gwtnode.dev.Compiler" fork="true">
+        <arg value="-out" />
+        <arg value="build" />
+        <arg value="examples.HelloWorld" />
+        <classpath>
+            <fileset dir="lib" includes="*.jar" />
+            <pathelement path="src" />
+        </classpath>
+    </java>
+</target>
+```
     
 Note that this also sets the GWT compiler style to PRETTY. This makes the code easier to read
 during debugging. Now that this is complete, you can run the application by typing
@@ -156,31 +156,31 @@ Assuming your module is HelloWorld, GWT will compile this and produce two files:
 and HelloWorld.nocache.js. In order to initialize what looks like a browser, the following JS
 needs to be at the top of your JS file:
 
-    ```js
+```js
+require('htmlparser');
+document = require('jsdom').jsdom();
+window = document.createWindow();
+document.location = window.location;
+navigator = { 'userAgent' : 'jsdom' };
+```
+    
+If you are using ANT, the following will add this for you (and remove the unnecessary files):
+
+```xml
+<loadresource property="old.js">
+    <file file="build/HelloWorld.nocache.js" />
+</loadresource>
+<echo file="build/HelloWorld.js"><![CDATA[
     require('htmlparser');
     document = require('jsdom').jsdom();
     window = document.createWindow();
     document.location = window.location;
-    navigator = { 'userAgent' : 'jsdom' };
-    ```
-    
-If you are using ANT, the following will add this for you (and remove the unnecessary files):
-
-    ```xml
-    <loadresource property="old.js">
-        <file file="build/HelloWorld.nocache.js" />
-    </loadresource>
-    <echo file="build/HelloWorld.js"><![CDATA[
-        require('htmlparser');
-        document = require('jsdom').jsdom();
-        window = document.createWindow();
-        document.location = window.location;
-        navigator = { 'userAgent' : 'jsdom' };]]>
-    </echo>
-    <echo message="${line.separator}${old.js}" append="true" file="build/HelloWorld.js" />
-    <delete file="build/HelloWorld.nocache.js" />
-    <delete file="build/clear.cache.gif" />
-    ```
+    navigator = { 'userAgent' : 'jsdom' };]]>
+</echo>
+<echo message="${line.separator}${old.js}" append="true" file="build/HelloWorld.js" />
+<delete file="build/HelloWorld.nocache.js" />
+<delete file="build/clear.cache.gif" />
+```
 
 ### Modules
 
