@@ -19,7 +19,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import org.gwtnode.client.debug.ClientSymbolStore;
+import org.gwtnode.dev.symbol.ClientSymbolStore;
 
 import com.google.gwt.core.ext.LinkerContext;
 import com.google.gwt.core.ext.TreeLogger;

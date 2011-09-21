@@ -1,0 +1,8 @@
+                      ******** Usage ********
+    
+    Compiler [supported GWT compiler args] [-out dir] module[s]
+
+  The standard GWT compiler arguments that are not supported are:
+    -gen, -localWorkers, -war, -deploy, and -extra
+  
+  -out defines the output directory to place all compiled output

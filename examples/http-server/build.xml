@@ -16,26 +16,23 @@
 
 <project name="gwt-node-http-server">
 
-    <import file="../../build.xml" />
-	
 	<target name="compile">
 		<ant antfile="../../build.xml" inheritall="false" target="build" />
 		<delete dir="build" includeemptydirs="true" /> 
 		<mkdir dir="build" />
-		<path id="gwt.classpath">
-			<fileset dir="../../build" includes="*.jar" />
-            <fileset dir="../../lib" includes="*.jar" />
-            <pathelement path="src" />
-	    </path>
-		<gwtnodecompile module="org.gwtnode.examples.httpserver.HttpServer"
-			            modulename="HttpServer"
-			            classpathref="gwt.classpath"
-		                destdir="build">
-			<extra-args>
-				<arg value="-style" />
-				<arg value="PRETTY" />
-			</extra-args>
-		</gwtnodecompile>
+        <java classname="org.gwtnode.dev.Compiler" fork="true">
+            <jvmarg value="-Xmx256M"/>
+            <arg value="-style" />
+            <arg value="PRETTY" />
+            <arg value="-out" />
+            <arg value="build" />
+            <arg value="org.gwtnode.examples.HttpServer" />
+            <classpath>
+                <fileset dir="../../build" includes="*.jar" />
+                <fileset dir="../../lib" includes="*.jar" />
+                <pathelement path="src" />
+            </classpath>
+        </java>
 	</target>
 	
 </project>
