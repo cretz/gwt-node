@@ -237,3 +237,4 @@ There are a few examples to demonstrate a few basic ideas in gwt-node:
   [oophm-proxy]: https://github.com/cretz/gwt-node/tree/master/examples/oophm-proxy
   [scimark]: https://github.com/cretz/gwt-node/tree/master/examples/scimark
   [SciMark 2.0]: http://math.nist.gov/scimark2/
+  
