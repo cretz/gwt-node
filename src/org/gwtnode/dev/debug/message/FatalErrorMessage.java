@@ -16,8 +16,8 @@
 package org.gwtnode.dev.debug.message;
 
 import org.gwtnode.core.node.buffer.Buffer;
-import org.gwtnode.dev.debug.OophmBufferBuilder;
-import org.gwtnode.dev.debug.OophmStream;
+import org.gwtnode.dev.debug.BufferBuilder;
+import org.gwtnode.dev.debug.BufferStream;
 
 /**
  * @author Chad Retz
@@ -29,13 +29,13 @@ public class FatalErrorMessage extends Message {
     public FatalErrorMessage(String error) {
         super(MessageType.FATAL_ERROR);
         this.error = error;
-        length += OophmStream.getStringByteLength(error);
+        length += BufferStream.getStringByteLength(error);
     }
     
-    public FatalErrorMessage(OophmStream stream) {
+    public FatalErrorMessage(BufferStream stream) {
         super(MessageType.FATAL_ERROR);
         error = stream.readString();
-        length += OophmStream.getStringByteLength(error);
+        length += BufferStream.getStringByteLength(error);
     }
     
     public String getError() {
@@ -51,7 +51,7 @@ public class FatalErrorMessage extends Message {
 
     @Override
     public Buffer toBuffer() {
-        return new OophmBufferBuilder().
+        return new BufferBuilder().
                 append(type).
                 append(error).toBuffer();
     }

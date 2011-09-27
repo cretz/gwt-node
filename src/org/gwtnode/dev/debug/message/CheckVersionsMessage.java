@@ -16,8 +16,8 @@
 package org.gwtnode.dev.debug.message;
 
 import org.gwtnode.core.node.buffer.Buffer;
-import org.gwtnode.dev.debug.OophmBufferBuilder;
-import org.gwtnode.dev.debug.OophmStream;
+import org.gwtnode.dev.debug.BufferBuilder;
+import org.gwtnode.dev.debug.BufferStream;
 
 /**
  * @author Chad Retz
@@ -34,17 +34,17 @@ public class CheckVersionsMessage extends Message {
         this.minVersion = minVersion;
         this.maxVersion = maxVersion;
         this.hostedHtmlVersion = hostedHtmlVersion;
-        length = 8 + OophmStream.getStringByteLength(hostedHtmlVersion);
+        length = 8 + BufferStream.getStringByteLength(hostedHtmlVersion);
     }
     
-    public CheckVersionsMessage(OophmStream stream) {
+    public CheckVersionsMessage(BufferStream stream) {
         super(MessageType.CHECK_VERSIONS);
         minVersion = stream.readInt();
         length += 4;
         maxVersion = stream.readInt();
         length += 4;
         hostedHtmlVersion = stream.readString();
-        length += OophmStream.getStringByteLength(hostedHtmlVersion);
+        length += BufferStream.getStringByteLength(hostedHtmlVersion);
     }
     
     public int getMinVersion() {
@@ -71,7 +71,7 @@ public class CheckVersionsMessage extends Message {
     }
 
     public Buffer toBuffer() {
-        return new OophmBufferBuilder().
+        return new BufferBuilder().
                 append(type).
                 append(minVersion).
                 append(maxVersion).

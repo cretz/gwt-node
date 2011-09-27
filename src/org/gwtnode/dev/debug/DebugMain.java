@@ -22,14 +22,14 @@ import org.gwtnode.core.GwtNodeBootstrap;
 import org.gwtnode.core.node.fs.Fs;
 import org.gwtnode.core.node.process.Process;
 import org.gwtnode.core.node.util.Util;
-import org.gwtnode.dev.debug.OophmLog.Level;
+import org.gwtnode.dev.debug.DebugLog.Level;
 
 /**
  * An OOPHM debugger
  * 
  * @author Chad Retz
  */
-public class Debug extends GwtNodeBootstrap {
+public class DebugMain extends GwtNodeBootstrap {
 
     private static String getArg(List<String> argList, String argName) {
         int index = argList.indexOf(argName);
@@ -62,13 +62,13 @@ public class Debug extends GwtNodeBootstrap {
         String logFile = getArg(argList, "-logFile");
         String logLevel = getArg(argList, "-logLevel");
         //create log
-        OophmLog log = new OophmLog(
+        DebugLog log = new DebugLog(
                 logFile == null ? Process.get().stdout() : Fs.get().createWriteStream(logFile),
                 logLevel == null ? Level.INFO : Level.valueOf(logLevel));
         //create the channel
-        OophmChannel channel = new OophmChannel(module, host, port);
+        HostChannel channel = new HostChannel(module, host, port);
         //create session handler
-        OophmSessionHandler session = new OophmSessionHandler(channel, log);
+        SessionHandler session = new SessionHandler(channel, log);
         //start the channel
         channel.start(session);
         return null;

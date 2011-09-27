@@ -17,8 +17,8 @@ package org.gwtnode.dev.debug.message;
 
 import java.util.Arrays;
 
-import org.gwtnode.dev.debug.OophmBufferBuilder;
-import org.gwtnode.dev.debug.OophmStream;
+import org.gwtnode.dev.debug.BufferBuilder;
+import org.gwtnode.dev.debug.BufferStream;
 
 /**
  * @author Chad Retz
@@ -43,7 +43,7 @@ public abstract class InvokeMessage extends Message {
         super(MessageType.INVOKE);
     }
     
-    protected void initThisAndArgs(OophmStream stream) {
+    protected void initThisAndArgs(BufferStream stream) {
         thisValue = stream.readValue();
         length += thisValue.getLength();
         int argCount = stream.readInt();
@@ -71,7 +71,7 @@ public abstract class InvokeMessage extends Message {
                 append(Arrays.toString(argValues));
     }
     
-    public OophmBufferBuilder toBuffer(OophmBufferBuilder builder) {
+    public BufferBuilder toBuffer(BufferBuilder builder) {
         return builder.
                 append(thisValue).
                 appendArray(argValues);

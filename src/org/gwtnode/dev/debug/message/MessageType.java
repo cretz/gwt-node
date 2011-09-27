@@ -15,7 +15,7 @@
  */
 package org.gwtnode.dev.debug.message;
 
-import org.gwtnode.dev.debug.OophmStream;
+import org.gwtnode.dev.debug.BufferStream;
 
 /**
  * @author Chad Retz
@@ -23,7 +23,7 @@ import org.gwtnode.dev.debug.OophmStream;
 public enum MessageType {
     INVOKE {
         @Override
-        public InvokeMessage createMessage(OophmStream stream, boolean fromClient) {
+        public InvokeMessage createMessage(BufferStream stream, boolean fromClient) {
             return fromClient ? 
                     new InvokeFromClientMessage(stream) :
                     new InvokeToClientMessage(stream);
@@ -31,98 +31,98 @@ public enum MessageType {
     },
     RETURN {
         @Override
-        public ReturnMessage createMessage(OophmStream stream, boolean fromClient) {
+        public ReturnMessage createMessage(BufferStream stream, boolean fromClient) {
             return new ReturnMessage(stream);
         }
     },
     OLD_LOAD_MODULE {
         @Override
-        public OldLoadModuleMessage createMessage(OophmStream stream, boolean fromClient) {
+        public OldLoadModuleMessage createMessage(BufferStream stream, boolean fromClient) {
             return new OldLoadModuleMessage(stream);
         }
     },
     QUIT {
         @Override
-        public QuitMessage createMessage(OophmStream stream, boolean fromClient) {
+        public QuitMessage createMessage(BufferStream stream, boolean fromClient) {
             return new QuitMessage(stream);
         }
     },
     LOAD_JSNI {
         @Override
-        public LoadJsniMessage createMessage(OophmStream stream, boolean fromClient) {
+        public LoadJsniMessage createMessage(BufferStream stream, boolean fromClient) {
             return new LoadJsniMessage(stream);
         }
     },
     INVOKE_SPECIAL {
         @Override
-        public InvokeSpecialMessage createMessage(OophmStream stream, boolean fromClient) {
+        public InvokeSpecialMessage createMessage(BufferStream stream, boolean fromClient) {
             return new InvokeSpecialMessage(stream);
         }
     },
     FREE_VALUE {
         @Override
-        public FreeValueMessage createMessage(OophmStream stream, boolean fromClient) {
+        public FreeValueMessage createMessage(BufferStream stream, boolean fromClient) {
             return new FreeValueMessage(stream);
         }
     },
     FATAL_ERROR {
         @Override
-        public FatalErrorMessage createMessage(OophmStream stream, boolean fromClient) {
+        public FatalErrorMessage createMessage(BufferStream stream, boolean fromClient) {
             return new FatalErrorMessage(stream);
         }
     },
     CHECK_VERSIONS {
         @Override
-        public CheckVersionsMessage createMessage(OophmStream stream, boolean fromClient) {
+        public CheckVersionsMessage createMessage(BufferStream stream, boolean fromClient) {
             return new CheckVersionsMessage(stream);
         }
     },
     PROTOCOL_VERSION {
         @Override
-        public ProtocolVersionMessage createMessage(OophmStream stream, boolean fromClient) {
+        public ProtocolVersionMessage createMessage(BufferStream stream, boolean fromClient) {
             return new ProtocolVersionMessage(stream);
         }
     },
     CHOOSE_TRANSPORT {
         @Override
-        public ChooseTransportMessage createMessage(OophmStream stream, boolean fromClient) {
+        public ChooseTransportMessage createMessage(BufferStream stream, boolean fromClient) {
             return new ChooseTransportMessage(stream);
         }
     },
     SWITCH_TRANSPORT {
         @Override
-        public SwitchTransportMessage createMessage(OophmStream stream, boolean fromClient) {
+        public SwitchTransportMessage createMessage(BufferStream stream, boolean fromClient) {
             return new SwitchTransportMessage(stream);
         }
     },
     LOAD_MODULE {
         @Override
-        public LoadModuleMessage createMessage(OophmStream stream, boolean fromClient) {
+        public LoadModuleMessage createMessage(BufferStream stream, boolean fromClient) {
             return new LoadModuleMessage(stream);
         }
     },
     REQUEST_ICON {
         @Override
-        public RequestIconMessage createMessage(OophmStream stream, boolean fromClient) {
+        public RequestIconMessage createMessage(BufferStream stream, boolean fromClient) {
             return new RequestIconMessage(stream);
         }
     },
     USER_AGENT_ICON {
         @Override
-        public UserAgentIconMessage createMessage(OophmStream stream, boolean fromClient) {
+        public UserAgentIconMessage createMessage(BufferStream stream, boolean fromClient) {
             return new UserAgentIconMessage(stream);
         }
     },
     REQUEST_PLUGIN {
         @Override
-        public Message createMessage(OophmStream stream, boolean fromClient) {
+        public Message createMessage(BufferStream stream, boolean fromClient) {
             throw new UnsupportedOperationException();
         }
     };
 
-    public static MessageType getMessageType(OophmStream stream) {
+    public static MessageType getMessageType(BufferStream stream) {
         return MessageType.values()[(int) stream.readByte()];
     }
     
-    public abstract Message createMessage(OophmStream stream, boolean fromClient);
+    public abstract Message createMessage(BufferStream stream, boolean fromClient);
 }

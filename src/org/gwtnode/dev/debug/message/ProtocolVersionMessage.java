@@ -16,8 +16,8 @@
 package org.gwtnode.dev.debug.message;
 
 import org.gwtnode.core.node.buffer.Buffer;
-import org.gwtnode.dev.debug.OophmBufferBuilder;
-import org.gwtnode.dev.debug.OophmStream;
+import org.gwtnode.dev.debug.BufferBuilder;
+import org.gwtnode.dev.debug.BufferStream;
 
 /**
  * @author Chad Retz
@@ -32,7 +32,7 @@ public class ProtocolVersionMessage extends Message {
         length += 4;
     }
     
-    public ProtocolVersionMessage(OophmStream stream) {
+    public ProtocolVersionMessage(BufferStream stream) {
         super(MessageType.PROTOCOL_VERSION);
         protocolVersion = stream.readInt();
         length += 4;
@@ -51,7 +51,7 @@ public class ProtocolVersionMessage extends Message {
 
     @Override
     public Buffer toBuffer() {
-        return new OophmBufferBuilder().
+        return new BufferBuilder().
                 append(type).
                 append(protocolVersion).toBuffer();
     }

@@ -16,8 +16,8 @@
 package org.gwtnode.dev.debug.message;
 
 import org.gwtnode.core.node.buffer.Buffer;
-import org.gwtnode.dev.debug.OophmBufferBuilder;
-import org.gwtnode.dev.debug.OophmStream;
+import org.gwtnode.dev.debug.BufferBuilder;
+import org.gwtnode.dev.debug.BufferStream;
 
 /**
  * @author Chad Retz
@@ -30,17 +30,17 @@ public class SwitchTransportMessage extends Message {
     public SwitchTransportMessage(String transport, String transportArgs) {
         super(MessageType.SWITCH_TRANSPORT);
         this.transport = transport;
-        length += OophmStream.getStringByteLength(transport);
+        length += BufferStream.getStringByteLength(transport);
         this.transportArgs = transportArgs;
-        length += OophmStream.getStringByteLength(transportArgs);
+        length += BufferStream.getStringByteLength(transportArgs);
     }
     
-    public SwitchTransportMessage(OophmStream stream) {
+    public SwitchTransportMessage(BufferStream stream) {
         super(MessageType.SWITCH_TRANSPORT);
         transport = stream.readString();
-        length += OophmStream.getStringByteLength(transport);
+        length += BufferStream.getStringByteLength(transport);
         transportArgs = stream.readString();
-        length += OophmStream.getStringByteLength(transportArgs);
+        length += BufferStream.getStringByteLength(transportArgs);
     }
     
     public String getTransport() {
@@ -62,7 +62,7 @@ public class SwitchTransportMessage extends Message {
 
     @Override
     public Buffer toBuffer() {
-        return new OophmBufferBuilder().
+        return new BufferBuilder().
                 append(type).
                 append(transport).
                 append(transportArgs).toBuffer();

@@ -16,8 +16,8 @@
 package org.gwtnode.dev.debug.message;
 
 import org.gwtnode.core.node.buffer.Buffer;
-import org.gwtnode.dev.debug.OophmBufferBuilder;
-import org.gwtnode.dev.debug.OophmStream;
+import org.gwtnode.dev.debug.BufferBuilder;
+import org.gwtnode.dev.debug.BufferStream;
 
 /**
  * @author Chad Retz
@@ -34,19 +34,19 @@ public class OldLoadModuleMessage extends Message {
         this.version = version;
         length += 4;
         this.moduleName = moduleName;
-        length += OophmStream.getStringByteLength(moduleName);
+        length += BufferStream.getStringByteLength(moduleName);
         this.userAgent = userAgent;
-        length += OophmStream.getStringByteLength(userAgent);
+        length += BufferStream.getStringByteLength(userAgent);
     }
     
-    public OldLoadModuleMessage(OophmStream stream) {
+    public OldLoadModuleMessage(BufferStream stream) {
         super(MessageType.OLD_LOAD_MODULE);
         version = stream.readInt();
         length += 4;
         moduleName = stream.readString();
-        length += OophmStream.getStringByteLength(moduleName);
+        length += BufferStream.getStringByteLength(moduleName);
         userAgent = stream.readString();
-        length += OophmStream.getStringByteLength(userAgent);
+        length += BufferStream.getStringByteLength(userAgent);
     }
     
     public int getVersion() {
@@ -74,7 +74,7 @@ public class OldLoadModuleMessage extends Message {
 
     @Override
     public Buffer toBuffer() {
-        return new OophmBufferBuilder().
+        return new BufferBuilder().
                 append(type).
                 append(version).
                 append(moduleName).

@@ -16,8 +16,8 @@
 package org.gwtnode.dev.debug.message;
 
 import org.gwtnode.core.node.buffer.Buffer;
-import org.gwtnode.dev.debug.OophmBufferBuilder;
-import org.gwtnode.dev.debug.OophmStream;
+import org.gwtnode.dev.debug.BufferBuilder;
+import org.gwtnode.dev.debug.BufferStream;
 
 /**
  * @author Chad Retz
@@ -29,13 +29,13 @@ public class LoadJsniMessage extends Message {
     public LoadJsniMessage(String jsCode) {
         super(MessageType.LOAD_JSNI);
         this.jsCode = jsCode;
-        length += OophmStream.getStringByteLength(jsCode);
+        length += BufferStream.getStringByteLength(jsCode);
     }
     
-    public LoadJsniMessage(OophmStream stream) {
+    public LoadJsniMessage(BufferStream stream) {
         super(MessageType.LOAD_JSNI);
         jsCode = stream.readString();
-        length += OophmStream.getStringByteLength(jsCode);
+        length += BufferStream.getStringByteLength(jsCode);
     }
     
     public String getJsCode() {
@@ -45,13 +45,13 @@ public class LoadJsniMessage extends Message {
     @Override
     public String toString() {
         return super.toString(new StringBuilder()).
-                append("jsCodeLength: ").
-                append(jsCode.length()).toString();
+                append("jsCode: ").
+                append(jsCode).toString();
     }
 
     @Override
     public Buffer toBuffer() {
-        return new OophmBufferBuilder().
+        return new BufferBuilder().
                 append(type).
                 append(jsCode).toBuffer();
     }

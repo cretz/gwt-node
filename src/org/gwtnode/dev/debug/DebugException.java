@@ -21,6 +21,6 @@ package org.gwtnode.dev.debug;
  * @author Chad Retz
  */
 @SuppressWarnings("serial")
-public class OophmException extends Exception {
+public class DebugException extends Exception {
 
 }

@@ -18,8 +18,8 @@ package org.gwtnode.dev.debug.message;
 import java.util.Arrays;
 
 import org.gwtnode.core.node.buffer.Buffer;
-import org.gwtnode.dev.debug.OophmBufferBuilder;
-import org.gwtnode.dev.debug.OophmStream;
+import org.gwtnode.dev.debug.BufferBuilder;
+import org.gwtnode.dev.debug.BufferStream;
 
 /**
  * @author Chad Retz
@@ -33,17 +33,17 @@ public class ChooseTransportMessage extends Message {
         this.transports = transports;
         length += 4;
         for (String transport : transports) {
-            length += OophmStream.getStringByteLength(transport);
+            length += BufferStream.getStringByteLength(transport);
         }
     }
     
-    public ChooseTransportMessage(OophmStream stream) {
+    public ChooseTransportMessage(BufferStream stream) {
         super(MessageType.CHOOSE_TRANSPORT);
         transports = new String[stream.readInt()];
         length += 4;
         for (int i = 0; i < transports.length; i++) {
             transports[i] = stream.readString();
-            length += OophmStream.getStringByteLength(transports[i]);
+            length += BufferStream.getStringByteLength(transports[i]);
         }
     }
     
@@ -60,7 +60,7 @@ public class ChooseTransportMessage extends Message {
     
     @Override
     public Buffer toBuffer() {
-        return new OophmBufferBuilder().
+        return new BufferBuilder().
                 append(type).
                 appendArray(transports).toBuffer();
     }

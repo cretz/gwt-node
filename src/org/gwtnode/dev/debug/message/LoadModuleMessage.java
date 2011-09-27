@@ -16,8 +16,8 @@
 package org.gwtnode.dev.debug.message;
 
 import org.gwtnode.core.node.buffer.Buffer;
-import org.gwtnode.dev.debug.OophmBufferBuilder;
-import org.gwtnode.dev.debug.OophmStream;
+import org.gwtnode.dev.debug.BufferBuilder;
+import org.gwtnode.dev.debug.BufferStream;
 
 /**
  * @author Chad Retz
@@ -34,29 +34,29 @@ public class LoadModuleMessage extends Message {
             String moduleName, String userAgent) {
         super(MessageType.LOAD_MODULE);
         this.url = url;
-        length += OophmStream.getStringByteLength(url);
+        length += BufferStream.getStringByteLength(url);
         this.tabKey = tabKey;
-        length += OophmStream.getStringByteLength(tabKey);
+        length += BufferStream.getStringByteLength(tabKey);
         this.sessionKey = sessionKey;
-        length += OophmStream.getStringByteLength(sessionKey);
+        length += BufferStream.getStringByteLength(sessionKey);
         this.moduleName = moduleName;
-        length += OophmStream.getStringByteLength(moduleName);
+        length += BufferStream.getStringByteLength(moduleName);
         this.userAgent = userAgent;
-        length += OophmStream.getStringByteLength(userAgent);
+        length += BufferStream.getStringByteLength(userAgent);
     }
     
-    public LoadModuleMessage(OophmStream stream) {
+    public LoadModuleMessage(BufferStream stream) {
         super(MessageType.LOAD_MODULE);
         url = stream.readString();
-        length += OophmStream.getStringByteLength(url);
+        length += BufferStream.getStringByteLength(url);
         tabKey = stream.readString();
-        length += OophmStream.getStringByteLength(tabKey);
+        length += BufferStream.getStringByteLength(tabKey);
         sessionKey = stream.readString();
-        length += OophmStream.getStringByteLength(sessionKey);
+        length += BufferStream.getStringByteLength(sessionKey);
         moduleName = stream.readString();
-        length += OophmStream.getStringByteLength(moduleName);
+        length += BufferStream.getStringByteLength(moduleName);
         userAgent = stream.readString();
-        length += OophmStream.getStringByteLength(userAgent);
+        length += BufferStream.getStringByteLength(userAgent);
     }
     
     public String getUrl() {
@@ -96,7 +96,7 @@ public class LoadModuleMessage extends Message {
 
     @Override
     public Buffer toBuffer() {
-        return new OophmBufferBuilder().
+        return new BufferBuilder().
                 append(type).
                 append(url).
                 append(tabKey).

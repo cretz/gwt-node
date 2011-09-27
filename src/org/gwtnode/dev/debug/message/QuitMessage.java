@@ -16,8 +16,8 @@
 package org.gwtnode.dev.debug.message;
 
 import org.gwtnode.core.node.buffer.Buffer;
-import org.gwtnode.dev.debug.OophmBufferBuilder;
-import org.gwtnode.dev.debug.OophmStream;
+import org.gwtnode.dev.debug.BufferBuilder;
+import org.gwtnode.dev.debug.BufferStream;
 
 /**
  * @author Chad Retz
@@ -28,7 +28,7 @@ public class QuitMessage extends Message {
         super(MessageType.QUIT);
     }
     
-    public QuitMessage(OophmStream stream) {
+    public QuitMessage(BufferStream stream) {
         super(MessageType.QUIT);
     }
 
@@ -39,7 +39,7 @@ public class QuitMessage extends Message {
 
     @Override
     public Buffer toBuffer() {
-        return new OophmBufferBuilder().
+        return new BufferBuilder().
                 append(type).toBuffer();
     }
     

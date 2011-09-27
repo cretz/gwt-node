@@ -13,18 +13,26 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.gwtnode.dev.debug;
+package org.gwtnode.modules.fibers;
+
+import org.gwtnode.core.JavaScriptFunctionArguments;
+import org.gwtnode.core.JavaScriptReturningFunctionWrapper;
 
 /**
- * Unchecked exception that can occur during OOPHM execution
- *
- * @author Chad Retz
- */
-@SuppressWarnings("serial")
-public class OophmRuntimeException extends RuntimeException {
+* Fiber callback that returns a value.
+*
+* @author Chad Retz
+*/
+public abstract class FiberReturningCallback<T> extends JavaScriptReturningFunctionWrapper<T> {
 
-    public OophmRuntimeException(String message, Throwable cause) {
-        super(message, cause);
+    @Override
+    public final T call(JavaScriptFunctionArguments args) {
+        if (args.length() > 0) {
+            return onCreate(args.get(0));
+        } else {
+            return onCreate(null);
+        }
     }
 
+    public abstract T onCreate(Object param);
 }

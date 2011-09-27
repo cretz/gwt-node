@@ -16,8 +16,8 @@
 package org.gwtnode.dev.debug.message;
 
 import org.gwtnode.core.node.buffer.Buffer;
-import org.gwtnode.dev.debug.OophmBufferBuilder;
-import org.gwtnode.dev.debug.OophmStream;
+import org.gwtnode.dev.debug.BufferBuilder;
+import org.gwtnode.dev.debug.BufferStream;
 
 /**
  * @author Chad Retz
@@ -35,7 +35,7 @@ public class ReturnMessage extends Message {
         length += returnValue.getLength();
     }
     
-    public ReturnMessage(OophmStream stream) {
+    public ReturnMessage(BufferStream stream) {
         super(MessageType.RETURN);
         exception = stream.readBoolean();
         length += 1;
@@ -62,7 +62,7 @@ public class ReturnMessage extends Message {
 
     @Override
     public Buffer toBuffer() {
-        return new OophmBufferBuilder().
+        return new BufferBuilder().
                 append(type).
                 append(exception).
                 append(returnValue).toBuffer();

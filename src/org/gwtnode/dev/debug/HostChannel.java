@@ -15,12 +15,14 @@
  */
 package org.gwtnode.dev.debug;
 
+import java.util.Stack;
+
 import org.gwtnode.core.node.buffer.Buffer;
 import org.gwtnode.core.node.event.ParameterlessEventHandler;
 import org.gwtnode.core.node.event.StringOrBufferEventHandler;
 import org.gwtnode.core.node.net.Socket;
-import org.gwtnode.dev.debug.OophmSessionHandler.InvokeResult;
-import org.gwtnode.dev.debug.OophmStream.StreamIndexOutOfBoundsException;
+import org.gwtnode.dev.debug.BufferStream.StreamIndexOutOfBoundsException;
+import org.gwtnode.dev.debug.SessionHandler.InvokeResult;
 import org.gwtnode.dev.debug.message.CheckVersionsMessage;
 import org.gwtnode.dev.debug.message.FatalErrorMessage;
 import org.gwtnode.dev.debug.message.FreeValueMessage;
@@ -39,7 +41,7 @@ import org.gwtnode.dev.debug.message.ReturnMessage;
  *
  * @author Chad Retz
  */
-public class OophmChannel {
+class HostChannel {
 
     private static final int MINIMUM_PROTOCOL_VERSION = 2;
     private static final int MAXIMUM_PROTOCOL_VERSION = 2;
@@ -49,18 +51,18 @@ public class OophmChannel {
     private final String host;
     private final int port;
     private Socket socket;
-    private final OophmStream stream = new OophmStream();
-    private OophmSessionHandler session;
+    private final BufferStream stream = new BufferStream();
+    private SessionHandler session;
     private MessageCallback nextMessageCallback;
-    private ReturnMessageCallback returnMessageCallback;
+    private final Stack<ReturnMessageCallback> returnMessageCallbacks = new Stack<ReturnMessageCallback>();
     
-    public OophmChannel(String moduleName, String host, int port) {
+    public HostChannel(String moduleName, String host, int port) {
         this.moduleName = moduleName;
         this.host = host;
         this.port = port;
     }
     
-    public void start(OophmSessionHandler sess) {
+    public void start(SessionHandler sess) {
         this.session = sess;
         if (socket != null) {
             session.getLog().debug("Disconnecting previous channel");
@@ -139,11 +141,10 @@ public class OophmChannel {
                 break;
             case RETURN:
                 ReturnMessage returnMessage = (ReturnMessage) message;
-                if (returnMessageCallback == null) {
+                if (returnMessageCallbacks.isEmpty()) {
                     session.getLog().error("Unexpected return message");
                 } else {
-                    ReturnMessageCallback callback = returnMessageCallback;
-                    returnMessageCallback = null;
+                    ReturnMessageCallback callback = returnMessageCallbacks.pop();
                     callback.onMessage(returnMessage);
                 }
                 break;
@@ -197,7 +198,7 @@ public class OophmChannel {
         }
         Buffer buffer = message.toBuffer();
         socket.write(buffer);
-        returnMessageCallback = callback;
+        returnMessageCallbacks.push(callback);
     }
     
     private Message getNextMessage() {

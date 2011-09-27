@@ -18,8 +18,8 @@ package org.gwtnode.dev.debug.message;
 import java.util.Arrays;
 
 import org.gwtnode.core.node.buffer.Buffer;
-import org.gwtnode.dev.debug.OophmBufferBuilder;
-import org.gwtnode.dev.debug.OophmStream;
+import org.gwtnode.dev.debug.BufferBuilder;
+import org.gwtnode.dev.debug.BufferStream;
 
 /**
  * @author Chad Retz
@@ -40,7 +40,7 @@ public class InvokeSpecialMessage extends Message {
         }
     }
     
-    public InvokeSpecialMessage(OophmStream stream) {
+    public InvokeSpecialMessage(BufferStream stream) {
         super(MessageType.INVOKE_SPECIAL);
         specialMethod = SpecialMethod.values()[(int) stream.readByte()];
         length += 1;
@@ -71,7 +71,7 @@ public class InvokeSpecialMessage extends Message {
 
     @Override
     public Buffer toBuffer() {
-        return new OophmBufferBuilder().
+        return new BufferBuilder().
                 append(type).
                 append(specialMethod).
                 appendArray(argValues).toBuffer();

@@ -26,12 +26,12 @@ import org.gwtnode.dev.debug.message.Value;
  * 
  * @author Chad Retz
  */
-public class OophmBufferBuilder {
+public class BufferBuilder {
     
     private final List<Object> objects = new ArrayList<Object>();
     private int length = 0;
     
-    public <T> OophmBufferBuilder appendArray(T[] values) {
+    public <T> BufferBuilder appendArray(T[] values) {
         append(values.length);
         for (int i = 0; i < values.length; i++) {
             append(values[i]);
@@ -39,7 +39,7 @@ public class OophmBufferBuilder {
         return this;
     }
     
-    public OophmBufferBuilder append(Object object) {
+    public BufferBuilder append(Object object) {
         if (object == null) {
             return this;
         } else if (object.getClass() == Boolean.class || "boolean".equals(object.getClass().getName())) {
@@ -57,7 +57,7 @@ public class OophmBufferBuilder {
         } else if (object.getClass() == Double.class || "double".equals(object.getClass().getName())) {
             length += 8;
         } else if (object.getClass() == String.class) {
-            length += OophmStream.getStringByteLength((String) object);
+            length += BufferStream.getStringByteLength((String) object);
         } else if (object.getClass() == Value.class) {
             append(((Value<?>) object).getType());
             if (((Value<?>) object).getValue() != null) {
@@ -102,7 +102,7 @@ public class OophmBufferBuilder {
             } else if (object.getClass() == String.class) {
                 buffer.writeInt32BE(Buffer.byteLength((String) object), offset);
                 buffer.write((String) object, offset + 4);
-                offset += OophmStream.getStringByteLength((String) object);
+                offset += BufferStream.getStringByteLength((String) object);
             } else if (object instanceof Enum) {
                 buffer.set(offset, (byte) ((Enum<?>) object).ordinal());
                 offset++;

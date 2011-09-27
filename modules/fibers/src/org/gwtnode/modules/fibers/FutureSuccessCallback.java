@@ -13,33 +13,23 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.gwtnode.dev.debug.message;
+package org.gwtnode.modules.fibers;
 
-import org.gwtnode.core.node.buffer.Buffer;
-import org.gwtnode.dev.debug.BufferBuilder;
-import org.gwtnode.dev.debug.BufferStream;
+import org.gwtnode.core.JavaScriptFunctionArguments;
+import org.gwtnode.core.JavaScriptFunctionWrapper;
 
 /**
+ * A wrapper for a future callback
+ *
  * @author Chad Retz
  */
-public class RequestIconMessage extends Message {
-
-    public RequestIconMessage() {
-        super(MessageType.REQUEST_ICON);
-    }
-    
-    public RequestIconMessage(BufferStream stream) {
-        super(MessageType.REQUEST_ICON);
-    }
+public abstract class FutureSuccessCallback<T> extends JavaScriptFunctionWrapper {
 
     @Override
-    public String toString() {
-        return super.toString(new StringBuilder()).toString();
+    @SuppressWarnings("unchecked")
+    public final void call(JavaScriptFunctionArguments args) {
+        onCallback((T) args.get(0));
     }
 
-    @Override
-    public Buffer toBuffer() {
-        return new BufferBuilder().
-                append(type).toBuffer();
-    }
+    public abstract void onCallback(T value);
 }

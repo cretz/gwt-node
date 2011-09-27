@@ -23,14 +23,14 @@ import org.gwtnode.core.node.util.Util;
  *
  * @author Chad Retz
  */
-public class OophmLog {
+public class DebugLog {
     
     private final static Util util = Util.get();
     
     private final WritableStream out;
     private final Level lowestLevel;
     
-    public OophmLog(WritableStream out, Level lowestLevel) {
+    public DebugLog(WritableStream out, Level lowestLevel) {
         this.out = out;
         this.lowestLevel = lowestLevel;
     }

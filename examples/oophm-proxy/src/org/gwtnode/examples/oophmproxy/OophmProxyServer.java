@@ -26,8 +26,8 @@ import org.gwtnode.core.node.net.Socket;
 import org.gwtnode.core.node.net.StreamEventHandler;
 import org.gwtnode.core.node.stdio.Console;
 import org.gwtnode.core.node.stream.WritableStream;
-import org.gwtnode.dev.debug.OophmStream;
-import org.gwtnode.dev.debug.OophmStream.StreamIndexOutOfBoundsException;
+import org.gwtnode.dev.debug.BufferStream;
+import org.gwtnode.dev.debug.BufferStream.StreamIndexOutOfBoundsException;
 import org.gwtnode.dev.debug.message.Message;
 import org.gwtnode.dev.debug.message.MessageType;
 
@@ -40,8 +40,8 @@ class OophmProxyServer {
     private final int proxyPort;
     private Socket proxySocket;
     private Socket gwtCodeSocket;
-    private final OophmStream proxyStream = new OophmStream();
-    private final OophmStream gwtCodeStream = new OophmStream();
+    private final BufferStream proxyStream = new BufferStream();
+    private final BufferStream gwtCodeStream = new BufferStream();
     private WritableStream logFile;
     
     public OophmProxyServer(int proxyPort, final String gwtCodeHost, final int gwtCodePort, 
@@ -110,7 +110,7 @@ class OophmProxyServer {
         this.proxyPort = proxyPort;
     }
     
-    private Message logMessage(OophmStream stream, boolean fromClient) {
+    private Message logMessage(BufferStream stream, boolean fromClient) {
         try {
             stream.beginTransaction();
             MessageType type = MessageType.getMessageType(stream);

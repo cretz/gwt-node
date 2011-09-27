@@ -16,8 +16,8 @@
 package org.gwtnode.dev.debug.message;
 
 import org.gwtnode.core.node.buffer.Buffer;
-import org.gwtnode.dev.debug.OophmBufferBuilder;
-import org.gwtnode.dev.debug.OophmStream;
+import org.gwtnode.dev.debug.BufferBuilder;
+import org.gwtnode.dev.debug.BufferStream;
 
 /**
  * @author Chad Retz
@@ -33,7 +33,7 @@ public class InvokeFromClientMessage extends InvokeMessage {
         length += 4;
     }
     
-    public InvokeFromClientMessage(OophmStream stream) {
+    public InvokeFromClientMessage(BufferStream stream) {
         super();
         methodDispatchId = stream.readInt();
         length += 4;
@@ -53,7 +53,7 @@ public class InvokeFromClientMessage extends InvokeMessage {
     
     @Override
     public Buffer toBuffer() {
-        return super.toBuffer(new OophmBufferBuilder().
+        return super.toBuffer(new BufferBuilder().
                 append(type).
                 append(methodDispatchId)).toBuffer();
     }

@@ -30,6 +30,14 @@ import com.google.gwt.core.client.JsArrayString;
  */
 public class JavaScriptUtils {
     
+    public static native JavaScriptObject getProperty(JavaScriptObject parent, String propertyName) /*-{
+        return parent[propertyName];
+    }-*/;
+    
+    public static native JavaScriptObject undefined() /*-{
+        return undefined;
+    }-*/;
+    
     public static JsArrayInteger toIntegerArray(byte... bytes) {
         JsArrayInteger ret = JavaScriptObject.createArray().cast();
         for (byte byt : bytes) {

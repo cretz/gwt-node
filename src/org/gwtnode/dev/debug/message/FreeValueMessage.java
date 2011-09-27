@@ -18,8 +18,8 @@ package org.gwtnode.dev.debug.message;
 import java.util.Arrays;
 
 import org.gwtnode.core.node.buffer.Buffer;
-import org.gwtnode.dev.debug.OophmBufferBuilder;
-import org.gwtnode.dev.debug.OophmStream;
+import org.gwtnode.dev.debug.BufferBuilder;
+import org.gwtnode.dev.debug.BufferStream;
 
 /**
  * @author Chad Retz
@@ -34,7 +34,7 @@ public class FreeValueMessage extends Message {
         length += 4 + (4 * refIds.length);
     }
     
-    public FreeValueMessage(OophmStream stream) {
+    public FreeValueMessage(BufferStream stream) {
         super(MessageType.FREE_VALUE);
         refIds = new Integer[stream.readInt()];
         length += 4;
@@ -57,7 +57,7 @@ public class FreeValueMessage extends Message {
 
     @Override
     public Buffer toBuffer() {
-        return new OophmBufferBuilder().
+        return new BufferBuilder().
                 append(type).
                 appendArray(refIds).toBuffer();
     }

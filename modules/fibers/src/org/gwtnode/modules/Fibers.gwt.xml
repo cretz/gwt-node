@@ -15,10 +15,10 @@
 <!-- implied. License for the specific language governing permissions and   -->
 <!-- limitations under the License.                                         -->
 
-<module rename-to="Debug">
+<module rename-to="Fibers">
+    
+    <inherits name="org.gwtnode.Core" />
 
-    <inherits name="org.gwtnode.dev.DebugCore" />
-
-	<entry-point class="org.gwtnode.dev.debug.DebugMain" />
+	<source path="fibers" />
 	
 </module>

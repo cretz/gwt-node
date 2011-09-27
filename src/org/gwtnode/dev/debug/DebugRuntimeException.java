@@ -13,33 +13,22 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.gwtnode.dev.debug.message;
-
-import org.gwtnode.core.node.buffer.Buffer;
-import org.gwtnode.dev.debug.BufferBuilder;
-import org.gwtnode.dev.debug.BufferStream;
+package org.gwtnode.dev.debug;
 
 /**
+ * Unchecked exception that can occur during OOPHM execution
+ *
  * @author Chad Retz
  */
-public class RequestIconMessage extends Message {
+@SuppressWarnings("serial")
+public class DebugRuntimeException extends RuntimeException {
 
-    public RequestIconMessage() {
-        super(MessageType.REQUEST_ICON);
-    }
-    
-    public RequestIconMessage(BufferStream stream) {
-        super(MessageType.REQUEST_ICON);
+    public DebugRuntimeException(String message) {
+        super(message);
     }
 
-    @Override
-    public String toString() {
-        return super.toString(new StringBuilder()).toString();
+    public DebugRuntimeException(String message, Throwable cause) {
+        super(message, cause);
     }
 
-    @Override
-    public Buffer toBuffer() {
-        return new BufferBuilder().
-                append(type).toBuffer();
-    }
 }

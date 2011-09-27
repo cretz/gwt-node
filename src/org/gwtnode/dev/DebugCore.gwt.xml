@@ -18,6 +18,7 @@
 <module rename-to="DebugCore">
 
     <inherits name="org.gwtnode.Core" />
+    <inherits name="org.gwtnode.modules.Fibers" />
 
 	<source path="debug" />
 	

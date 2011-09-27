@@ -24,7 +24,7 @@ import org.gwtnode.dev.debug.message.ValueType;
  * 
  * @author Chad Retz
  */
-public class OophmStream {
+public class BufferStream {
     
     public static int getStringByteLength(String string) {
         return 4 + Buffer.byteLength(string);

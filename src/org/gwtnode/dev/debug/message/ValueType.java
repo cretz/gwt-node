@@ -15,7 +15,7 @@
  */
 package org.gwtnode.dev.debug.message;
 
-import org.gwtnode.dev.debug.OophmStream;
+import org.gwtnode.dev.debug.BufferStream;
 
 import com.google.gwt.core.client.JavaScriptObject;
 
@@ -26,7 +26,7 @@ public enum ValueType {
     NULL {
         @Override
         @SuppressWarnings("unchecked")
-        public Value<Void> createValue(OophmStream stream) {
+        public Value<Void> createValue(BufferStream stream) {
             return createValueFromObject(null);
         }
 
@@ -39,7 +39,7 @@ public enum ValueType {
     BOOLEAN {
         @Override
         @SuppressWarnings("unchecked")
-        public Value<Boolean> createValue(OophmStream stream) {
+        public Value<Boolean> createValue(BufferStream stream) {
             return createValueFromObject(stream.readBoolean());
         }
 
@@ -52,7 +52,7 @@ public enum ValueType {
     BYTE {
         @Override
         @SuppressWarnings("unchecked")
-        public Value<Byte> createValue(OophmStream stream) {
+        public Value<Byte> createValue(BufferStream stream) {
             return createValueFromObject(stream.readByte());
         }
 
@@ -65,7 +65,7 @@ public enum ValueType {
     CHAR {
         @Override
         @SuppressWarnings("unchecked")
-        public Value<Character> createValue(OophmStream stream) {
+        public Value<Character> createValue(BufferStream stream) {
             return createValueFromObject(stream.readChar());
         }
 
@@ -78,7 +78,7 @@ public enum ValueType {
     SHORT {
         @Override
         @SuppressWarnings("unchecked")
-        public Value<Short> createValue(OophmStream stream) {
+        public Value<Short> createValue(BufferStream stream) {
             return createValueFromObject(stream.readChar());
         }
 
@@ -91,7 +91,7 @@ public enum ValueType {
     INT {
         @Override
         @SuppressWarnings("unchecked")
-        public Value<Integer> createValue(OophmStream stream) {
+        public Value<Integer> createValue(BufferStream stream) {
             return createValueFromObject(stream.readInt());
         }
 
@@ -104,7 +104,7 @@ public enum ValueType {
     LONG {
         @Override
         @SuppressWarnings("unchecked")
-        public Value<Long> createValue(OophmStream stream) {
+        public Value<Long> createValue(BufferStream stream) {
             return createValueFromObject(stream.readLong());
         }
 
@@ -117,7 +117,7 @@ public enum ValueType {
     FLOAT {
         @Override
         @SuppressWarnings("unchecked")
-        public Value<Float> createValue(OophmStream stream) {
+        public Value<Float> createValue(BufferStream stream) {
             return createValueFromObject(stream.readFloat());
         }
 
@@ -130,7 +130,7 @@ public enum ValueType {
     DOUBLE {
         @Override
         @SuppressWarnings("unchecked")
-        public Value<Double> createValue(OophmStream stream) {
+        public Value<Double> createValue(BufferStream stream) {
             return createValueFromObject(stream.readDouble());
         }
 
@@ -143,7 +143,7 @@ public enum ValueType {
     STRING {
         @Override
         @SuppressWarnings("unchecked")
-        public Value<String> createValue(OophmStream stream) {
+        public Value<String> createValue(BufferStream stream) {
             return createValueFromObject(stream.readString());
         }
 
@@ -151,13 +151,13 @@ public enum ValueType {
         @SuppressWarnings("unchecked")
         public Value<String> createValueFromObject(Object object) {
             return new Value<String>(STRING, (String) object, 
-                    OophmStream.getStringByteLength((String) object) + 1);
+                    BufferStream.getStringByteLength((String) object) + 1);
         }
     },
     JAVA_OBJECT {
         @Override
         @SuppressWarnings("unchecked")
-        public Value<Integer> createValue(OophmStream stream) {
+        public Value<Integer> createValue(BufferStream stream) {
             return createValueFromObject(stream.readInt());
         }
 
@@ -174,7 +174,7 @@ public enum ValueType {
     JAVA_SCRIPT_OBJECT {
         @Override
         @SuppressWarnings("unchecked")
-        public Value<Integer> createValue(OophmStream stream) {
+        public Value<Integer> createValue(BufferStream stream) {
             return createValueFromObject(stream.readInt());
         }
 
@@ -191,7 +191,7 @@ public enum ValueType {
     UNDEFINED {
         @Override
         @SuppressWarnings("unchecked")
-        public Value<Void> createValue(OophmStream stream) {
+        public Value<Void> createValue(BufferStream stream) {
             return createValueFromObject(null);
         }
 
@@ -202,11 +202,11 @@ public enum ValueType {
         }
     };
     
-    public static ValueType getValueType(OophmStream stream) {
+    public static ValueType getValueType(BufferStream stream) {
         return ValueType.values()[(int) stream.readByte()];
     }
     
-    public abstract <T> Value<T> createValue(OophmStream stream);
+    public abstract <T> Value<T> createValue(BufferStream stream);
     
     public abstract <T> Value<T> createValueFromObject(Object object);
 }
