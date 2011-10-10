@@ -26,6 +26,9 @@
         <!-- compile the non emul stuff -->
         <mkdir dir="build/exploded" />
         <javac srcdir="src" destdir="build/exploded">
+        	<src path="src"/>
+        	<src path="modules/express/src"/>
+        	<src path="modules/fibers/src"/>
             <exclude name="org/gwtnode/emul/**/*" />
             <classpath>
                 <fileset dir="lib" includes="*.jar" />

@@ -2,3 +2,10 @@
 /build
 /tomcat
 /.gwt-tmp
+/bin
+
+# OS X
+.DS_Store
+
+# Textmate
+*.tmproj
