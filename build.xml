@@ -14,53 +14,91 @@
 <!-- implied. License for the specific language governing permissions and   -->
 <!-- limitations under the License.                                         -->
 
-<project name="gwt-node">
+<project name="gwt-node" xmlns:ivy="antlib:org.apache.ivy.ant">
 
-    <target name="clean">
-        <delete dir="build" includeemptydirs="true" />
-    </target>
+	<property name="ivy.install.version" value="2.2.0"/>
+	<property name="ivy.jar.dir" value="${basedir}/ivy"/>
+	<property name="ivy.jar.file" value="${ivy.jar.dir}/ivy.jar"/>
+	<property name="lib.dir" location="lib"/>
 
-    <target name="build" depends="build-jar" />
 
-    <target name="build-jar">
-        <!-- compile the non emul stuff -->
-        <mkdir dir="build/exploded" />
-        <javac srcdir="src" destdir="build/exploded">
-        	<src path="src"/>
-        	<src path="modules/express/src"/>
-        	<src path="modules/fibers/src"/>
-            <exclude name="org/gwtnode/emul/**/*" />
-            <classpath>
-                <fileset dir="lib" includes="*.jar" />
-            </classpath>
-        </javac>
-        <!-- copy all the source over -->
-        <copy todir="build/exploded">
-            <fileset dir="src" includes="**/*" />
-        </copy>
-        <!-- jar it up -->
-        <jar destfile="build/gwt-node.jar">
-            <fileset dir="build/exploded" includes="**/*" />
-        </jar>
-    </target>
+	<target name="clean">
+		<delete dir="build" includeemptydirs="true" />
+	</target>
 
-    <target name="build-docs" depends="build-jar">
-        <mkdir dir="build/docs/api" />
-        <javadoc destdir="build/docs/api" sourcepath="src" use="true"
-            windowtitle="gwt-node"
-            executable="C:\Program Files\Java\jdk1.6.0_21\bin\javadoc.exe">
-            
-            <classpath>
-                <fileset dir="build" includes="*.jar" />
-                <fileset dir="lib" includes="*.jar" />
-                <pathelement path="src" />
-            </classpath>
-            
-            <link href="http://download.oracle.com/javase/6/docs/api/" />
-            <link href="http://google-web-toolkit.googlecode.com/svn/javadoc/latest/" />
-            <doctitle><![CDATA[<h1>gwt-node</h1>]]></doctitle>
-            <bottom><![CDATA[<a href="https://github.com/cretz/gwt-node"><img style='position: absolute; top: 0; right: 0; border: 0;' src="https://a248.e.akamai.net/assets.github.com/img/71eeaab9d563c2b3c590319b398dd35683265e85/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" alt='Fork me on GitHub'></a>]]></bottom>
-        </javadoc>
-    </target>
+	<target name="build" depends="build-jar" />
+
+	<target name="build-jar" depends="install-ivy, ivy-resolve">
+		<!-- compile the non emul stuff -->
+		<mkdir dir="build/exploded" />
+		<javac destdir="build/exploded">
+			<src path="src"/>
+			<src path="modules/express/src"/>
+			<src path="modules/fibers/src"/>
+			<exclude name="org/gwtnode/emul/**/*" />
+			<classpath>
+				<fileset dir="${lib.dir}" includes="**/*.jar" />
+			</classpath>
+		</javac>
+		<!-- copy all the source over -->
+		<copy todir="build/exploded">
+			<fileset dir="src" includes="**/*" />
+		</copy>
+		<!-- jar it up -->
+		<jar destfile="build/gwt-node.jar">
+			<fileset dir="build/exploded" includes="**/*" />
+		</jar>
+	</target>
+
+	<target name="build-docs" depends="build-jar">
+		<mkdir dir="build/docs/api" />
+		<javadoc destdir="build/docs/api" sourcepath="src" use="true" windowtitle="gwt-node" executable="C:\Program Files\Java\jdk1.6.0_21\bin\javadoc.exe">
+
+			<classpath>
+				<fileset dir="build" includes="*.jar" />
+				<fileset dir="lib" includes="*.jar" />
+				<pathelement path="src" />
+			</classpath>
+
+			<link href="http://download.oracle.com/javase/6/docs/api/" />
+			<link href="http://google-web-toolkit.googlecode.com/svn/javadoc/latest/" />
+			<doctitle>
+				<![CDATA[<h1>gwt-node</h1>]]></doctitle>
+		<bottom>
+			<![CDATA[<a href="https://github.com/cretz/gwt-node">
+			<img style='position: absolute; top: 0; right: 0; border: 0;' src="https://a248.e.akamai.net/assets.github.com/img/71eeaab9d563c2b3c590319b398dd35683265e85/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" alt='Fork me on GitHub'>
+			</a>]]></bottom>
+		</javadoc>
+	</target>
+
+	<target name="download-ivy" unless="skip.download">
+		<mkdir dir="${ivy.jar.dir}" />
+		<!--
+			download Ivy from web site so that it can be used even without any special installation
+		-->
+		<echo message="installing ivy..." />
+		<get src="http://repo1.maven.org/maven2/org/apache/ivy/ivy/${ivy.install.version}/ivy-${ivy.install.version}.jar" dest="${ivy.jar.file}" usetimestamp="true" />
+	</target>
+	<target name="install-ivy" depends="check-for-ivy, download-ivy" description="--> install ivy">
+		<path id="ivy.lib.path">
+			<fileset dir="${ivy.jar.dir}" includes="*.jar"/>
+		</path>
+		<taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" classpathref="ivy.lib.path"/>
+	</target>
+	
+	<target name="check-for-ivy">
+		<available file="${ivy.jar.file}" property="skip.download"/>
+	</target>
+	<target name="clean-ivy" description="--> clean the ivy installation">
+		<delete dir="${ivy.jar.dir}"/>
+	</target>
+	
+	<target name="clean-cache" depends="install-ivy" description="--> clean the ivy cache">
+		<ivy:cleancache/>
+	</target>
+	
+	<target name="ivy-resolve" depends="install-ivy" description="--> retrieve dependencies with ivy">
+		<ivy:retrieve pattern="${lib.dir}/[artifact]-[revision].[ext]" type="jar" sync="true"/>
+	</target>
 
 </project>
