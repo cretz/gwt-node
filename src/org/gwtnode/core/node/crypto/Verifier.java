@@ -15,6 +15,9 @@
  */
 package org.gwtnode.core.node.crypto;
 
+import org.gwtnode.core.meta.GwtNodeFunction;
+import org.gwtnode.core.meta.GwtNodeObject;
+
 import com.google.gwt.core.client.JavaScriptObject;
 
 /**
@@ -22,19 +25,23 @@ import com.google.gwt.core.client.JavaScriptObject;
  * 
  * @author Chad Retz
  */
+@GwtNodeObject("Verify")
 public class Verifier extends JavaScriptObject {
 
     protected Verifier() {
     }
-    
+
+    @GwtNodeFunction
     public final native void update(String data) /*-{
         this.update(data);
     }-*/;
 
+    @GwtNodeFunction
     public final native boolean verify(String privateKey, String signature) /*-{
         return this.verify(privateKey, signature);
     }-*/;
-    
+
+    @GwtNodeFunction
     public final native boolean verify(String privateKey, String signature,
             String signatureFormat) /*-{
         return this.verify(privateKey, signature, signatureFormat);

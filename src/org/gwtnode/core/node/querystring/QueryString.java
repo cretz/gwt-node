@@ -18,6 +18,8 @@ package org.gwtnode.core.node.querystring;
 import org.gwtnode.core.JavaScriptReturningFunction;
 import org.gwtnode.core.JavaScriptReturningFunctionWrapper;
 import org.gwtnode.core.JsonStringObjectMap;
+import org.gwtnode.core.meta.GwtNodeFunction;
+import org.gwtnode.core.meta.GwtNodeModule;
 import org.gwtnode.core.node.Global;
 import org.gwtnode.core.node.NodeJsModule;
 
@@ -30,6 +32,7 @@ import com.google.gwt.core.client.JavaScriptObject;
  *
  * @author Chad Retz
  */
+@GwtNodeModule
 public class QueryString extends JavaScriptObject implements NodeJsModule {
 
     private static QueryString instance;
@@ -43,36 +46,44 @@ public class QueryString extends JavaScriptObject implements NodeJsModule {
     
     protected QueryString() {
     }
-    
+
+    @GwtNodeFunction
     public final String stringify(JsonStringObjectMap<String[]> obj) {
         return stringify(obj.getNativeObject());
     }
-    
+
+    @GwtNodeFunction
     public final native String stringify(JavaScriptObject obj) /*-{
         return this.stringify(obj);
     }-*/;
-    
+
+    @GwtNodeFunction
     public final String stringify(JsonStringObjectMap<String[]> obj, String sep) {
         return stringify(obj.getNativeObject(), sep);
     }
-    
+
+    @GwtNodeFunction
     public final native String stringify(JavaScriptObject obj, String sep) /*-{
         return this.stringify(obj, sep);
     }-*/;
-    
+
+    @GwtNodeFunction
     public final String stringify(JsonStringObjectMap<String[]> obj, String sep, String eq) {
         return stringify(obj.getNativeObject(), sep, eq);
     }
-    
+
+    @GwtNodeFunction
     public final native String stringify(JavaScriptObject obj, String sep, String eq) /*-{
         return this.stringify(obj, sep, eq);
     }-*/;
-    
+
+    @GwtNodeFunction
     public final String stringify(JsonStringObjectMap<String[]> obj, String sep,
             String eq, boolean munge) {
         return stringify(obj.getNativeObject(), sep, eq, munge);
     }
-    
+
+    @GwtNodeFunction
     public final native String stringify(JavaScriptObject obj, String sep,
             String eq, boolean munge) /*-{
         return this.stringify(obj, sep, eq, munge);
@@ -81,7 +92,8 @@ public class QueryString extends JavaScriptObject implements NodeJsModule {
     public final JsonStringObjectMap<String[]> parseAsMap(String str) {
         return new JsonStringObjectMap<String[]>(parse(str));
     }
-    
+
+    @GwtNodeFunction
     public final native JavaScriptObject parse(String str) /*-{
         return this.parse(str);
     }-*/;
@@ -89,7 +101,8 @@ public class QueryString extends JavaScriptObject implements NodeJsModule {
     public final JsonStringObjectMap<String[]> parseAsMap(String str, String sep) {
         return new JsonStringObjectMap<String[]>(parse(str, sep));
     }
-    
+
+    @GwtNodeFunction
     public final native JavaScriptObject parse(String str, String sep) /*-{
         return this.parse(str, sep);
     }-*/;
@@ -97,31 +110,38 @@ public class QueryString extends JavaScriptObject implements NodeJsModule {
     public final JsonStringObjectMap<String[]> parseAsMap(String str, String sep, String eq) {
         return new JsonStringObjectMap<String[]>(parse(str, sep, eq));
     }
-    
+
+    @GwtNodeFunction
     public final native JavaScriptObject parse(String str, String sep, String eq) /*-{
         return this.parse(str, sep, eq);
     }-*/;
-    
+
+    @GwtNodeFunction
     public final native String escape(String string) /*-{
         return this.escape(string);
     }-*/;
-    
+
+    @GwtNodeFunction
     public final void escape(JavaScriptReturningFunctionWrapper<String> func) {
         escape(func.getNativeFunction());
     }
-    
+
+    @GwtNodeFunction
     public final native void escape(JavaScriptReturningFunction<String> func) /*-{
         this.escape = func;
     }-*/;
-    
+
+    @GwtNodeFunction
     public final native String unescape(String string) /*-{
         return this.unescape(string);
     }-*/;
-    
+
+    @GwtNodeFunction
     public final void unescape(JavaScriptReturningFunctionWrapper<String> func) {
         unescape(func.getNativeFunction());
     }
-    
+
+    @GwtNodeFunction
     public final native void unescape(JavaScriptReturningFunction<String> func) /*-{
         this.unescape = func;
     }-*/;

@@ -16,6 +16,8 @@
 package org.gwtnode.core.node.os;
 
 import org.gwtnode.core.JsonStringObjectMap;
+import org.gwtnode.core.meta.GwtNodeFunction;
+import org.gwtnode.core.meta.GwtNodeModule;
 import org.gwtnode.core.node.Global;
 import org.gwtnode.core.node.NodeJsModule;
 
@@ -30,6 +32,7 @@ import com.google.gwt.core.client.JsArrayNumber;
  * 
  * @author Chad Retz
  */
+@GwtNodeModule
 public class Os extends JavaScriptObject implements NodeJsModule {
 
     private static Os instance;
@@ -44,42 +47,52 @@ public class Os extends JavaScriptObject implements NodeJsModule {
     protected Os() {
     }
 
+    @GwtNodeFunction
     public final native String hostname() /*-{
         return this.hostname();
     }-*/;
 
+    @GwtNodeFunction
     public final native String type() /*-{
         return this.type();
     }-*/;
 
+    @GwtNodeFunction
     public final native String platform() /*-{
         return this.platform();
     }-*/;
 
+    @GwtNodeFunction
     public final native String arch() /*-{
         return this.arch();
     }-*/;
 
+    @GwtNodeFunction
     public final native String release() /*-{
         return this.release();
     }-*/;
 
+    @GwtNodeFunction
     public final native double uptime() /*-{
         return this.uptime();
     }-*/;
 
+    @GwtNodeFunction
     public final native JsArrayNumber loadavg() /*-{
         return this.loadavg();
     }-*/;
 
+    @GwtNodeFunction
     public final native double totalmem() /*-{
         return this.totalmem();
     }-*/;
 
+    @GwtNodeFunction
     public final native double freemem() /*-{
         return this.freemem();
     }-*/;
 
+    @GwtNodeFunction
     public final native JsArray<Cpu> cpus() /*-{
         return this.cpus();
     }-*/;
@@ -87,7 +100,8 @@ public class Os extends JavaScriptObject implements NodeJsModule {
     public final JsonStringObjectMap<JsArray<NetworkInterfaceAddress>> getNetworkInterfacesMap() {
         return new JsonStringObjectMap<JsArray<NetworkInterfaceAddress>>(getNetworkInterfaces());
     }
-    
+
+    @GwtNodeFunction
     public final native JavaScriptObject getNetworkInterfaces() /*-{
         return this.getNetworkInterfaces();
     }-*/;

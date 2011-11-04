@@ -17,6 +17,7 @@ package org.gwtnode.core.node.net;
 
 import org.gwtnode.core.JavaScriptFunction;
 import org.gwtnode.core.JavaScriptFunctionWrapper;
+import org.gwtnode.core.meta.GwtNodeObject;
 import org.gwtnode.core.node.buffer.Buffer;
 import org.gwtnode.core.node.event.BooleanEventHandler;
 import org.gwtnode.core.node.event.ErrorEventHandler;
@@ -27,6 +28,7 @@ import org.gwtnode.core.node.event.StringOrBufferEventHandler;
 /**
  * @author Chad Retz
  */
+@GwtNodeObject
 public class Socket extends EventEmitter {
 
     public static final Socket create() {

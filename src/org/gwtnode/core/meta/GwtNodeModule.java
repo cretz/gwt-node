@@ -13,26 +13,30 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.gwtnode.core.node.crypto;
+package org.gwtnode.core.meta;
 
-import org.gwtnode.core.meta.GwtNodeObject;
-import org.gwtnode.core.meta.GwtNodeProperty;
-
-import com.google.gwt.core.client.JavaScriptObject;
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
- * The node.js credentials object
- * 
+ * Annotation defining a gwt-node module
+ *
  * @author Chad Retz
  */
-@GwtNodeObject
-public class Credentials extends JavaScriptObject {
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE)
+@Documented
+public @interface GwtNodeModule {
 
-    protected Credentials() {
-    }
-
-    @GwtNodeProperty
-    public final native SecureContext context() /*-{
-        return this.context;
-    }-*/;
+    /**
+     * The name of the module in node.js. If not present,
+     * it is assumed to be the all lowercase form of the
+     * class's name.
+     * 
+     * @return
+     */
+    String value() default "";
 }

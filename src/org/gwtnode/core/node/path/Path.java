@@ -18,6 +18,8 @@ package org.gwtnode.core.node.path;
 import org.gwtnode.core.JavaScriptFunction;
 import org.gwtnode.core.JavaScriptFunctionWrapper;
 import org.gwtnode.core.JavaScriptUtils;
+import org.gwtnode.core.meta.GwtNodeFunction;
+import org.gwtnode.core.meta.GwtNodeModule;
 import org.gwtnode.core.node.Global;
 import org.gwtnode.core.node.NodeJsModule;
 import org.gwtnode.core.node.event.BooleanEventHandler;
@@ -32,6 +34,7 @@ import com.google.gwt.core.client.JsArrayString;
  * 
  * @author Chad Retz
  */
+@GwtNodeModule
 public class Path extends JavaScriptObject implements NodeJsModule {
 
     private static Path instance;
@@ -45,19 +48,23 @@ public class Path extends JavaScriptObject implements NodeJsModule {
     
     protected Path() {
     }
-    
+
+    @GwtNodeFunction
     public final String join(String... paths) {
         return join(JavaScriptUtils.toStringArray(paths));
     }
-    
+
+    @GwtNodeFunction
     public final native String join(JsArrayString paths) /*-{
         return this.join.apply(this, paths);
     }-*/;
 
+    @GwtNodeFunction
     public final String resolve(String... to) {
         return resolve(JavaScriptUtils.toStringArray(to));
     }
 
+    @GwtNodeFunction
     public final native String resolve(JsArrayString to) /*-{
         return this.resolve.apply(this, to)
     }-*/;
@@ -65,43 +72,53 @@ public class Path extends JavaScriptObject implements NodeJsModule {
     public final native String normalize(String p) /*-{
         return this.normalize(p);
     }-*/;
-    
+
+    @GwtNodeFunction
     public final native String relative(String from, String to) /*-{
         return this.relative(from, to);
     }-*/;
-    
+
+    @GwtNodeFunction
     public final native String dirname(String p) /*-{
         return this.dirname(p);
     }-*/;
-    
+
+    @GwtNodeFunction
     public final native String basename(String p) /*-{
         return this.basename(p);
     }-*/;
-    
+
+    @GwtNodeFunction
     public final native String basename(String p, String ext) /*-{
         return this.basename(p, ext);
     }-*/;
-    
+
+    @GwtNodeFunction
     public final native String extname(String p) /*-{
         return this.extname(p);
     }-*/;
-    
+
+    @GwtNodeFunction
     public final native void exists(String p) /*-{
         this.exists(p);
     }-*/;
-    
+
+    @GwtNodeFunction
     public final void exists(String p, BooleanEventHandler callback) {
         exists(p, callback.getNativeFunction());
     }
-    
+
+    @GwtNodeFunction
     public final void exists(String p, JavaScriptFunctionWrapper callback) {
         exists(p, callback.getNativeFunction());
     }
-    
+
+    @GwtNodeFunction
     public final native void exists(String p, JavaScriptFunction callback) /*-{
         this.exists(p, callback);
     }-*/;
-    
+
+    @GwtNodeFunction
     public final native boolean existsSync(String p) /*-{
         return this.exists(p);
     }-*/;

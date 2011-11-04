@@ -15,6 +15,8 @@
  */
 package org.gwtnode.core.node.repl;
 
+import org.gwtnode.core.meta.GwtNodeFunction;
+import org.gwtnode.core.meta.GwtNodeModule;
 import org.gwtnode.core.node.Global;
 import org.gwtnode.core.node.NodeJsModule;
 import org.gwtnode.core.node.stream.ReadableStream;
@@ -28,6 +30,7 @@ import com.google.gwt.core.client.JavaScriptObject;
  *
  * @author Chad Retz
  */
+@GwtNodeModule
 public class Repl extends JavaScriptObject implements NodeJsModule {
 
     private static Repl instance;
@@ -41,15 +44,18 @@ public class Repl extends JavaScriptObject implements NodeJsModule {
     
     protected Repl() {
     }
-    
+
+    @GwtNodeFunction
     public final native ReplServer start() /*-{
         return this.start();
     }-*/;
-    
+
+    @GwtNodeFunction
     public final native ReplServer start(String prompt) /*-{
         return this.start(prompt);
     }-*/;
-    
+
+    @GwtNodeFunction
     public final native ReplServer start(String prompt, ReadableStream stream) /*-{
         return this.start(prompt, stream);
     }-*/;

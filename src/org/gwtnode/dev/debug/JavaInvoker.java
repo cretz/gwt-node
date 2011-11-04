@@ -78,7 +78,7 @@ class JavaInvoker<T> extends JavaScriptReturningFunctionWrapper<T> implements Re
                             returnMessage.getReturnValue());
                 }
             }
-        }).run();
+        }).<T>run();
     }
 
     @Override

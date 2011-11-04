@@ -17,6 +17,8 @@ package org.gwtnode.core.node.childprocess;
 
 import org.gwtnode.core.JavaScriptFunction;
 import org.gwtnode.core.JavaScriptFunctionWrapper;
+import org.gwtnode.core.meta.GwtNodeFunction;
+import org.gwtnode.core.meta.GwtNodeModule;
 import org.gwtnode.core.node.Global;
 import org.gwtnode.core.node.NodeJsModule;
 
@@ -30,6 +32,7 @@ import com.google.gwt.core.client.JsArrayString;
  * 
  * @author Chad Retz
  */
+@GwtNodeModule("child_process")
 public class ChildProcess extends JavaScriptObject implements NodeJsModule {
 
     private static ChildProcess instance;
@@ -44,52 +47,64 @@ public class ChildProcess extends JavaScriptObject implements NodeJsModule {
     protected ChildProcess() {
     }
 
+    @GwtNodeFunction
     public final native Child spawn(String command) /*-{
         return this.spawn(command);
     }-*/;
 
+    @GwtNodeFunction
     public final native Child spawn(String command, JsArrayString args) /*-{
         return this.spawn(command, args);
     }-*/;
 
+    @GwtNodeFunction
     public final native Child spawn(String command, JsArrayString args, ChildSpawnOptions options) /*-{
         return this.spawn(command, args, options);
     }-*/;
-    
+
+    @GwtNodeFunction
     public final Child exec(String command, JavaScriptFunctionWrapper callback) {
         return exec(command, callback.getNativeFunction());
     }
-    
+
+    @GwtNodeFunction
     public final Child exec(String command, ExecEventHandler callback) {
         return exec(command, callback.getNativeFunction());
     }
-    
+
+    @GwtNodeFunction
     public final native Child exec(String command, JavaScriptFunction callback) /*-{
         this.exec(command, callback);
     }-*/;
-    
+
+    @GwtNodeFunction
     public final Child exec(String command, ChildExecOptions options, 
             JavaScriptFunctionWrapper callback) {
         return exec(command, options, callback.getNativeFunction());
     }
-    
+
+    @GwtNodeFunction
     public final Child exec(String command, ChildExecOptions options, ExecEventHandler callback) {
         return exec(command, options, callback.getNativeFunction());
     }
-    
+
+    @GwtNodeFunction
     public final native Child exec(String command, ChildExecOptions options, 
             JavaScriptFunction callback) /*-{
         this.exec(command, options, callback);
     }-*/;
-    
+
+    @GwtNodeFunction
     public final native Child fork(String modulePath) /*-{
         return this.fork(modulePath);
     }-*/;
-    
+
+    @GwtNodeFunction
     public final native Child fork(String modulePath, JsArrayString args) /*-{
         return this.fork(modulePath, args);
     }-*/;
-    
+
+    @GwtNodeFunction
     public final native Child fork(String modulePath, JsArrayString args, ChildSpawnOptions options) /*-{
         return this.fork(modulePath, args, options);
     }-*/;

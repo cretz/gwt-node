@@ -18,6 +18,10 @@ package org.gwtnode.core.node.event;
 import org.gwtnode.core.JavaScriptFunction;
 import org.gwtnode.core.JavaScriptFunctionWrapper;
 import org.gwtnode.core.JavaScriptUtils;
+import org.gwtnode.core.meta.GwtNodeEvent;
+import org.gwtnode.core.meta.GwtNodeFunction;
+import org.gwtnode.core.meta.GwtNodeModule;
+import org.gwtnode.core.meta.GwtNodeObject;
 
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArray;
@@ -29,6 +33,8 @@ import com.google.gwt.core.client.JsArrayMixed;
  * 
  * @author Chad Retz
  */
+@GwtNodeObject
+@GwtNodeModule("events")
 public class EventEmitter extends JavaScriptObject {
 
     private static EventEmitter instance;
@@ -47,46 +53,57 @@ public class EventEmitter extends JavaScriptObject {
     protected EventEmitter() {
     }
     
+    @GwtNodeEvent
     public final void onNewListener(NewListenerEventHandler handler) {
         on("newListener", handler);
     }
-    
+
+    @GwtNodeFunction
     public final void on(String event, JavaScriptFunctionWrapper wrapper) {
         on(event, wrapper.getNativeFunction());
     }
-    
+
+    @GwtNodeFunction
     public final native void on(String event, JavaScriptFunction func) /*-{
         this.on(event, func);
     }-*/;
 
+    @GwtNodeFunction
     public final void once(String event, JavaScriptFunctionWrapper wrapper) {
         once(event, wrapper.getNativeFunction());
     }
 
+    @GwtNodeFunction
     public final native void once(String event, JavaScriptFunction func) /*-{
         this.once(event, func);
     }-*/;
-    
+
+    @GwtNodeFunction
     public final void removeListener(String event, JavaScriptFunctionWrapper listener) {
         removeListener(event, listener.getNativeFunction());
     }
-    
+
+    @GwtNodeFunction
     public final native void removeListener(String event, JavaScriptFunction func) /*-{
         this.removeListener(event, func);
     }-*/;
-    
+
+    @GwtNodeFunction
     public final native void removeAllListeners(String event) /*-{
         this.removeAllListeners(event);
     }-*/;
-    
+
+    @GwtNodeFunction
     public final native void setMaxListeners(int n) /*-{
         this.setMaxListeners(n);
     }-*/;
-    
+
+    @GwtNodeFunction
     public final native JsArray<JavaScriptFunction> listeners(String event) /*-{
         return this.listeners(event);
     }-*/;
-    
+
+    @GwtNodeFunction
     public final void emit(String event, Object... arguments) {
         JsArrayMixed args = JavaScriptObject.createArray().cast();
         JavaScriptUtils.addToArray(args, event);
@@ -95,7 +112,7 @@ public class EventEmitter extends JavaScriptObject {
         }
         emitNative(args);
     }
-    
+
     private final native void emitNative(JsArrayMixed arguments) /*-{
         this.emit.apply(this, arguments);
     }-*/;

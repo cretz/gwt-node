@@ -15,6 +15,7 @@
  */
 package org.gwtnode.core.node.http;
 
+import org.gwtnode.core.meta.GwtNodeObject;
 import org.gwtnode.core.node.event.EventEmitter;
 import org.gwtnode.core.node.event.ParameterlessEventHandler;
 
@@ -24,6 +25,7 @@ import com.google.gwt.core.client.JsArrayString;
 /**
  * @author Chad Retz
  */
+@GwtNodeObject
 public class Agent extends EventEmitter {
 
     protected Agent() {

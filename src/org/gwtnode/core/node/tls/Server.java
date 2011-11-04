@@ -15,16 +15,20 @@
  */
 package org.gwtnode.core.node.tls;
 
+import org.gwtnode.core.meta.GwtNodeFunction;
+import org.gwtnode.core.meta.GwtNodeObject;
 import org.gwtnode.core.node.crypto.CredentialsDetails;
 
 /**
  * @author Chad Retz
  */
+@GwtNodeObject
 public class Server extends org.gwtnode.core.node.net.Server {
 
     protected Server() {
     }
-    
+
+    @GwtNodeFunction
     public final native void addContext(String hostname, CredentialsDetails credentials) /*-{
         this.addContext(hostname, credentials);
     }-*/;

@@ -17,12 +17,14 @@ package org.gwtnode.core.node.net;
 
 import org.gwtnode.core.JavaScriptFunction;
 import org.gwtnode.core.JavaScriptFunctionWrapper;
+import org.gwtnode.core.meta.GwtNodeObject;
 import org.gwtnode.core.node.event.EventEmitter;
 import org.gwtnode.core.node.event.ParameterlessEventHandler;
 
 /**
  * @author Chad Retz
  */
+@GwtNodeObject
 public class Server extends EventEmitter {
 
     protected Server() {

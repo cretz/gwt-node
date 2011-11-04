@@ -15,6 +15,8 @@
  */
 package org.gwtnode.core.node.crypto;
 
+import org.gwtnode.core.meta.GwtNodeFunction;
+import org.gwtnode.core.meta.GwtNodeModule;
 import org.gwtnode.core.node.Global;
 import org.gwtnode.core.node.NodeJsModule;
 
@@ -27,6 +29,7 @@ import com.google.gwt.core.client.JavaScriptObject;
  * 
  * @author Chad Retz
  */
+@GwtNodeModule
 public class Crypto extends JavaScriptObject implements NodeJsModule {
 
     private static Crypto instance;
@@ -40,51 +43,63 @@ public class Crypto extends JavaScriptObject implements NodeJsModule {
     
     protected Crypto() {
     }
-    
+
+    @GwtNodeFunction
     public final native Credentials createCredentials(CredentialsDetails details) /*-{
         return this.createCredentials(details);
     }-*/;
-    
+
+    @GwtNodeFunction
     public final native Hash createHash(String algorithm) /*-{
         return this.createHash(algorithm);
     }-*/;
 
+    @GwtNodeFunction
     public final native Hmac createHmac(String algorithm, String key) /*-{
         return this.createHmac(algorithm, key);
     }-*/;
 
+    @GwtNodeFunction
     public final native Cipher createCipher(String algorithm, String password) /*-{
         return this.createCipher(algorithm, password);
     }-*/;
-
+    
+    @GwtNodeFunction
     public final native Cipher createCipheriv(String algorithm, String key, String iv) /*-{
         return this.createCipheriv(algorithm, key, iv);
     }-*/;
-
+    
+    @GwtNodeFunction
     public final native Decipher createDecipher(String algorithm, String password) /*-{
         return this.createDecipher(algorithm, password);
     }-*/;
-
+    
+    @GwtNodeFunction
     public final native Decipher createDecipheriv(String algorithm, String key, String iv) /*-{
         return this.createDecipheriv(algorithm, key, iv);
     }-*/;
 
+    @GwtNodeFunction
     public final native Signer createSign(String algorithm) /*-{
         return this.createSign(algorithm);
     }-*/;
 
+    @GwtNodeFunction
     public final native Verifier createVerify(String algorithm) /*-{
         return this.createVerify(algorithm);
     }-*/;
 
+    @GwtNodeFunction
     public final native DiffieHellman createDiffieHellman(int primeLength) /*-{
         return this.createDiffieHellman(primeLength);
     }-*/;
 
+    @GwtNodeFunction
     public final native DiffieHellman createDiffieHellman(int prime, String encoding) /*-{
         return this.createDiffieHellman(prime, encoding);
     }-*/;
-    
+
+    @GwtNodeFunction
     public final native void pbkdf2(String password, String salt, int iterations,
             int keylen, Pbkdf2Callback callback) /*-{
         this.pbkdf2(password, salt, iterations, keylen, 

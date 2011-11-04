@@ -15,24 +15,31 @@
  */
 package org.gwtnode.core.node.vm;
 
+import org.gwtnode.core.meta.GwtNodeFunction;
+import org.gwtnode.core.meta.GwtNodeObject;
+
 import com.google.gwt.core.client.JavaScriptObject;
 
 /**
  * @author Chad Retz
  */
+@GwtNodeObject
 public class Script extends JavaScriptObject {
     
     protected Script() {
     }
-    
+
+    @GwtNodeFunction
     public final native <T extends JavaScriptObject> T runInThisContext() /*-{
         return this.runInThisContext();
     }-*/;
-    
+
+    @GwtNodeFunction
     public final native <T extends JavaScriptObject> T runInNewContext() /*-{
         return this.runInNewContext();
     }-*/;
-    
+
+    @GwtNodeFunction
     public final native <T extends JavaScriptObject> T runInNewContext(
             JavaScriptObject sandbox) /*-{
         return this.runInNewContext(sandbox);

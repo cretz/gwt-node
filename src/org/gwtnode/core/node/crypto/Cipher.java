@@ -15,6 +15,9 @@
  */
 package org.gwtnode.core.node.crypto;
 
+import org.gwtnode.core.meta.GwtNodeFunction;
+import org.gwtnode.core.meta.GwtNodeObject;
+
 import com.google.gwt.core.client.JavaScriptObject;
 
 /**
@@ -22,27 +25,33 @@ import com.google.gwt.core.client.JavaScriptObject;
  * 
  * @author Chad Retz
  */
+@GwtNodeObject
 public class Cipher extends JavaScriptObject {
 
     protected Cipher() {
     }
-    
+
+    @GwtNodeFunction
     public final native String update(String data) /*-{
         return this.update(data);
     }-*/;
-    
+
+    @GwtNodeFunction
     public final native String update(String data, String inputEncoding) /*-{
         return this.update(data, inputEncoding);
     }-*/;
-    
+
+    @GwtNodeFunction
     public final native String update(String data, String inputEncoding, String outputEncoding) /*-{
         return this.update(data, inputEncoding, outputEncoding);
     }-*/;
-    
+
+    @GwtNodeFunction("final")
     public final native String finalOutput() /*-{
         return this['final']();
     }-*/;
-    
+
+    @GwtNodeFunction("final")
     public final native String finalOutput(String outputEncoding) /*-{
         return this['final'](outputEncoding);
     }-*/;

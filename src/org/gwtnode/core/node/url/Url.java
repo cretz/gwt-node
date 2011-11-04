@@ -15,6 +15,8 @@
  */
 package org.gwtnode.core.node.url;
 
+import org.gwtnode.core.meta.GwtNodeFunction;
+import org.gwtnode.core.meta.GwtNodeModule;
 import org.gwtnode.core.node.Global;
 import org.gwtnode.core.node.NodeJsModule;
 
@@ -27,6 +29,7 @@ import com.google.gwt.core.client.JavaScriptObject;
  *
  * @author Chad Retz
  */
+@GwtNodeModule
 public class Url extends JavaScriptObject implements NodeJsModule {
 
     private static Url instance;
@@ -40,24 +43,29 @@ public class Url extends JavaScriptObject implements NodeJsModule {
     
     protected Url() {
     }
-    
+
+    @GwtNodeFunction
     public final native ParsedUrl parse(String url) /*-{
         return this.parse(url);
     }-*/;
-    
+
+    @GwtNodeFunction
     public final native ParsedUrl parse(String url, boolean parseQueryString) /*-{
         return this.parse(url, parseQueryString);
     }-*/;
-    
+
+    @GwtNodeFunction
     public final native ParsedUrl parse(String url, boolean parseQueryString, 
             boolean slashesDenoteHost) /*-{
         return this.parse(url, parseQueryString, slashesDenoteHost);
     }-*/;
-    
+
+    @GwtNodeFunction
     public final native String format(ParsedUrl urlObj) /*-{
         return this.format(urlObj);
     }-*/;
-    
+
+    @GwtNodeFunction
     public final native String resolve(ParsedUrl from, ParsedUrl to) /*-{
         return this.resolve(from, to);
     }-*/;

@@ -17,6 +17,9 @@ package org.gwtnode.core.node.readline;
 
 import org.gwtnode.core.JavaScriptFunction;
 import org.gwtnode.core.JavaScriptReturningFunction;
+import org.gwtnode.core.meta.GwtNodeEvent;
+import org.gwtnode.core.meta.GwtNodeFunction;
+import org.gwtnode.core.meta.GwtNodeModule;
 import org.gwtnode.core.node.Global;
 import org.gwtnode.core.node.NodeJsModule;
 import org.gwtnode.core.node.event.EventEmitter;
@@ -34,6 +37,7 @@ import com.google.gwt.core.client.JsArrayString;
  *
  * @author Chad Retz
  */
+@GwtNodeModule
 public class ReadLine extends EventEmitter implements NodeJsModule {
 
     private static ReadLine instance;
@@ -47,45 +51,55 @@ public class ReadLine extends EventEmitter implements NodeJsModule {
     
     protected ReadLine() {
     }
-    
+
+    @GwtNodeEvent
     public final void onLine(StringEventHandler handler) {
         on("line", handler);
     }
-    
+
+    @GwtNodeEvent
     public final void onClose(ParameterlessEventHandler handler) {
         on("close", handler);
     }
 
+    @GwtNodeFunction
     public final native Interface createInterface(ReadableStream input, WritableStream output) /*-{
         return this.createInterface(input, output);
     }-*/;
-    
+
+    @GwtNodeFunction
     public final Interface createInterface(ReadableStream input, WritableStream output,
             Completer completer) {
         return createInterface(input, output, completer.getNativeFunction());
     }
 
+    @GwtNodeFunction
     public final native Interface createInterface(ReadableStream input, WritableStream output,
             JavaScriptReturningFunction<JsArrayString> completer) /*-{
         return this.createInterface(input, output, completer);
     }-*/;
-    
+
+    @GwtNodeFunction
     public final void question(String query, QuestionCallback callback) {
         question(query, callback.getNativeFunction());
     }
-    
+
+    @GwtNodeFunction
     public final native void question(String query, JavaScriptFunction callback) /*-{
         this.question(query, callback);
     }-*/;
-    
+
+    @GwtNodeFunction
     public final native void close() /*-{
         this.close();
     }-*/;
 
+    @GwtNodeFunction
     public final native void pause() /*-{
         this.pause();
     }-*/;
 
+    @GwtNodeFunction
     public final native void resume() /*-{
         this.resume();
     }-*/;
