@@ -49,6 +49,10 @@ public class BufferStream {
         return buffer;
     }
     
+    public int getBufferLength() {
+        return buffer.length();
+    }
+    
     public void beginTransaction() {
         offsetStart = offset;
     }

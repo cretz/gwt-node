@@ -27,7 +27,7 @@ public class HelloWorld extends GwtNodeBootstrap {
 
     @Override
     public Integer main(String... args) {
-        Process.get().stdout().write("Hello world\n"); /*{BREAK}*/
+        Process.get().stdout().write("Hello world\n");
         return 0;
     }
 

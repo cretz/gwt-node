@@ -17,6 +17,7 @@ package org.gwtnode.dev.debug;
 
 import java.util.Stack;
 
+import org.gwtnode.core.JavaScriptUtils;
 import org.gwtnode.core.node.buffer.Buffer;
 import org.gwtnode.core.node.event.ParameterlessEventHandler;
 import org.gwtnode.core.node.event.StringOrBufferEventHandler;
@@ -72,14 +73,25 @@ class HostChannel {
         socket.onData(new StringOrBufferEventHandler() {
             @Override
             protected void onEvent() {
-                stream.append(getBuffer());
-                //grab a message
-                Message message = getNextMessage();
-                if (message != null) {
-                    if (session.getLog().isDebugEnabled()) {
-                        session.getLog().debug("Received message: %s", message.toString());
-                    }
-                    handleMessage(message);
+                try {
+                    session.getLog().debug("Got buffer");
+                    stream.append(getBuffer());
+                    //grab a message
+                    Message message;
+                    do {
+                        message = getNextMessage();
+                        if (message != null) {
+                            if (session.getLog().isDebugEnabled()) {
+                                session.getLog().debug("Received message: %s", message.toString());
+                            }
+                            handleMessage(message);
+                        }
+                    } while (message != null);
+                    session.getLog().debug("Still have %d bytes available",
+                            stream.getBufferLength());
+                } catch (Exception e) {
+                    session.getLog().error("Error: %s", JavaScriptUtils.
+                            appendException(e, new StringBuilder()));
                 }
             }
         });
@@ -121,43 +133,48 @@ class HostChannel {
     }
     
     private void handleMessage(Message message) {
-        if (nextMessageCallback != null) {
-            MessageCallback callback = nextMessageCallback;
-            nextMessageCallback = null;
-            callback.onMessage(message);
-        } else {
-            switch (message.getType()) {
-            case LOAD_JSNI:
-                session.loadJsni(((LoadJsniMessage) message).getJsCode());
-                break;
-            case FREE_VALUE:
-                session.freeValues(((FreeValueMessage) message).getRefIds());
-                break;
-            case INVOKE:
-                InvokeToClientMessage invokeMessage = (InvokeToClientMessage) message;
-                InvokeResult result = session.invoke(
-                        invokeMessage.getMethodName(), invokeMessage.getThisValue(), invokeMessage.getArgValues());
-                sendMessage(new ReturnMessage(result.isException(), result.getValue()));
-                break;
-            case RETURN:
-                ReturnMessage returnMessage = (ReturnMessage) message;
-                if (returnMessageCallbacks.isEmpty()) {
-                    session.getLog().error("Unexpected return message");
-                } else {
-                    ReturnMessageCallback callback = returnMessageCallbacks.pop();
-                    callback.onMessage(returnMessage);
+        try {
+            if (nextMessageCallback != null) {
+                MessageCallback callback = nextMessageCallback;
+                nextMessageCallback = null;
+                callback.onMessage(message);
+            } else {
+                switch (message.getType()) {
+                case LOAD_JSNI:
+                    session.loadJsni(((LoadJsniMessage) message).getJsCode());
+                    break;
+                case FREE_VALUE:
+                    session.freeValues(((FreeValueMessage) message).getRefIds());
+                    break;
+                case INVOKE:
+                    InvokeToClientMessage invokeMessage = (InvokeToClientMessage) message;
+                    InvokeResult result = session.invoke(
+                            invokeMessage.getMethodName(), invokeMessage.getThisValue(), invokeMessage.getArgValues());
+                    sendMessage(new ReturnMessage(result.isException(), result.getValue()));
+                    break;
+                case RETURN:
+                    ReturnMessage returnMessage = (ReturnMessage) message;
+                    if (returnMessageCallbacks.isEmpty()) {
+                        session.getLog().error("Unexpected return message");
+                    } else {
+                        ReturnMessageCallback callback = returnMessageCallbacks.pop();
+                        callback.onMessage(returnMessage);
+                    }
+                    break;
+                case FATAL_ERROR:
+                    session.fatalError(((FatalErrorMessage) message).getError());
+                    end();
+                case QUIT:
+                    end();
+                    break;
+                default:
+                    throw new IllegalArgumentException("Unrecognized message type: " + 
+                            message.getType());
                 }
-                break;
-            case FATAL_ERROR:
-                session.fatalError(((FatalErrorMessage) message).getError());
-                end();
-            case QUIT:
-                end();
-                break;
-            default:
-                throw new IllegalArgumentException("Unrecognized message type: " + 
-                        message.getType());
             }
+        } catch (Exception e) {
+            session.getLog().error("Error handling message: %s",
+                    JavaScriptUtils.appendException(e, new StringBuilder()));
         }
     }
     
@@ -212,6 +229,10 @@ class HostChannel {
             stream.rollbackTransaction();
             return null;
         }
+    }
+    
+    public SessionHandler getSession() {
+        return session;
     }
     
     public static interface MessageCallback {

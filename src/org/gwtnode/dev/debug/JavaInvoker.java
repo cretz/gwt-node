@@ -15,18 +15,21 @@
  */
 package org.gwtnode.dev.debug;
 
+import java.util.Stack;
+
 import org.gwtnode.core.JavaScriptFunctionArguments;
 import org.gwtnode.core.JavaScriptReturningFunctionWrapper;
+import org.gwtnode.core.JavaScriptUtils;
+import org.gwtnode.core.node.process.Process;
 import org.gwtnode.dev.debug.HostChannel.ReturnMessageCallback;
 import org.gwtnode.dev.debug.message.InvokeFromClientMessage;
+import org.gwtnode.dev.debug.message.Message;
 import org.gwtnode.dev.debug.message.ReturnMessage;
 import org.gwtnode.dev.debug.message.Value;
 import org.gwtnode.modules.fibers.Fiber;
-import org.gwtnode.modules.fibers.FiberCallback;
 import org.gwtnode.modules.fibers.FiberReturningCallback;
 
 import com.google.gwt.core.client.JavaScriptException;
-import com.google.gwt.core.client.JavaScriptObject;
 
 /**
  * Invoker for Java executions
@@ -39,7 +42,7 @@ class JavaInvoker<T> extends JavaScriptReturningFunctionWrapper<T> implements Re
     private final HostChannel channel;
     private final SessionHandler handler;
     private final int paramCount;
-    private ReturnMessage returnMessage;
+    private final Stack<Fiber> waitingForReturn = new Stack<Fiber>();
     
     public JavaInvoker(HostChannel channel, SessionHandler handler, int paramCount) {
         this.channel = channel;
@@ -49,40 +52,59 @@ class JavaInvoker<T> extends JavaScriptReturningFunctionWrapper<T> implements Re
 
     @Override
     public T call(JavaScriptFunctionArguments args) {
-        //first is the "this" object
-        Value<?> thisObj = handler.getValueFromJavaScriptObject(args.get(0));
-        //second is the dispatch ID
-        int dispId = (Integer) args.get(1);
-        //the rest are arguments
-        Value<?>[] argList = new Value<?>[args.length() - 2];
-        for (int i = 0; i < argList.length; i++) {
-            argList[i] = handler.getValueFromJavaScriptObject(args.get(i + 2));
-        }
-        InvokeFromClientMessage message = new InvokeFromClientMessage(dispId, thisObj, argList);
-        channel.sendMessage(message, this);
-        //ok, here's where I want to wait...
-        return Fiber.create(new FiberReturningCallback<T>() {
-            @Override
-            @SuppressWarnings("unchecked")
-            public T onCreate(Object param) {
-                //meh, no param
-                //TODO: do proper setTimeout/nextTick/yield things to check the returnMessage, kthxbai
-                while (returnMessage == null) {
-                    //blah blah blah
-                }
-                if (returnMessage.isException()) {
-                    throw new JavaScriptException(handler.getJavaScriptObjectFromValue(
-                            returnMessage.getReturnValue()));
-                } else {
-                    return (T) handler.getJavaScriptObjectFromValue(
-                            returnMessage.getReturnValue());
-                }
+        try {
+            handler.getLog().debug("Called java invoker for %d params", paramCount);
+            //first is the "this" object
+            handler.getLog().debug("dispId type: " + args.get(1).getClass());
+            Value<?> thisObj = handler.getValueFromJavaScriptObject(args.get(0));
+            //second is the dispatch ID
+            int dispId = Integer.valueOf(args.get(1).toString());
+            handler.getLog().debug("dispId: " + dispId);
+            //the rest are arguments
+            Value<?>[] argList = new Value<?>[args.length() - 2];
+            for (int i = 0; i < argList.length; i++) {
+                argList[i] = handler.getValueFromJavaScriptObject(args.get(i + 2));
             }
-        }).run();
+            //create the fiber and go with the message
+            return Fiber.create(new FiberReturningCallback<T>() {
+                    @Override
+                    @SuppressWarnings("unchecked")
+                    public T onCreate(Object param) {
+                        //push me on the stack
+                        waitingForReturn.push(Fiber.current());
+                        handler.getLog().debug("Sending invoke from client");
+                        //send message
+                        channel.sendMessage((InvokeFromClientMessage) param, JavaInvoker.this);
+                        handler.getLog().debug("Waiting for response from server");
+                        //wait
+                        ReturnMessage returnMessage = Fiber.yield();
+                        handler.getLog().debug("Got response from server");
+                        //handle message
+                        if (returnMessage.isException()) {
+                            throw new JavaScriptException(handler.getJavaScriptObjectFromValue(
+                                    returnMessage.getReturnValue()));
+                        } else {
+                            return (T) handler.getJavaScriptObjectFromValue(
+                                    returnMessage.getReturnValue());
+                        }
+                    }
+                }).<T>run(new InvokeFromClientMessage(dispId, thisObj, argList));
+        } catch (Exception e) {
+            handler.getLog().error("Error: %s", JavaScriptUtils.
+                    appendException(e, new StringBuilder()));
+            Process.get().exit();
+            //throw new RuntimeException(e);
+            return null;
+        }
     }
 
     @Override
     public void onMessage(ReturnMessage message) {
-        this.returnMessage = message;
+        if (waitingForReturn.isEmpty()) {
+            handler.getLog().error("Unexpected return message");
+        } else {
+            handler.getLog().debug("Letting fiber know I got response from server");
+            waitingForReturn.pop().run(message);
+        }
     }
 }

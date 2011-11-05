@@ -39,6 +39,8 @@ public class DebugMain extends GwtNodeBootstrap {
         return null;
     }
     
+    private HostChannel channel;
+    
     @Override
     public Integer main(String... args) {
         //grab params
@@ -66,12 +68,11 @@ public class DebugMain extends GwtNodeBootstrap {
                 logFile == null ? Process.get().stdout() : Fs.get().createWriteStream(logFile),
                 logLevel == null ? Level.INFO : Level.valueOf(logLevel));
         //create the channel
-        HostChannel channel = new HostChannel(module, host, port);
+        channel = new HostChannel(module, host, port);
         //create session handler
         SessionHandler session = new SessionHandler(channel, log);
         //start the channel
         channel.start(session);
         return null;
     }
-
 }

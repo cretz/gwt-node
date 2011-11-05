@@ -15,11 +15,13 @@
  */
 package org.gwtnode.dev.debug;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.gwtnode.core.JavaScriptReturningFunction;
 import org.gwtnode.core.JavaScriptUtils;
 import org.gwtnode.core.node.Global;
+import org.gwtnode.core.node.NodeJsError;
 import org.gwtnode.core.node.vm.Vm;
 import org.gwtnode.dev.debug.message.FreeValueMessage;
 import org.gwtnode.dev.debug.message.SpecialMethod;
@@ -28,7 +30,6 @@ import org.gwtnode.dev.debug.message.ValueType;
 
 import com.google.gwt.core.client.JavaScriptException;
 import com.google.gwt.core.client.JavaScriptObject;
-import com.google.gwt.dev.util.collect.HashMap;
 
 /**
  * OOHPM session handler
@@ -37,9 +38,10 @@ import com.google.gwt.dev.util.collect.HashMap;
  */
 class SessionHandler {
     
-    private static final Vm vm = Vm.get();
-    
+    private final Vm vm = Vm.get();
     private final Map<Integer, JavaScriptReturningFunction<?>> javaInvokeFunctions =
+            new HashMap<Integer, JavaScriptReturningFunction<?>>();
+    private final Map<Integer, JavaScriptReturningFunction<?>> tearOffs =
             new HashMap<Integer, JavaScriptReturningFunction<?>>();
     private final ObjectCache objectCache = new ObjectCache();
     private final HostChannel channel;
@@ -65,14 +67,29 @@ class SessionHandler {
     
     private void initContext() {
         try {
+            initGlobalContext();
             initJavaInvokeMethods();
         } catch (Exception e) {
+            log.debug("Error initializing");
             throw new DebugRuntimeException("Error initializing context", e);
         }
     }
     
+    private native void initGlobalContext() /*-{
+        global['window'] = global;
+    }-*/;
+
     private native void initJavaInvokeMethods() /*-{
-        global['__gwt_makeJavaInvoke'] = this.@org.gwtnode.dev.debug.SessionHandler::makeJavaInvoke(I);
+        //TODO: fix this...I hate this
+        global['__gwtnode_sessionHandler'] = this;
+        global['__gwt_makeJavaInvoke'] = function(paramCount) {
+            var thisRef = global['__gwtnode_sessionHandler'];
+            return thisRef.@org.gwtnode.dev.debug.SessionHandler::makeJavaInvoke(I)(paramCount);
+        };
+        global['__gwt_makeTearOff'] = function(proxy, dispId, paramCount) {
+            var thisRef = global['__gwtnode_sessionHandler'];
+            return thisRef.@org.gwtnode.dev.debug.SessionHandler::makeTearOff(II)(dispId, paramCount);
+        };
     }-*/;
     
     @SuppressWarnings("rawtypes")
@@ -81,6 +98,17 @@ class SessionHandler {
         if (ret == null) {
             ret = new JavaInvoker(channel, this, paramCount).getNativeFunction();
             javaInvokeFunctions.put(paramCount, ret);
+        }
+        return ret;
+    }
+    
+    @SuppressWarnings("rawtypes")
+    private JavaScriptReturningFunction<?> makeTearOff(
+            int dispId, int paramCount) {
+        JavaScriptReturningFunction<?> ret = tearOffs.get(paramCount);
+        if (ret == null) {
+            ret = new TearOff(channel, this, paramCount).getNativeFunction();
+            tearOffs.put(paramCount, ret);
         }
         return ret;
     }
@@ -118,14 +146,15 @@ class SessionHandler {
     
     Value<?> getValueFromJavaScriptObject(Object jsObject) {
         ValueType type = ValueType.values()[getValueTypeOrdinalFromJavaScriptObject(jsObject)];
-        switch (type) {
-        case JAVA_OBJECT:
-            return type.createValueFromObject(
-                    objectCache.getJavaObjectId((JavaScriptObject) jsObject));
-        case JAVA_SCRIPT_OBJECT:
-            return type.createValueFromObject(
-                    objectCache.getJavaScriptObjectId((JavaScriptObject) jsObject, true));
-        default:
+        if (type == ValueType.JAVA_OBJECT) {
+            Integer val = objectCache.getJavaObjectId((JavaScriptObject) jsObject);
+            if (val != null) {
+                return type.createValueFromObject(val);
+            } else {
+                return ValueType.JAVA_SCRIPT_OBJECT.createValueFromObject(
+                        objectCache.getJavaScriptObjectId((JavaScriptObject) jsObject, true));
+            }
+        } else {
             return type.createValueFromObject(jsObject);
         }
     }
@@ -133,8 +162,10 @@ class SessionHandler {
     Object getJavaScriptObjectFromValue(Value<?> val) {
         switch (val.getType()) {
         case JAVA_OBJECT:
+            log.debug("Getting Java object reference");
             return objectCache.getJavaObjectReference((Integer) val.getValue(), true);
         case JAVA_SCRIPT_OBJECT:
+            log.debug("Getting JavaScript object reference");
             return objectCache.getJavaScriptObject((Integer) val.getValue());
         default:
             return val.getValue();
@@ -160,11 +191,8 @@ class SessionHandler {
                         return 5;
                     }
                 case 'object':
-                    if (__gwt_node_javaIdsByObject[obj]) {
-                        return 10;
-                    } else {
-                        return 11;
-                    }
+                case 'function':
+                    return 10;
                 default:
                     throw new Error('Unrecognized type: ' + typ);
             }
@@ -173,27 +201,43 @@ class SessionHandler {
     
     public InvokeResult invoke(String methodName, Value<?> thisObj, Value<?>... args) {
         JavaScriptReturningFunction<Object> function;
+        log.debug("Getting 'this'");
         Object nativeThis = getJavaScriptObjectFromValue(thisObj);
         if (nativeThis != null) {
             function = JavaScriptUtils.getProperty((JavaScriptObject) nativeThis, methodName).cast();
         } else {
+            log.debug("Using global object");
             function = JavaScriptUtils.getProperty(Global.get(), methodName).cast();
         }
+        log.debug("Got object");
+        log.debug("Got function: ", function);
         Object result;
         boolean exception = false;
         try {
+            log.debug("Loading %d native arguments", args.length);
             Object[] nativeArgs = new Object[args.length];
             for (int i = 0; i < args.length; i++) {
                 nativeArgs[i] = getJavaScriptObjectFromValue(args[i]);
             }
+            log.debug("Getting make invoke");
+            log.debug("Invoking function");
             result = function.apply(nativeArgs);
-        } catch (JavaScriptException e) {
-            result = e.getException();
+            log.debug("Invocation complete: " + result);
+        } catch (Exception e) {
+            if (log.isDebugEnabled()) {
+                log.debug("Exception occurred %s", JavaScriptUtils.
+                        appendException(e, new StringBuilder()));
+            }
+            if (e instanceof JavaScriptException) {
+                result = ((JavaScriptException) e).getException();
+            } else {
+                result = NodeJsError.create("Ahh!");
+            }
             exception = true;
         }
         return new InvokeResult(getValueFromJavaScriptObject(result), exception);
     }
-    
+
     public InvokeResult invokeSpecial(SpecialMethod specialMethod, Value<?>... args) {
         throw new UnsupportedOperationException("InvokeSpecial not implemented");
     }

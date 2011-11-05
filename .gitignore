@@ -11,3 +11,4 @@
 
 # Textmate
 *.tmproj
+/gwt-unitCache

@@ -59,7 +59,7 @@ class ObjectCache {
         javaObjectsToFree.clear();
     }
     
-    public int getJavaObjectId(JavaScriptObject javaObjectReference) {
+    public Integer getJavaObjectId(JavaScriptObject javaObjectReference) {
         return javaIdsByObject.get(javaObjectReference);
     }
     

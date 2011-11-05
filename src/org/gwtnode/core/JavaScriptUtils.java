@@ -38,6 +38,10 @@ public class JavaScriptUtils {
         return undefined;
     }-*/;
     
+    public static native void throwJavaScriptObject(JavaScriptObject err) /*-{
+        throw err;
+    }-*/;
+    
     public static JsArrayInteger toIntegerArray(byte... bytes) {
         JsArrayInteger ret = JavaScriptObject.createArray().cast();
         for (byte byt : bytes) {
@@ -76,7 +80,7 @@ public class JavaScriptUtils {
         } else if (value instanceof JavaScriptObject) {
             array.push((JavaScriptObject) value);
         } else {
-            throw new RuntimeException("Unrecognized type to translate: " + value.getClass());
+            array.push("" + value);
         }        
     }
     

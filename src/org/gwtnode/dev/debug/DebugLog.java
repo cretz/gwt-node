@@ -58,6 +58,7 @@ public class DebugLog {
     public void log(Level level, Object... args) {
         if (lowestLevel.ordinal() <= level.ordinal()) {
             out.write(level + " - " + util.format(args) + "\n");
+            Util.get().debug(level + " - " + util.format(args));
         }
     }
     

@@ -15,17 +15,12 @@
  */
 package org.gwtnode.core;
 
-import org.gwtnode.core.node.NodeJsError;
-import org.gwtnode.core.node.event.ErrorEventHandler;
 import org.gwtnode.core.node.event.ParameterlessEventHandler;
 import org.gwtnode.core.node.process.Process;
-import org.gwtnode.core.node.stdio.Console;
 import org.gwtnode.core.node.util.Util;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.core.client.GWT.UncaughtExceptionHandler;
-import com.google.gwt.core.client.JavaScriptException;
 import com.google.gwt.core.client.JsArrayString;
 
 /**
@@ -39,28 +34,9 @@ public abstract class GwtNodeBootstrap implements EntryPoint {
     
     @Override
     public final void onModuleLoad() {
-        //unhandled errors
-        GWT.setUncaughtExceptionHandler(new UncaughtExceptionHandler() {
-            @Override
-            public void onUncaughtException(Throwable e) {
-                GwtNodeBootstrap.this.onUncaughtException(e);
-            }
-        });
-        Process.get().onUncaughtException(new ErrorEventHandler() {
-            @Override
-            public void onEvent(NodeJsError exception) {
-                JavaScriptException e = new JavaScriptException(exception);
-                if (e.getStackTrace().length == 0) {
-                    e.fillInStackTrace();
-                }
-                onUncaughtException(e);
-            }
-        });
         Process.get().nextTick(new ParameterlessEventHandler() {
         @Override
-        public void onEvent() {                
-            
-        try {
+        public void onEvent() {
             //grab the arguments
             JsArrayString nativeArgs = Process.get().argv();
             //well, the best I can do right now is find the arguments
@@ -93,18 +69,7 @@ public abstract class GwtNodeBootstrap implements EntryPoint {
                     }
                 }
             }, args);
-        } catch (Throwable e) {
-            onUncaughtException(e);
-        }
-        
         }});
-    }
-    
-    protected void onUncaughtException(Throwable e) {
-        Console.get().log(JavaScriptUtils.appendException(e, new StringBuilder()).toString());
-        Console.get().trace();
-        //we have to exit hard...
-        Process.get().exit(1);
     }
     
     /**

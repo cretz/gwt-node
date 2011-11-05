@@ -27,11 +27,12 @@ import org.gwtnode.core.node.NodeJsError;
 public abstract class FutureCallback<T> extends JavaScriptFunctionWrapper {
 
     @Override
+    @SuppressWarnings("unchecked")
     public final void call(JavaScriptFunctionArguments args) {
         NodeJsError error = args.get(0);
         T value = null;
         if (args.length() > 1) {
-            value = args.get(1);
+            value = (T) args.get(1);
         }
         onCallback(error, value);
     }

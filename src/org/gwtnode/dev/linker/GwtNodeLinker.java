@@ -50,11 +50,10 @@ public class GwtNodeLinker extends AbstractLinker {
         //    out.print(resource.toString());
         //}
         //closure
-        out.print("(function () {");
-        out.newline();
+        //out.print("(function () {");
+        //out.newline();
         // grab compilation result
-        Set<CompilationResult> results = artifacts
-                .find(CompilationResult.class);
+        Set<CompilationResult> results = artifacts.find(CompilationResult.class);
         CompilationResult result = null;
         if (results.size() > 1) {
             logger.log(TreeLogger.ERROR,
@@ -81,15 +80,15 @@ public class GwtNodeLinker extends AbstractLinker {
         out.newline();
         //global window
         //TODO: check this against jsdom
-        out.print("var window = { };");
-        out.newline();
+        //out.print("var window = { };");
+        //out.newline();
         //preload code
         addPreloadCode(logger, context, artifacts, result, out);
         out.newline();
         out.print("gwtOnLoad(null, '" + context.getModuleName() + "', null);");
         out.newline();
-        out.print("})();");
-        out.newline();
+        //out.print("})();");
+        //out.newline();
         //and to string
         toReturn.add(emitString(logger, out.toString(), context.getModuleName() + ".js"));
         return toReturn;
