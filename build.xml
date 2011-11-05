@@ -17,7 +17,7 @@
 <project name="gwt-node" xmlns:ivy="antlib:org.apache.ivy.ant">
 
     <property name="ivy.install.version" value="2.2.0"/>
-    <property name="ivy.jar.dir" value="${basedir}/ivy"/>
+    <property name="ivy.jar.dir" value="${basedir}/lib"/>
     <property name="ivy.jar.file" value="${ivy.jar.dir}/ivy.jar"/>
     <property name="lib.dir" location="lib"/>
 

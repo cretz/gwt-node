@@ -16,6 +16,8 @@
 package org.gwtnode.core.node.tty;
 
 import org.gwtnode.core.JavaScriptUtils;
+import org.gwtnode.core.meta.GwtNodeFunction;
+import org.gwtnode.core.meta.GwtNodeModule;
 import org.gwtnode.core.node.Global;
 import org.gwtnode.core.node.NodeJsModule;
 
@@ -30,6 +32,7 @@ import com.google.gwt.core.client.JsArrayString;
  * 
  * @author Chad Retz
  */
+@GwtNodeModule
 public class Tty extends JavaScriptObject implements NodeJsModule {
 
     private static Tty instance;
@@ -43,29 +46,35 @@ public class Tty extends JavaScriptObject implements NodeJsModule {
     
     protected Tty() {
     }
-    
+
+    @GwtNodeFunction
     public final TtyProcess open(String path, String... args) {
         return open(path, JavaScriptUtils.toStringArray(args));
     }   
 
+    @GwtNodeFunction
     public final native TtyProcess open(String path, JsArrayString args) /*-{
         var ttyProc = this.open(path, args);
         return @org.gwtnode.core.node.tty.TtyProcess::new(ILorg/gwtnode/core/node/childprocess/ChildProcess;)(
                 ttyProc[0], ttyProc[1]);
     }-*/;
-    
+
+    @GwtNodeFunction
     public final native boolean isatty(int fd) /*-{
         return this.isatty(fd);
     }-*/;
-    
+
+    @GwtNodeFunction
     public final native void setRawMode(boolean mode) /*-{
         this.setRawMode(mode);
     }-*/;
-    
+
+    @GwtNodeFunction
     public final native void setWindowSize(int fd, int row, int col) /*-{
         this.setWindowSize(fd, row, col);
     }-*/;
-    
+
+    @GwtNodeFunction
     public final native JsArrayInteger getWindowSize(int fd) /*-{
         return this.getWindowSize(fd);
     }-*/;

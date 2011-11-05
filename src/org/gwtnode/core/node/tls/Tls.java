@@ -18,6 +18,9 @@ package org.gwtnode.core.node.tls;
 import org.gwtnode.core.JavaScriptFunction;
 import org.gwtnode.core.JavaScriptFunctionArguments;
 import org.gwtnode.core.JavaScriptFunctionWrapper;
+import org.gwtnode.core.meta.GwtNodeEvent;
+import org.gwtnode.core.meta.GwtNodeFunction;
+import org.gwtnode.core.meta.GwtNodeModule;
 import org.gwtnode.core.node.Global;
 import org.gwtnode.core.node.NodeJsModule;
 import org.gwtnode.core.node.event.EventEmitter;
@@ -30,6 +33,7 @@ import org.gwtnode.core.node.stream.Stream;
  * 
  * @author Chad Retz
  */
+@GwtNodeModule
 public class Tls extends EventEmitter implements NodeJsModule {
 
     private static Tls instance;
@@ -43,46 +47,55 @@ public class Tls extends EventEmitter implements NodeJsModule {
     
     protected Tls() {
     }
-    
+
+    @GwtNodeEvent
     public final void onSecureConnection(SecureConnectionEventHandler handler) {
         on("secureConnection", handler);
     }
-    
+
+    @GwtNodeFunction
     public final CleartextStream connect(int port,  
             ConnectOptions options, ParameterlessEventHandler callback) {
         return this.connect(port, options, callback.getNativeFunction());
     }
 
+    @GwtNodeFunction
     public final native CleartextStream connect(int port, 
             ConnectOptions options, JavaScriptFunction callback) /*-{
         return this.connect(port, options, callback);
     }-*/;
-    
+
+    @GwtNodeFunction
     public final CleartextStream connect(int port, String host, 
             ConnectOptions options, ParameterlessEventHandler callback) {
         return this.connect(port, host, options, callback.getNativeFunction());
     }
 
+    @GwtNodeFunction
     public final native CleartextStream connect(int port, String host, 
             ConnectOptions options, JavaScriptFunction callback) /*-{
         return this.connect(port, host, options, callback);
     }-*/;
     
     //TODO: securePair
-    
+
+    @GwtNodeFunction
     public final native Server createServer(ServerOptions options) /*-{
         return this.createServer(options);
     }-*/;
-    
+
+    @GwtNodeFunction
     public final Server createServer(ServerOptions options, 
             SecureConnectionEventHandler callback) {
         return createServer(options, callback.getNativeFunction());
     }
-    
+
+    @GwtNodeFunction
     public final Server createServer(ServerOptions options, JavaScriptFunctionWrapper callback) {
         return createServer(options, callback.getNativeFunction());
     }
-    
+
+    @GwtNodeFunction
     public final native Server createServer(ServerOptions options, JavaScriptFunction callback) /*-{
         return this.createServer(options, callback);
     }-*/;

@@ -23,7 +23,6 @@ import org.gwtnode.core.JavaScriptUtils;
 import org.gwtnode.core.node.process.Process;
 import org.gwtnode.dev.debug.HostChannel.ReturnMessageCallback;
 import org.gwtnode.dev.debug.message.InvokeFromClientMessage;
-import org.gwtnode.dev.debug.message.Message;
 import org.gwtnode.dev.debug.message.ReturnMessage;
 import org.gwtnode.dev.debug.message.Value;
 import org.gwtnode.modules.fibers.Fiber;
@@ -36,7 +35,6 @@ import com.google.gwt.core.client.JavaScriptException;
  *
  * @author Chad Retz
  */
-@SuppressWarnings("unused")
 class JavaInvoker<T> extends JavaScriptReturningFunctionWrapper<T> implements ReturnMessageCallback {
 
     private final HostChannel channel;

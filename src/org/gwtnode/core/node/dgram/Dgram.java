@@ -17,6 +17,8 @@ package org.gwtnode.core.node.dgram;
 
 import org.gwtnode.core.JavaScriptFunction;
 import org.gwtnode.core.JavaScriptFunctionWrapper;
+import org.gwtnode.core.meta.GwtNodeFunction;
+import org.gwtnode.core.meta.GwtNodeModule;
 import org.gwtnode.core.node.Global;
 import org.gwtnode.core.node.NodeJsModule;
 
@@ -29,6 +31,7 @@ import com.google.gwt.core.client.JavaScriptObject;
  * 
  * @author Chad Retz
  */
+@GwtNodeModule
 public class Dgram extends JavaScriptObject implements NodeJsModule {
 
     private static Dgram instance;
@@ -40,21 +43,25 @@ public class Dgram extends JavaScriptObject implements NodeJsModule {
         return instance;
     }
     
-    protected Dgram() {        
+    protected Dgram() {
     }
-    
+
+    @GwtNodeFunction
     public final native Socket createSocket(String type) /*-{
         return this.createSocket(type);
     }-*/;
     
+    @GwtNodeFunction
     public final Socket createSocket(String type, MessageEventHandler callback) {
         return createSocket(type, callback.getNativeFunction());
     }
     
+    @GwtNodeFunction
     public final Socket createSocket(String type, JavaScriptFunctionWrapper callback) {
         return createSocket(type, callback.getNativeFunction());
     }
     
+    @GwtNodeFunction
     public final native Socket createSocket(String type, JavaScriptFunction callback) /*-{
         return this.createSocket(type, callback);
     }-*/;

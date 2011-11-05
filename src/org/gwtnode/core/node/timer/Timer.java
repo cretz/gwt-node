@@ -18,6 +18,7 @@ package org.gwtnode.core.node.timer;
 import org.gwtnode.core.JavaScriptFunction;
 import org.gwtnode.core.JavaScriptFunctionWrapper;
 import org.gwtnode.core.JavaScriptReturningFunction;
+import org.gwtnode.core.meta.GwtNodeFunction;
 
 /**
  * The node.js
@@ -27,12 +28,14 @@ import org.gwtnode.core.JavaScriptReturningFunction;
  * @author Chad Retz
  */
 public class Timer {
-    
+
+    @GwtNodeFunction
     public static String setTimeout(JavaScriptFunctionWrapper wrapper, int delay,
             Object... arguments) {
         return setTimeout(wrapper.getNativeFunction(), delay, arguments);
     }
 
+    @GwtNodeFunction
     public static String setTimeout(JavaScriptFunction callback, int delay,
             Object... arguments) {
         JavaScriptReturningFunction<String> timeoutFunc = getSetTimeoutFunction();
@@ -48,16 +51,19 @@ public class Timer {
     private static native JavaScriptReturningFunction<String> getSetTimeoutFunction() /*-{
         return setTimeout;
     }-*/;
-    
+
+    @GwtNodeFunction
     public static native void clearTimeout(String timeoutId) /*-{
         clearTimeout(timeoutId);
     }-*/;
 
+    @GwtNodeFunction
     public static String setInterval(JavaScriptFunctionWrapper wrapper, int delay,
             Object... arguments) {
         return setInterval(wrapper.getNativeFunction(), delay, arguments);
     }
 
+    @GwtNodeFunction
     public static String setInterval(JavaScriptFunction callback, int delay,
             Object... arguments) {
         JavaScriptReturningFunction<String> intervalFunc = getSetIntervalFunction();
@@ -73,7 +79,8 @@ public class Timer {
     private static native JavaScriptReturningFunction<String> getSetIntervalFunction() /*-{
         return setInterval;
     }-*/;
-    
+
+    @GwtNodeFunction
     public static native void clearInterval(String intervalId) /*-{
         clearInterval(intervalId);
     }-*/;

@@ -15,6 +15,9 @@
  */
 package org.gwtnode.core.node.stdio;
 
+import org.gwtnode.core.meta.GwtNodeFunction;
+import org.gwtnode.core.meta.GwtNodeObject;
+
 import com.google.gwt.core.client.JavaScriptObject;
 
 /**
@@ -23,6 +26,7 @@ import com.google.gwt.core.client.JavaScriptObject;
  *
  * @author Chad Retz
  */
+@GwtNodeObject
 public class Console extends JavaScriptObject {
     
     public static final native Console get() /*-{
@@ -32,38 +36,47 @@ public class Console extends JavaScriptObject {
     protected Console() {
     }
     
+    @GwtNodeFunction
     public final native void log(String... params) /*-{
         this.log.apply(this, params);
     }-*/;
     
+    @GwtNodeFunction
     public final native void info(String... params) /*-{
         this.info.apply(this, params);
     }-*/;
     
+    @GwtNodeFunction
     public final native void warn(String... params) /*-{
         this.warn.apply(this, params);
     }-*/;
     
+    @GwtNodeFunction
     public final native void error(String... params) /*-{
         this.error.apply(this, params);
     }-*/;
     
+    @GwtNodeFunction
     public final native void dir(JavaScriptObject obj) /*-{
         this.dir(obj);
     }-*/;
     
+    @GwtNodeFunction
     public final native void time(String label) /*-{
         this.time(label);
     }-*/;
     
+    @GwtNodeFunction
     public final native void timeEnd(String label) /*-{
         this.timeEnd(label);
     }-*/;
     
+    @GwtNodeFunction
     public final native void trace() /*-{
         this.trace();
     }-*/;
     
+    @GwtNodeFunction
     public final native void assertOk() /*-{
         this.assert();
     }-*/;

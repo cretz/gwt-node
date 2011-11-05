@@ -17,6 +17,7 @@ package org.gwtnode.core.node.http;
 
 import org.gwtnode.core.JavaScriptUtils;
 import org.gwtnode.core.JsonStringObjectMap;
+import org.gwtnode.core.meta.GwtNodeObject;
 import org.gwtnode.core.node.stream.WritableStream;
 
 import com.google.gwt.core.client.JavaScriptObject;
@@ -25,6 +26,7 @@ import com.google.gwt.core.client.JsArrayString;
 /**
  * @author Chad Retz
  */
+@GwtNodeObject
 public class ServerResponse extends WritableStream {
 
     protected ServerResponse() {

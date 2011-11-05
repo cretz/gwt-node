@@ -15,11 +15,13 @@
  */
 package org.gwtnode.core.node.http;
 
+import org.gwtnode.core.meta.GwtNodeObject;
 import org.gwtnode.core.node.stream.WritableStream;
 
 /**
  * @author Chad Retz
  */
+@GwtNodeObject
 public class ClientRequest extends WritableStream {
 
     protected ClientRequest() {

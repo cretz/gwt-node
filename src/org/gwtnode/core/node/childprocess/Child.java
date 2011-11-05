@@ -15,6 +15,9 @@
  */
 package org.gwtnode.core.node.childprocess;
 
+import org.gwtnode.core.meta.GwtNodeEvent;
+import org.gwtnode.core.meta.GwtNodeFunction;
+import org.gwtnode.core.meta.GwtNodeProperty;
 import org.gwtnode.core.node.event.EventEmitter;
 import org.gwtnode.core.node.stream.ReadableStream;
 import org.gwtnode.core.node.stream.WritableStream;
@@ -29,31 +32,38 @@ public class Child extends EventEmitter {
 
     protected Child() {
     }
-    
+
+    @GwtNodeEvent
     public final void onExit(ExitEventHandler handler) {
         on("exit", handler);
     }
-    
+
+    @GwtNodeProperty
     public final native WritableStream stdin() /*-{
         return this.stdin;
     }-*/;
-    
+
+    @GwtNodeProperty
     public final native ReadableStream stdout() /*-{
         return this.stdout;
     }-*/;
-    
+
+    @GwtNodeProperty
     public final native ReadableStream stderr() /*-{
         return this.stderr;
     }-*/;
-    
+
+    @GwtNodeProperty
     public final native int pid() /*-{
         return this.pid;
     }-*/;
-    
+
+    @GwtNodeFunction
     public final native void kill() /*-{
         this.kill();
     }-*/;
-    
+
+    @GwtNodeFunction
     public final native void kill(String signal) /*-{
         this.kill(signal);
     }-*/;

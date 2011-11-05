@@ -15,6 +15,9 @@
  */
 package org.gwtnode.core.node.crypto;
 
+import org.gwtnode.core.meta.GwtNodeFunction;
+import org.gwtnode.core.meta.GwtNodeObject;
+
 import com.google.gwt.core.client.JavaScriptObject;
 
 /**
@@ -22,19 +25,23 @@ import com.google.gwt.core.client.JavaScriptObject;
  * 
  * @author Chad Retz
  */
+@GwtNodeObject("Sign")
 public class Signer extends JavaScriptObject {
 
     protected Signer() {
     }
-    
+
+    @GwtNodeFunction
     public final native void update(String data) /*-{
         this.update(data);
     }-*/;
-    
+
+    @GwtNodeFunction
     public final native String sign(String privateKey) /*-{
         return this.sign(privateKey);
     }-*/;
-    
+
+    @GwtNodeFunction
     public final native String sign(String privateKey, String outputFormat) /*-{
         return this.sign(privateKey, outputFormat);
     }-*/;

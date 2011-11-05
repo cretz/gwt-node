@@ -18,6 +18,8 @@ package org.gwtnode.core.node.util;
 import org.gwtnode.core.JavaScriptFunction;
 import org.gwtnode.core.JavaScriptFunctionWrapper;
 import org.gwtnode.core.JavaScriptUtils;
+import org.gwtnode.core.meta.GwtNodeFunction;
+import org.gwtnode.core.meta.GwtNodeModule;
 import org.gwtnode.core.node.Global;
 import org.gwtnode.core.node.NodeJsModule;
 import org.gwtnode.core.node.event.ErrorEventHandler;
@@ -34,6 +36,7 @@ import com.google.gwt.core.client.JsArrayMixed;
  * 
  * @author Chad Retz
  */
+@GwtNodeModule
 public class Util extends JavaScriptObject implements NodeJsModule {
 
     private static Util instance;
@@ -48,6 +51,7 @@ public class Util extends JavaScriptObject implements NodeJsModule {
     protected Util() {
     }
     
+    @GwtNodeFunction
     public final String format(Object... params) {
         return formatNative(JavaScriptUtils.toMixedArray(params));
     }
@@ -55,46 +59,56 @@ public class Util extends JavaScriptObject implements NodeJsModule {
     private final native String formatNative(JsArrayMixed params) /*-{
         return this.format.apply(this, params);
     }-*/;
-    
+
+    @GwtNodeFunction
     public final native void debug(String string) /*-{
         this.debug(string);
     }-*/;
-    
+
+    @GwtNodeFunction
     public final native void log(String string) /*-{
         this.log(string);
     }-*/;
-    
+
+    @GwtNodeFunction
     public final native String inspect(JavaScriptObject object) /*-{
         return this.inspect(object);
     }-*/;
-    
+
+    @GwtNodeFunction
     public final native String inspect(JavaScriptObject object, boolean showHidden) /*-{
         return this.inspect(object, showHidden);
     }-*/;
-    
+
+    @GwtNodeFunction
     public final native String inspect(JavaScriptObject object, boolean showHidden, int depth) /*-{
         return this.inspect(object, showHidden, depth);
     }-*/;
-    
+
+    @GwtNodeFunction
     public final native void pump(ReadableStream readableStream, WritableStream writableStream) /*-{
         this.pump(readableStream, writableStream);
     }-*/;
-    
+
+    @GwtNodeFunction
     public final void pump(ReadableStream readableStream, WritableStream writableStream,
             ErrorEventHandler handler) {
         pump(readableStream, writableStream, handler.getNativeFunction());
     }
-    
+
+    @GwtNodeFunction
     public final void pump(ReadableStream readableStream, WritableStream writableStream,
             JavaScriptFunctionWrapper wrapper) {
         pump(readableStream, writableStream, wrapper.getNativeFunction());
     }
-    
+
+    @GwtNodeFunction
     public final native void pump(ReadableStream readableStream, WritableStream writableStream,
             JavaScriptFunction func) /*-{
         this.pump(readableStream, writableStream, func);
     }-*/;
-    
+
+    @GwtNodeFunction
     public final native void inherits(JavaScriptFunction constructor, 
             JavaScriptFunction superConstructor) /*-{
         this.inherits(constructor, superConstructor);
