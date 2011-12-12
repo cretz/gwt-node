@@ -1,6 +1,6 @@
 # gwt-node
 
-Complete node.js implementation in GWT. This implementation is targeted at node.js v0.5.6
+Complete node.js implementation in GWT. This implementation is targeted at node.js v0.6.5
 and GWT 2.4.0. Both of these versions are the latest stable versions at the time of this
 writing.
   
