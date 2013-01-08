@@ -12,3 +12,6 @@
 # Textmate
 *.tmproj
 /gwt-unitCache
+
+#eclipse
+.settings

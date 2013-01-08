@@ -35,6 +35,7 @@
             <src path="src"/>
             <src path="modules/express/src"/>
             <src path="modules/fibers/src"/>
+            <src path="modules/mysql/src"/>
             <exclude name="org/gwtnode/emul/**/*" />
             <classpath>
                 <fileset dir="${lib.dir}" includes="**/*.jar" />
@@ -45,6 +46,7 @@
             <fileset dir="src" includes="**/*" />
             <fileset dir="modules/express/src" includes="**/*" />
             <fileset dir="modules/fibers/src" includes="**/*" />
+            <fileset dir="modules/mysql/src" includes="**/*" />
         </copy>
         <!-- jar it up -->
         <jar destfile="build/gwt-node.jar">
