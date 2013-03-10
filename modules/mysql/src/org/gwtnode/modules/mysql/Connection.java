@@ -45,6 +45,8 @@ public class Connection extends EventEmitter {
     if (value instanceof Double) return asJSODouble(((Double) value).doubleValue());
     if (value instanceof Long) return asJSODouble(((Long) value).doubleValue());
     if (value instanceof Boolean) return asJSOBoolean(((Boolean) value).booleanValue());
+    if (value instanceof Iterable) return asJSOArray((Iterable<?>) value);
+    if (value.getClass().isArray()) return asJSOArray((Object[]) value);
     return asJSOObject(value);
 	}
 
@@ -72,6 +74,20 @@ public class Connection extends EventEmitter {
     return value;
 	}-*/;
 
+	private static final JavaScriptObject asJSOArray(Object[] value) {
+		JsArray<JavaScriptObject> result = JavaScriptObject.createArray().cast();
+		for (Object item : value)
+			result.push(asJSO(item));
+		return result;
+	}
+	
+	private static final JavaScriptObject asJSOArray(Iterable<?> value) {
+		JsArray<JavaScriptObject> result = JavaScriptObject.createArray().cast();
+		for (Object item : value)
+			result.push(asJSO(item));
+		return result;
+	}
+	
 	protected Connection() {}
 	
 	@GwtNodeEvent
