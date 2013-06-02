@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry excluding="org/gwtnode/emul/" kind="src" path="src"/>
+	<classpathentry kind="src" path="modules/helenus/src"/>
+	<classpathentry kind="src" path="modules/cassandra/src"/>
+	<classpathentry kind="src" path="modules/aws/src"/>
 	<classpathentry kind="src" path="examples/hello-world/src"/>
 	<classpathentry kind="src" path="examples/http-server/src"/>
 	<classpathentry kind="src" path="examples/features/src"/>

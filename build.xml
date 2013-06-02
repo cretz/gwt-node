@@ -36,6 +36,9 @@
             <src path="modules/express/src"/>
             <src path="modules/fibers/src"/>
             <src path="modules/mysql/src"/>
+            <src path="modules/aws/src"/>
+            <src path="modules/cassandra/src"/>
+            <src path="modules/helenus/src"/>
             <exclude name="org/gwtnode/emul/**/*" />
             <classpath>
                 <fileset dir="${lib.dir}" includes="**/*.jar" />
@@ -47,6 +50,9 @@
             <fileset dir="modules/express/src" includes="**/*" />
             <fileset dir="modules/fibers/src" includes="**/*" />
             <fileset dir="modules/mysql/src" includes="**/*" />
+            <fileset dir="modules/aws/src" includes="**/*" />
+            <fileset dir="modules/cassandra/src" includes="**/*" />
+            <fileset dir="modules/helenus/src" includes="**/*" />
         </copy>
         <!-- jar it up -->
         <jar destfile="build/gwt-node.jar">
