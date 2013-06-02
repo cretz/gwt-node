@@ -5,6 +5,7 @@
 /bin
 /lib
 /ivy
+/target
 
 # OS X
 .DS_Store
@@ -16,5 +17,3 @@
 #eclipse
 .settings
 
-/mvn-install
-/VERSION
