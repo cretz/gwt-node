@@ -10,7 +10,7 @@
 	<groupId>org.gwtnode</groupId>
 	<artifactId>gwt-node</artifactId>
 	<name>GWT Node.js Adaptor</name>
-	<version>0.1.3</version>
+	<version>0.1.4</version>
 	<packaging>jar</packaging>
 
 	<properties>

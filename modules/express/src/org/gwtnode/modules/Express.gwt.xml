@@ -2,7 +2,7 @@
 <!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit 2.0.3//EN" "http://google-web-toolkit.googlecode.com/svn/tags/2.0.3/distro-source/core/src/gwt-module.dtd">
 
 <!--                                                                        -->
-<!-- Copyright 2011 Chad Retz                                               -->
+<!-- Copyright 2011 Chad Retz, 2013 Maxim Dominichenko                      -->
 <!-- Licensed under the Apache License, Version 2.0 (the "License"); you    -->
 <!-- may not use this file except in compliance with the License. You may   -->
 <!-- may obtain a copy of the License at                                    -->
@@ -16,9 +16,9 @@
 <!-- limitations under the License.                                         -->
 
 <module rename-to="Express">
-    
-    <inherits name="org.gwtnode.GwtNode" />
 
-	<source path="client" />
+	<inherits name="org.gwtnode.GwtNode" />
+
+	<source path="express" />
 	
 </module>
