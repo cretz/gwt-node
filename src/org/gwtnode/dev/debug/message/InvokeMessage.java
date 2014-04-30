@@ -63,7 +63,8 @@ public abstract class InvokeMessage extends Message {
         return argValues;
     }
     
-    protected StringBuilder toString(StringBuilder builder) {
+    @Override
+		protected StringBuilder toString(StringBuilder builder) {
         return super.toString(builder).
                 append("this: ").
                 append(thisValue).
