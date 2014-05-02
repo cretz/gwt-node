@@ -6,6 +6,9 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="src" path="modules/xmldom/src"/>
+	<classpathentry kind="src" path="modules/xmlCrypto/src"/>
+	<classpathentry kind="src" path="modules/xml2js/src"/>
 	<classpathentry including="**/*.java" kind="src" output="target/classes" path="modules/mailcomposer/src">
 		<attributes>
 			<attribute name="optional" value="true"/>

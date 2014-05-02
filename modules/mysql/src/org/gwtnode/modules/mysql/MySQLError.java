@@ -19,13 +19,13 @@ import org.gwtnode.core.node.NodeJsError;
 
 public class MySQLError extends NodeJsError {
 	
-	public static final native NodeJsError create(String code, boolean fatal) /*-{
+	public static final native MySQLError create(String code, boolean fatal) /*-{
     var err = new Error();
     err.code = code;
     err.fatal = fatal;
 	}-*/;
 	
-	public static final NodeJsError create(String code) {
+	public static final MySQLError create(String code) {
 		return create(code, false);
 	}
 

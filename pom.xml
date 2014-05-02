@@ -10,7 +10,7 @@
 	<groupId>org.gwtnode</groupId>
 	<artifactId>gwt-node</artifactId>
 	<name>GWT Node.js Adaptor</name>
-	<version>0.1.5</version>
+	<version>0.1.6</version>
 	<packaging>jar</packaging>
 
 	<properties>
@@ -93,6 +93,15 @@
 			<resource>
 				<directory>modules/mailcomposer/src</directory>
 			</resource>
+			<resource>
+				<directory>modules/xml2js/src</directory>
+			</resource>
+			<resource>
+				<directory>modules/xmlCrypto/src</directory>
+			</resource>
+			<resource>
+				<directory>modules/xmldom/src</directory>
+			</resource>
 		</resources>
 	
 		<plugins>
@@ -117,6 +126,9 @@
 								<source>modules/helenus/src</source>
 								<source>modules/nodemailer/src</source>
 								<source>modules/mailcomposer/src</source>
+								<source>modules/xml2js/src</source>
+								<source>modules/xmlCrypto/src</source>
+								<source>modules/xmldom/src</source>
 							</sources>
 						</configuration>
 					</execution>

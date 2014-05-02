@@ -41,6 +41,9 @@
             <src path="modules/helenus/src"/>
             <src path="modules/nodemailer/src"/>
             <src path="modules/mailcomposer/src"/>
+            <src path="modules/xml2js/src"/>
+            <src path="modules/xmlCrypto/src"/>
+            <src path="modules/xmldom/src"/>
             <exclude name="org/gwtnode/emul/**/*" />
             <classpath>
                 <fileset dir="${lib.dir}" includes="**/*.jar" />
@@ -57,6 +60,9 @@
             <fileset dir="modules/helenus/src" includes="**/*" />
             <fileset dir="modules/nodemailer/src" includes="**/*" />
             <fileset dir="modules/mailcomposer/src" includes="**/*" />
+            <fileset dir="modules/xml2js/src" includes="**/*" />
+            <fileset dir="modules/xmlCrypto/src" includes="**/*" />
+            <fileset dir="modules/xmldom/src" includes="**/*" />
         </copy>
         <!-- jar it up -->
         <jar destfile="build/gwt-node.jar">

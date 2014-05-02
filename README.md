@@ -61,7 +61,7 @@ Then include new dependency:
 		<dependency>
 			<groupId>org.gwtnode</groupId>
 			<artifactId>gwt-node</artifactId>
-			<version>0.1.5</version>
+			<version>0.1.6</version>
 			<scope>provided</scope>
 		</dependency>
 		...
