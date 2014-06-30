@@ -1,5 +1,6 @@
-#Sun Oct 30 15:57:12 CDT 2011
 eclipse.preferences.version=1
+jarsExcludedFromWebInfLib=
 lastWarOutDir=C\:/Documents and Settings/cretz1/gwt-node/war
 launchConfigExternalUrlPrefix=
+warSrcDir=
 warSrcDirIsOutput=false
