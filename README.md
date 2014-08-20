@@ -35,6 +35,40 @@ any of this complete until the first release is made.
 
 Below explains how to build a simple "Hello World" application with gwt-node.
 
+## Including into project via Maven
+
+Add my Maven repository into your <repositories> tagset in your POM:
+
+```xml
+	...
+	<repositories>
+		...
+		<repository>
+			<id>gwt-node</id>
+			<url>https://raw.github.com/domax/gwt-node/mvn-repo/</url>
+		</repository>
+		...
+	</repositories>
+	...
+```
+
+Then include new dependency:
+
+```xml
+	...
+	<dependencies>
+		...
+		<dependency>
+			<groupId>org.gwtnode</groupId>
+			<artifactId>gwt-node</artifactId>
+			<version>0.1.6</version>
+			<scope>provided</scope>
+		</dependency>
+		...
+	</dependencies>
+	...
+```
+
 ## Building gwt-node
 
 In order to build gwt-node, simply run `ant build` in the main directory. This will build

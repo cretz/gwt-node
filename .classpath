@@ -1,20 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry excluding="org/gwtnode/emul/" kind="src" path="src"/>
+	<classpathentry including="**/*.java" kind="src" path="src"/>
+	<classpathentry including="**/*.java" kind="src" path="modules/xmldom/src"/>
+	<classpathentry including="**/*.java" kind="src" path="modules/mysql/src"/>
+	<classpathentry including="**/*.java" kind="src" path="modules/mailcomposer/src"/>
+	<classpathentry including="**/*.java" kind="src" path="modules/nodemailer/src"/>
+	<classpathentry including="**/*.java" kind="src" path="modules/fibers/src"/>
+	<classpathentry including="**/*.java" kind="src" path="modules/cassandra/src"/>
+	<classpathentry including="**/*.java" kind="src" path="modules/aws/src"/>
+	<classpathentry including="**/*.java" kind="src" path="modules/express/src"/>
+	<classpathentry including="**/*.java" kind="src" path="modules/helenus/src"/>
+	<classpathentry including="**/*.java" kind="src" path="modules/xmlCrypto/src"/>
+	<classpathentry including="**/*.java" kind="src" path="modules/xml2js/src"/>
 	<classpathentry kind="src" path="examples/hello-world/src"/>
 	<classpathentry kind="src" path="examples/http-server/src"/>
 	<classpathentry kind="src" path="examples/features/src"/>
 	<classpathentry excluding="org/gwtnode/examples/scimark/emul/" kind="src" path="examples/scimark/src"/>
 	<classpathentry kind="src" path="examples/oophm-proxy/src"/>
-	<classpathentry kind="src" path="modules/express/src"/>
-	<classpathentry kind="src" path="modules/fibers/src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
-	<classpathentry kind="lib" path="lib/junit-4.7.jar"/>
-	<classpathentry kind="lib" path="examples/features/lib/gin-1.5-post-gwt-2.2.jar"/>
-	<classpathentry kind="lib" path="examples/features/lib/guice-3.0.jar"/>
-	<classpathentry kind="lib" path="examples/features/lib/javax.inject.jar"/>
-	<classpathentry kind="lib" path="lib/validation-api-1.0.0.GA.jar"/>
-	<classpathentry kind="lib" path="lib/gwt-dev-2.4.0.jar"/>
-	<classpathentry kind="lib" path="lib/gwt-user-2.4.0.jar"/>
-	<classpathentry kind="output" path="bin"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="output" path="target/classes"/>
 </classpath>

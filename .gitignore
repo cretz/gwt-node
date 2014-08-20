@@ -5,6 +5,7 @@
 /bin
 /lib
 /ivy
+/target
 
 # OS X
 .DS_Store
@@ -12,3 +13,7 @@
 # Textmate
 *.tmproj
 /gwt-unitCache
+
+#eclipse
+.settings
+

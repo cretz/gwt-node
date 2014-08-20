@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Chad Retz
+ * Copyright 2011 Chad Retz, 2013 Maxim Dominichenko
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -15,9 +15,10 @@
  */
 package org.gwtnode.modules.express;
 
+import org.gwtnode.core.meta.GwtNodeFunction;
+import org.gwtnode.core.meta.GwtNodeModule;
 import org.gwtnode.core.node.Global;
 import org.gwtnode.core.node.NodeJsModule;
-import org.gwtnode.core.node.https.CreateServerOptions;
 
 import com.google.gwt.core.client.JavaScriptObject;
 
@@ -26,24 +27,32 @@ import com.google.gwt.core.client.JavaScriptObject;
  * <a href="http://expressjs.com/">the website</a>.
  *
  * @author Chad Retz
+ * @author Maxim Dominichenko
  */
+@GwtNodeModule
 public class Express extends JavaScriptObject implements NodeJsModule {
 
-    private static Express instance;
-    
-    public static Express get() {
-        if (instance == null) {
-            instance = Global.get().require("express");
-        }
-        return instance;
-    }
+	private static Express instance;
 
-    protected Express() {
-    }
-    
-    public final native Server createServer(CreateServerOptions options) /*-{
-        return this.createServer(options);
-    }-*/;
-    
-    //TODO: this module
+	public static Express get() {
+		if (instance == null) instance = Global.get().require("express");
+		return instance;
+	}
+
+	@GwtNodeFunction("constructor")
+	public static final native Application app() /*-{
+		return (@org.gwtnode.modules.express.Express::get()())();
+	}-*/;
+
+	@GwtNodeFunction
+	public static BasicAuthMiddleware basicAuth(String user, String pass) {
+		return new BasicAuthMiddleware(user, pass);
+	}
+	
+	@GwtNodeFunction
+	public static BasicAuthMiddleware basicAuth(BasicAuthMiddleware.Callback callback) {
+		return new BasicAuthMiddleware(callback);
+	}
+	
+	protected Express() {}
 }

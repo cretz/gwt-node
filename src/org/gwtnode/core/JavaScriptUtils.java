@@ -96,7 +96,8 @@ public class JavaScriptUtils {
         return appendException(throwable, true, builder);
     }
     
-    private static StringBuilder appendException(Throwable throwable, 
+    @SuppressWarnings("deprecation")
+		private static StringBuilder appendException(Throwable throwable, 
             boolean topLevel, StringBuilder builder) {
         if (topLevel) {
             builder.append("Exception: ").append(throwable).append('\n');

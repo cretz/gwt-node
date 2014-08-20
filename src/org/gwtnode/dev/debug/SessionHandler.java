@@ -199,7 +199,8 @@ class SessionHandler {
         }
     }-*/;
     
-    public InvokeResult invoke(String methodName, Value<?> thisObj, Value<?>... args) {
+    @SuppressWarnings("deprecation")
+		public InvokeResult invoke(String methodName, Value<?> thisObj, Value<?>... args) {
         JavaScriptReturningFunction<Object> function;
         log.debug("Getting 'this'");
         Object nativeThis = getJavaScriptObjectFromValue(thisObj);

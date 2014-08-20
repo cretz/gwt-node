@@ -47,8 +47,8 @@ public class ParsedUrl extends JavaScriptObject {
         return this.hostname;
     }-*/;
     
-    public final native Integer port() /*-{
-        return this.port;
+    public final native int port() /*-{
+        return Number(this.port);
     }-*/;
     
     public final native String pathname() /*-{

@@ -25,22 +25,19 @@ import org.gwtnode.core.node.NodeJsError;
  */
 public abstract class ErrorCallback extends JavaScriptFunctionWrapper {
 
-    @Override
-    public void call(JavaScriptFunctionArguments args) {
-        onError((NodeJsError) args.get(0), (Request) args.get(1), 
-                (Response) args.get(2), (NextCall) args.get(3));
-    }
-    
-    protected abstract void onError(NodeJsError error, Request request, 
-            Response response, NextCall call);
+	protected static class NextCall extends JavaScriptFunction {
 
-    protected static class NextCall extends JavaScriptFunction {
-        
-        private NextCall() {
-        }
-        
-        public final void next(NodeJsError error) {
-            apply(error);
-        }
-    }
+		private NextCall() {}
+
+		public final void next(NodeJsError error) {
+			apply(error);
+		}
+	}
+
+	@Override
+	public void call(JavaScriptFunctionArguments args) {
+		onError(args.<NodeJsError> get(0), args.<Request> get(1), args.<Response> get(2), args.<NextCall> get(3));
+	}
+
+	protected abstract void onError(NodeJsError error, Request request, Response response, NextCall call);
 }

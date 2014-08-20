@@ -70,7 +70,8 @@ public class CheckVersionsMessage extends Message {
                 append(hostedHtmlVersion).toString();
     }
 
-    public Buffer toBuffer() {
+    @Override
+		public Buffer toBuffer() {
         return new BufferBuilder().
                 append(type).
                 append(minVersion).

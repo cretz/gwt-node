@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	>
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>org.gwtnode</groupId>
+	<artifactId>gwt-node</artifactId>
+	<name>GWT Node.js Adaptor</name>
+	<version>0.1.7</version>
+	<packaging>jar</packaging>
+
+	<properties>
+		<maven.compiler.source>1.6</maven.compiler.source>
+		<maven.compiler.target>1.6</maven.compiler.target>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<github.global.server>github</github.global.server>
+	</properties>
+
+	<distributionManagement>
+		<repository>
+			<id>github</id>
+			<name>GitHub ${project.artifactId} Repository</name>
+			<url>https://raw.github.com/domax/${project.artifactId}/mvn-repo</url>
+		</repository>
+	</distributionManagement>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-user</artifactId>
+			<version>2.6.1</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-servlet</artifactId>
+			<version>2.6.1</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-dev</artifactId>
+			<version>2.6.1</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.google.gwt.inject</groupId>
+			<artifactId>gin</artifactId>
+			<version>1.5.0</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.google.inject</groupId>
+			<artifactId>guice</artifactId>
+			<version>3.0</version>
+			<scope>provided</scope>
+		</dependency>
+		
+	</dependencies>
+
+	<build>
+	
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.codehaus.mojo</groupId>
+										<artifactId>build-helper-maven-plugin</artifactId>
+										<versionRange>[1.8,)</versionRange>
+										<goals>
+											<goal>add-source</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<execute/>
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	
+		<resources>
+			<resource>
+				<directory>src</directory>
+			</resource>
+			<resource>
+				<directory>modules/express/src</directory>
+			</resource>
+			<resource>
+				<directory>modules/fibers/src</directory>
+			</resource>
+			<resource>
+				<directory>modules/mysql/src</directory>
+			</resource>
+			<resource>
+				<directory>modules/aws/src</directory>
+			</resource>
+			<resource>
+				<directory>modules/cassandra/src</directory>
+			</resource>
+			<resource>
+				<directory>modules/helenus/src</directory>
+			</resource>
+			<resource>
+				<directory>modules/nodemailer/src</directory>
+			</resource>
+			<resource>
+				<directory>modules/mailcomposer/src</directory>
+			</resource>
+			<resource>
+				<directory>modules/xml2js/src</directory>
+			</resource>
+			<resource>
+				<directory>modules/xmlCrypto/src</directory>
+			</resource>
+			<resource>
+				<directory>modules/xmldom/src</directory>
+			</resource>
+		</resources>
+	
+		<plugins>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>add-source</goal>
+						</goals>
+						<configuration>
+							<sources>
+								<source>src</source>
+								<source>modules/express/src</source>
+								<source>modules/fibers/src</source>
+								<source>modules/mysql/src</source>
+								<source>modules/aws/src</source>
+								<source>modules/cassandra/src</source>
+								<source>modules/helenus/src</source>
+								<source>modules/nodemailer/src</source>
+								<source>modules/mailcomposer/src</source>
+								<source>modules/xml2js/src</source>
+								<source>modules/xmlCrypto/src</source>
+								<source>modules/xmldom/src</source>
+							</sources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<artifactId>maven-deploy-plugin</artifactId>
+        <version>2.7</version>
+				<configuration>
+					<altDeploymentRepository>internal.repo::default::file://${project.build.directory}/mvn-repo</altDeploymentRepository>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>com.github.github</groupId>
+				<artifactId>site-maven-plugin</artifactId>
+				<version>0.9</version>
+				<configuration>
+					<message>Maven artifacts for ${project.version}</message>
+					<noJekyll>true</noJekyll>
+					<outputDirectory>${project.build.directory}/mvn-repo</outputDirectory>
+					<branch>refs/heads/mvn-repo</branch>
+					<includes>
+						<include>**/*</include>
+					</includes>
+					<repositoryOwner>domax</repositoryOwner>
+					<repositoryName>gwt-node</repositoryName>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>site</goal>
+						</goals>
+						<phase>deploy</phase>
+					</execution>
+				</executions>
+			</plugin>
+			
+		</plugins>
+	</build>
+
+</project>

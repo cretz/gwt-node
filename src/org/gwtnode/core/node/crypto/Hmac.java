@@ -32,17 +32,17 @@ public class Hmac extends JavaScriptObject {
     }
 
     @GwtNodeFunction
-    public final native void update(String data) /*-{
-        this.update(data);
+    public final native Hmac update(String data) /*-{
+        return this.update(data);
     }-*/;
 
     @GwtNodeFunction
-    public final native void digest() /*-{
-        this.digest();
+    public final native String digest() /*-{
+        return this.digest();
     }-*/;
 
     @GwtNodeFunction
-    public final native void digest(String encoding) /*-{
-        this.digest(encoding);
+    public final native String digest(String encoding) /*-{
+        return this.digest(encoding);
     }-*/;
 }

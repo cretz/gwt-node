@@ -38,7 +38,8 @@ public abstract class Message {
         return length;
     }
     
-    public abstract String toString();
+    @Override
+		public abstract String toString();
     
     public abstract Buffer toBuffer();
     
