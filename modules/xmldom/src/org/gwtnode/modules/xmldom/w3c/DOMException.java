@@ -144,6 +144,7 @@ public class DOMException extends JavaScriptObject {
 	 */
 	public static final short TYPE_MISMATCH_ERR = 17;
 
+	@SuppressWarnings("deprecation")
 	public static final DOMException create(JavaScriptException exception) {
 		DOMException result;
 		if (exception != null) {
